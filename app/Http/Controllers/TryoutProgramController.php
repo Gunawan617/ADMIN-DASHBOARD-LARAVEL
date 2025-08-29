@@ -132,7 +132,7 @@ class TryoutProgramController extends Controller
             'name' => 'required',
             'category' => 'required',
             'participants' => 'nullable',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:20048',
             'description' => 'nullable',
         ]);
     }

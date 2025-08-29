@@ -341,4 +341,13 @@ class PostController extends Controller
 
         return redirect()->route('admin.posts.index')->with('success', 'Post deleted successfully.');
     }
+
+    public function showBySlug($slug)
+{
+    $post = Post::where('slug', $slug)->first();
+    if (!$post) {
+        return response()->json(['success' => false, 'message' => 'Post not found.'], 404);
+    }
+    return response()->json(['success' => true, 'data' => $post]);
+}
 }

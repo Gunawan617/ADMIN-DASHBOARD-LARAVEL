@@ -156,7 +156,7 @@
                                 </label>
                                 <p class="pl-1">atau drag and drop</p>
                             </div>
-                            <p class="text-xs text-gray-500">PNG, JPG, GIF hingga 10MB</p>
+                            <p class="text-xs text-gray-500">PNG, JPG, GIF, WebP, BMP hingga 5MB</p>
                             @if($book->cover_image)
                                 <p class="text-xs text-amber-600">Upload file baru untuk mengganti cover yang ada</p>
                             @endif

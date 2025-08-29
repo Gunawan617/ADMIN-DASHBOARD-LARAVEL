@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\Admin\TeamMemberController;
+use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\TryoutProgramController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -28,8 +29,17 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::resource('users', App\Http\Controllers\Admin\UserController::class)
         ->except(['create', 'store', 'destroy', 'show'])
         ->names('users');
-    Route::resource('books', App\Http\Controllers\Admin\BookController::class)
-        ->names('books');
+    
+    // CRUD Books (Web Interface)
+    Route::prefix('books')->name('books.')->group(function () {
+        Route::get('/', [BookController::class, 'indexWeb'])->name('index');
+        Route::get('/create', [BookController::class, 'create'])->name('create');
+        Route::post('/', [BookController::class, 'storeWeb'])->name('store');
+        Route::get('/{id}', [BookController::class, 'showWeb'])->name('show');
+        Route::get('/{id}/edit', [BookController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [BookController::class, 'updateWeb'])->name('update');
+        Route::delete('/{id}', [BookController::class, 'destroyWeb'])->name('destroy');
+    });
 
     // CRUD Tryout Programs (Blade Dashboard)
     Route::prefix('tryout-programs')->name('tryout-programs.')->group(function () {

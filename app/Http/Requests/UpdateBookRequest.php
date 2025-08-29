@@ -24,11 +24,23 @@ class UpdateBookRequest extends FormRequest
         return [
             'title' => 'sometimes|required|string|max:255',
             'author' => 'sometimes|required|string|max:255',
-            'category' => 'nullable|string|max:255',
-            'excerpt' => 'nullable|string',
-            'description' => 'nullable|string',
-            'price' => 'nullable|string',
-            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'category' => 'sometimes|required|string|max:255',
+            'excerpt' => 'sometimes|required|string',
+            'description' => 'sometimes|required|string',
+            'price' => 'sometimes|required|string',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,bmp|max:5120',
+        ];
+    }
+
+    /**
+     * Get custom error messages for validator errors.
+     */
+    public function messages(): array
+    {
+        return [
+            'cover_image.image' => 'File harus berupa gambar.',
+            'cover_image.mimes' => 'Format gambar yang didukung: JPEG, PNG, JPG, GIF, WebP, BMP.',
+            'cover_image.max' => 'Ukuran gambar maksimal 5MB.',
         ];
     }
 }

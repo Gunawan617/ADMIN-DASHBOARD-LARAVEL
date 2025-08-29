@@ -25,7 +25,7 @@ class BimbelProgramController extends Controller
             'code' => 'required|unique:bimbel_programs',
             'name' => 'required',
             'category' => 'required',
-            'image' => 'nullable|image|max:2048'
+            'image' => 'nullable|image|max:20480'
         ]);
 
         $data = $request->all();
@@ -48,7 +48,7 @@ class BimbelProgramController extends Controller
             'code' => 'required|unique:bimbel_programs,code,' . $bimbelProgram->id,
             'name' => 'required',
             'category' => 'required',
-            'image' => 'nullable|image|max:2048'
+            'image' => 'nullable|image|max:20480'
         ]);
 
         $data = $request->all();

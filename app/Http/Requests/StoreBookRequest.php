@@ -24,11 +24,23 @@ class StoreBookRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'author' => 'required|string|max:255',
-            'category' => 'nullable|string|max:255',
-            'excerpt' => 'nullable|string',
-            'description' => 'nullable|string',
-            'price' => 'nullable|string',
-            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'category' => 'required|string|max:255',
+            'excerpt' => 'required|string',
+            'description' => 'required|string',
+            'price' => 'required|string',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,bmp|max:5120',
+        ];
+    }
+
+    /**
+     * Get custom error messages for validator errors.
+     */
+    public function messages(): array
+    {
+        return [
+            'cover_image.image' => 'File harus berupa gambar.',
+            'cover_image.mimes' => 'Format gambar yang didukung: JPEG, PNG, JPG, GIF, WebP, BMP.',
+            'cover_image.max' => 'Ukuran gambar maksimal 5MB.',
         ];
     }
 }

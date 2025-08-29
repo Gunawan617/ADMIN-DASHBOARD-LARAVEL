@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
@@ -14,6 +15,19 @@ class BookController extends Controller
      * Display a listing of the resource.
      */
     public function index()
+    {
+        try {
+            $books = Book::all();
+            return response()->json($books);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Display a listing of books for admin web interface.
+     */
+    public function indexWeb()
     {
         $books = Book::all();
         return view('admin.book.index', compact('books'));
@@ -37,7 +51,7 @@ class BookController extends Controller
             $data['cover_image'] = $request->file('cover_image')->store('books', 'public');
         }
         $book = Book::create($data);
-        return redirect()->route('admin.books.index')->with('success', 'Buku berhasil ditambahkan!');
+        return response()->json($book, 201);
     }
 
     /**
@@ -47,6 +61,15 @@ class BookController extends Controller
     {
         $book = Book::findOrFail($id);
         return response()->json($book);
+    }
+
+    /**
+     * Display the specified book for admin web interface.
+     */
+    public function showWeb(string $id)
+    {
+        $book = Book::findOrFail($id);
+        return view('admin.book.show', compact('book'));
     }
 
     /**
@@ -73,7 +96,7 @@ class BookController extends Controller
             $data['cover_image'] = $request->file('cover_image')->store('books', 'public');
         }
         $book->update($data);
-        return redirect()->route('admin.books.index')->with('success', 'Buku berhasil diperbarui!');
+        return response()->json($book);
     }
 
     /**
@@ -86,117 +109,91 @@ class BookController extends Controller
             Storage::disk('public')->delete($book->cover_image);
         }
         $book->delete();
-        return redirect()->route('admin.books.index')->with('success', 'Buku berhasil dihapus!');
+        return response()->json(['message' => 'Book deleted successfully.']);
     }
 
-    // API Methods
-    public function indexApi()
+    /* ===========================
+     *   WEB METHODS (ADMIN DASHBOARD)
+     * =========================== */
+
+    /**
+     * Store a newly created book from web form.
+     */
+    public function storeWeb(Request $request)
     {
-        $books = Book::all();
-        return response()->json([
-            'success' => true,
-            'data' => $books
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'category' => 'required|string|max:255',
+            'excerpt' => 'required|string',
+            'description' => 'required|string',
+            'price' => 'required|string',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,bmp|max:5120', // 5MB
+        ], [
+            'cover_image.image' => 'File harus berupa gambar.',
+            'cover_image.mimes' => 'Format gambar yang didukung: JPEG, PNG, JPG, GIF, WebP, BMP.',
+            'cover_image.max' => 'Ukuran gambar maksimal 5MB.',
         ]);
+
+        if ($request->hasFile('cover_image')) {
+            $validated['cover_image'] = $request->file('cover_image')->store('books', 'public');
+        }
+
+        Book::create($validated);
+
+        return redirect()->route('admin.books.index')
+                         ->with('success', 'Buku berhasil ditambahkan.');
     }
 
-    public function showApi(string $id)
+    /**
+     * Update the specified book from web form.
+     */
+    public function updateWeb(Request $request, string $id)
     {
         $book = Book::findOrFail($id);
-        return response()->json([
-            'success' => true,
-            'data' => $book
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'category' => 'required|string|max:255',
+            'excerpt' => 'required|string',
+            'description' => 'required|string',
+            'price' => 'required|string',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,bmp|max:5120',
+        ], [
+            'cover_image.image' => 'File harus berupa gambar.',
+            'cover_image.mimes' => 'Format gambar yang didukung: JPEG, PNG, JPG, GIF, WebP, BMP.',
+            'cover_image.max' => 'Ukuran gambar maksimal 5MB.',
         ]);
-    }
 
-    public function storeApi(StoreBookRequest $request)
-    {
-        try {
-            $data = $request->validated();
-            
-            // Set default values for required fields
-            $data['category'] = $data['category'] ?? 'General';
-            $data['excerpt'] = $data['excerpt'] ?? 'No excerpt available';
-            $data['description'] = $data['description'] ?? 'No description available';
-            $data['price'] = $data['price'] ?? '0';
-            
-            if ($request->hasFile('cover_image')) {
-                $data['cover_image'] = $request->file('cover_image')->store('books', 'public');
-            }
-            
-            $book = Book::create($data);
-            
-            return response()->json([
-                'success' => true,
-                'message' => 'Book created successfully',
-                'data' => $book
-            ], 201);
-            
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to create book',
-                'error' => $e->getMessage()
-            ], 500);
-        }
-    }
-
-    public function updateApi(UpdateBookRequest $request, string $id)
-    {
-        try {
-            $book = Book::findOrFail($id);
-            $data = $request->validated();
-            
-            // Set default values for required fields if not provided
-            $data['category'] = $data['category'] ?? $book->category;
-            $data['excerpt'] = $data['excerpt'] ?? $book->excerpt;
-            $data['description'] = $data['description'] ?? $book->description;
-            $data['price'] = $data['price'] ?? $book->price;
-            
-            if ($request->hasFile('cover_image')) {
-                // Hapus gambar lama jika ada
-                if ($book->cover_image && Storage::disk('public')->exists($book->cover_image)) {
-                    Storage::disk('public')->delete($book->cover_image);
-                }
-                $data['cover_image'] = $request->file('cover_image')->store('books', 'public');
-            }
-            
-            $book->update($data);
-            
-            return response()->json([
-                'success' => true,
-                'message' => 'Book updated successfully',
-                'data' => $book
-            ]);
-            
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to update book',
-                'error' => $e->getMessage()
-            ], 500);
-        }
-    }
-
-    public function destroyApi(string $id)
-    {
-        try {
-            $book = Book::findOrFail($id);
+        if ($request->hasFile('cover_image')) {
+            // Hapus gambar lama jika ada
             if ($book->cover_image && Storage::disk('public')->exists($book->cover_image)) {
                 Storage::disk('public')->delete($book->cover_image);
             }
-            $book->delete();
-            
-            return response()->json([
-                'success' => true,
-                'message' => 'Book deleted successfully'
-            ]);
-            
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to delete book',
-                'error' => $e->getMessage()
-            ], 500);
+            $validated['cover_image'] = $request->file('cover_image')->store('books', 'public');
         }
+
+        $book->update($validated);
+
+        return redirect()->route('admin.books.index')
+                         ->with('success', 'Buku berhasil diperbarui.');
+    }
+
+    /**
+     * Remove the specified book from web interface.
+     */
+    public function destroyWeb(string $id)
+    {
+        $book = Book::findOrFail($id);
+
+        if ($book->cover_image && Storage::disk('public')->exists($book->cover_image)) {
+            Storage::disk('public')->delete($book->cover_image);
+        }
+
+        $book->delete();
+
+        return redirect()->route('admin.books.index')
+                         ->with('success', 'Buku berhasil dihapus.');
     }
 }
