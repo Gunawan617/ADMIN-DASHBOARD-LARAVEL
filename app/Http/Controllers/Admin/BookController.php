@@ -128,7 +128,7 @@ class BookController extends Controller
             'excerpt' => 'required|string',
             'description' => 'required|string',
             'price' => 'required|string',
-            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,bmp|max:5120', // 5MB
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,bmp|max:51200', // 5MB
         ], [
             'cover_image.image' => 'File harus berupa gambar.',
             'cover_image.mimes' => 'Format gambar yang didukung: JPEG, PNG, JPG, GIF, WebP, BMP.',

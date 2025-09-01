@@ -27,10 +27,10 @@ class AnalyticsController extends Controller
                 'ip_address' => $request->ip(),
             ]);
             \Log::info('Visit created', ['visit' => $visit]);
-            return response()->json(['message' => 'Logged', 'visit' => $visit]);
+            return response()->json(['success' => true, 'message' => 'Logged', 'visit' => $visit]);
         } catch (\Exception $e) {
             \Log::error('Visit create error', ['error' => $e->getMessage()]);
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
         }
     }
 

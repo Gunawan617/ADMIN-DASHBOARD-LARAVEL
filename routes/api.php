@@ -1,4 +1,7 @@
+
 <?php
+use App\Http\Controllers\AnalyticsController;
+// Analytics tracking endpoint
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -9,7 +12,7 @@ use App\Http\Controllers\TeamMemberController;
 use App\Http\Controllers\TryoutProgramController;
 
 Route::get('public/posts/slug/{slug}', [PostController::class, 'showBySlug']);
-
+Route::post('analytics/track', [AnalyticsController::class, 'store']);
 // Public
 Route::get('public/bimbel-programs', [BimbelProgramController::class, 'index']);
 Route::get('public/bimbel-programs/{id}', [BimbelProgramController::class, 'show']);
