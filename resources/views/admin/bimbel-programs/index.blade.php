@@ -3,7 +3,7 @@
 
 
 @section('content')
-<div class="p-6 bg-white shadow rounded-lg">
+<div class="container mx-auto p-6 bg-white shadow rounded-lg">
     <div class="flex justify-between mb-4">
         <h1 class="text-2xl font-bold">Daftar Program Bimbel</h1>
         <a href="{{ route('admin.bimbel-programs.create') }}" 

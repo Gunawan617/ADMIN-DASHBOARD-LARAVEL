@@ -16,6 +16,8 @@
   <button type="button" @click="addImage">🖼️</button>
   <button type="button" @click="editor.chain().focus().undo().run()">Undo</button>
   <button type="button" @click="editor.chain().focus().redo().run()">Redo</button>
+  <button type="button" @click="editor.chain().focus().setHorizontalRule().run()">───</button>
+
 </div>
 
     <editor-content :editor="editor" class="editor" />
@@ -34,6 +36,8 @@ import Blockquote from '@tiptap/extension-blockquote'
 import Code from '@tiptap/extension-code'
 import Link from '@tiptap/extension-link'
 import Image from '@tiptap/extension-image'
+import HorizontalRule from '@tiptap/extension-horizontal-rule'
+
 
 const props = defineProps({
   content: {
@@ -58,6 +62,7 @@ editor.value = new Editor({
     Code,
     Link,
     Image,
+    HorizontalRule, // ✅ tambahkan di sini
   ],
   content: props.content || '<p>Tulis konten di sini...</p>',
   onUpdate({ editor }) {
@@ -116,5 +121,9 @@ onBeforeUnmount(() => {
   min-height: 200px;
   padding: 10px;
   background: #fff;
+
 }
+
+
+
 </style>

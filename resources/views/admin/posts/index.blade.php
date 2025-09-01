@@ -1,17 +1,18 @@
 @extends('admin.layout')
 
 @section('content')
-<h1 class="text-3xl font-bold mb-6 text-gray-800">📝 Posts Management</h1>
+<div class="container mx-auto">
+  <h1 class="text-3xl font-bold mb-6 text-gray-800">📝 Posts Management</h1>
 
-<a href="{{ route('admin.posts.create') }}" class="inline-block bg-blue-600 text-white px-5 py-2 rounded-md hover:bg-blue-700 transition duration-200 mb-4">
-    + Add New Post
-</a>
+  <a href="{{ route('admin.posts.create') }}" class="inline-block bg-blue-600 text-white px-5 py-2 rounded-md hover:bg-blue-700 transition duration-200 mb-4">
+      + Add New Post
+  </a>
 
-@if(session('success'))
-    <x-alert type="success" :message="session('success')" />
-@endif
+  @if(session('success'))
+      <x-alert type="success" :message="session('success')" />
+  @endif
 
-<div class="overflow-x-auto rounded-lg shadow-sm border border-gray-200">
+  <div class="overflow-x-auto rounded-lg shadow-sm border border-gray-200">
     <table class="w-full text-left bg-white">
 
         <thead class="bg-gray-100 text-sm font-semibold text-gray-700">
