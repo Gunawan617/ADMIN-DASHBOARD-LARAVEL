@@ -1,0 +1,47 @@
+Laravel Images Backup Information
+================================
+Project: ADMIN-DASHBOARD-LARAVEL
+Backup Date: Tue 02 Sep 2025 11:21:33 AM WIB
+Backup File: backup_images_2025-09-02_11-21-33.tar.gz
+Image Count: 19
+Storage Directory: /home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public
+Public Storage Directory: /home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/public/storage
+
+Directory Structure:
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/books
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/posts
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/team-members
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/tryouts
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/uploads
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/uploads/bimbel
+
+Files to Backup:
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/books/cpJ4de72UrOyoz8Wqo4Kok6WUajfGi9MpBLLQWyZ.png
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/books/lV56RofAnNA0viAlsQDBkFjwDtLsDvbv1sZqrqrI.png
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/books/ns2kdoG7c5ezlKKcNH7ujAOK19Cs1pilS8Hln65r.png
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/books/pmXb2qDd3SngRZhb2FciXECTeF6NR2Rrx6m8YwWs.png
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/books/v37R9cilGD3KDGu0yzkzrqqtyEWMfZSPMdnnMhON.png
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/.gitignore
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/posts/FgpOl8xCgR56FK8UL3LDSFfPoNj5MKZVgh75rEFN.png
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/posts/nHWVcs9c6HbUVgAMjgNpHyWKLKJXJfbhpB5GIwx1.jpg
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/posts/OO8rco1yFtYwhyws2CZ5kqMupawrFnUCls31CJ6P.jpg
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/team-members/BF7qz8s0rU4XoqGhzzXrxdlsiJ0GQ9zZoHufG9IB.png
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/team-members/EJT4vpBZi8PeV8l31SbRzdkTkaYlNiJ1DeB7yVRF.png
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/team-members/KWcNWA25LaCgG7BehadaKqZMvnZTptSlmfoqgrNa.png
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/team-members/MpSyuMO9oudhzJRZbpFl9sf7xbL6QpjZuRavd1HK.png
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/team-members/r8bexz8PiBjwyhaf40S6OVdbKtAjHyOUFeG2pTNp.png
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/team-members/SyCFCZMY16CeIH3zCWhf03Sg1nJXS1lxvx8oTyDd.png
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/team-members/WOQmTh0WdNff0fhBv0iWOxlzGhHnzjiCHXqNmS8G.png
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/tryouts/ajKfqdCrrmGQoVNK2VeT1FWyyD9MhLXII8VeiJ1b.png
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/tryouts/zH9QSBHt486Ga0kwyyVn4ueGcWt9XeHSjKibTKlq.png
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/uploads/bimbel/Mi3azFdVxNF7KVSgNnPBec80ubehsnPnkmFqxOq2.png
+/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public/uploads/bimbel/ZKvbAnK1WAW7xOKq9p5IKgX7eWbhGxLBJ1PC5eYo.png
+
+Symlinks Status:
+lrwxrwxrwx 1 marco marco 76 Sep  2 08:45 /home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/public/storage -> /home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public
+
+System Information:
+- OS: Linux marco-H510M-K-V2 6.14.0-29-generic #29-Ubuntu SMP PREEMPT_DYNAMIC Thu Aug  7 18:32:38 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux
+- Disk Usage: /dev/nvme0n1p2  457G  101G  334G  24% /
+- Backup Size: 86M	/home/marco/Documents/DEVELOPMENT/ADMIN-DASHBOARD-LARAVEL/storage/app/public

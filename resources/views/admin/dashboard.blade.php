@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="p-6">
-    <div class="flex justify-between items-center mb-8">
+    <div class="flex justify-between items-center mb-8 mt-8">
         <div>
-            <h1 class="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
+            <h1 class="text-3xl font-bold text-gray-500">Admin Dashboard</h1>
             <p class="text-gray-600 mt-1">Selamat datang di panel admin</p>
         </div>
         <div class="text-sm text-gray-500">
