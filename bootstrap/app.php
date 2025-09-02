@@ -12,13 +12,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->api(prepend: [
-            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-        ]);
+        // Hapus Sanctum middleware untuk API routes yang tidak memerlukan stateful authentication
+        // $middleware->api(prepend: [
+        //     \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+        // ]);
 
         $middleware->alias([
             'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
             'cors' => \App\Http\Middleware\CorsMiddleware::class,
+            'verify_csrf' => \App\Http\Middleware\VerifyCsrfToken::class,
         ]);
 
         // Add CORS middleware to API group

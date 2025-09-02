@@ -50,7 +50,7 @@ class AnalyticsController extends Controller
             ->limit(7)
             ->get();
 
-        return view('admin.analytics.dashboard', compact('totalVisits', 'mostVisitedPages', 'visitsPerDay'));
+        return view('admin.dashboard', compact('totalVisits', 'mostVisitedPages', 'visitsPerDay'));
     }
 
     // API: Get semua visits (untuk dashboard)
