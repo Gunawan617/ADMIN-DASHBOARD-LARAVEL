@@ -51,6 +51,17 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::put('/{id}', [TryoutProgramController::class, 'updateWeb'])->name('update');
         Route::delete('/{id}', [TryoutProgramController::class, 'destroyWeb'])->name('destroy');
     });
+
+    // CRUD Alumni (Blade Dashboard)
+    Route::prefix('alumni')->name('alumni.')->group(function () {
+        Route::get('/', [App\Http\Controllers\Admin\AlumniController::class, 'indexWeb'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Admin\AlumniController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\Admin\AlumniController::class, 'storeWeb'])->name('store');
+        Route::get('/{id}', [App\Http\Controllers\Admin\AlumniController::class, 'showWeb'])->name('show');
+        Route::get('/{id}/edit', [App\Http\Controllers\Admin\AlumniController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [App\Http\Controllers\Admin\AlumniController::class, 'updateWeb'])->name('update');
+        Route::delete('/{id}', [App\Http\Controllers\Admin\AlumniController::class, 'destroyWeb'])->name('destroy');
+    });
 });
 
 // Dashboard user biasa (setelah login)

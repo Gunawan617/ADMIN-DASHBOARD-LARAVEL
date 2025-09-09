@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\BookController;
+use App\Http\Controllers\Admin\AlumniController;
 use App\Http\Controllers\BimbelProgramController;
 use App\Http\Controllers\TeamMemberController;
 use App\Http\Controllers\TryoutProgramController;
@@ -22,6 +23,8 @@ Route::get('public/books', [BookController::class, 'index']);
 Route::get('public/books/{id}', [BookController::class, 'show']);
 Route::get('public/tryout-programs', [TryoutProgramController::class, 'index']);
 Route::get('public/tryout-programs/{id}', [TryoutProgramController::class, 'show']);
+Route::get('public/alumni', [AlumniController::class, 'index']);
+Route::get('public/alumni/{id}', [AlumniController::class, 'show']);
 
 // Protected (admin)
 Route::middleware('auth:sanctum')->group(function () {
@@ -61,5 +64,8 @@ Route::middleware('auth:sanctum')->group(function () {
     
     // Tryout Programs CRUD API
     Route::apiResource('admin/tryout-programs', TryoutProgramController::class);
+
+    // Alumni CRUD API
+    Route::apiResource('admin/alumni', AlumniController::class);
 });
 
