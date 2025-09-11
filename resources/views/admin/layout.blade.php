@@ -102,89 +102,101 @@
     
   <!-- Navigation -->
   <nav class="p-6 space-y-2 pt-2">
-      <a href="{{ route('admin.dashboard') }}" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white active-menu">
-        <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <a href="{{ route('admin.dashboard') }}" class="sidebar-item flex items-center p-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white active-menu">
+        <div class="w-8 h-8 bg-white/10 rounded flex items-center justify-center mr-3">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"/>
           </svg>
         </div>
         <div>
-          <div class="font-medium">Dashboard</div>
-          <div class="text-xs text-white/60">Overview & Analytics</div>
+          <div class="font-medium text-sm">Dashboard</div>
+          <div class="text-[10px] text-white/60">Overview & Analytics</div>
         </div>
       </a>
       
-      <a href="{{ route('admin.posts.index') }}" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white">
-        <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <a href="{{ route('admin.posts.index') }}" class="sidebar-item flex items-center p-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white">
+        <div class="w-8 h-8 bg-white/10 rounded flex items-center justify-center mr-3">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
           </svg>
         </div>
         <div>
-          <div class="font-medium">Posts</div>
-          <div class="text-xs text-white/60">Manage content</div>
+          <div class="font-medium text-sm">Posts</div>
+          <div class="text-[10px] text-white/60">Manage content</div>
         </div>
       </a>
 
-      <a href="{{ route('admin.books.index') }}" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white">
-        <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <a href="{{ route('admin.books.index') }}" class="sidebar-item flex items-center p-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white">
+        <div class="w-8 h-8 bg-white/10 rounded flex items-center justify-center mr-3">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19.5A2.5 2.5 0 006.5 22h11a2.5 2.5 0 002.5-2.5v-15A2.5 2.5 0 0017.5 2h-11A2.5 2.5 0 004 4.5v15zM8 6h8M8 10h8m-8 4h6"/>
           </svg>
         </div>
         <div>
-          <div class="font-medium">Buku</div>
-          <div class="text-xs text-white/60">Manajemen buku</div>
+          <div class="font-medium text-sm">Buku</div>
+          <div class="text-[10px] text-white/60">Manajemen buku</div>
         </div>
       </a>
 
-      <a href="{{ route('admin.team-members.index') }}" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white">
-        <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <a href="{{ route('admin.team-members.index') }}" class="sidebar-item flex items-center p-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white">
+        <div class="w-8 h-8 bg-white/10 rounded flex items-center justify-center mr-3">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H4v-2a4 4 0 014-4h1m0 0V8a4 4 0 118 0v6m-8 0h8"/>
           </svg>
         </div>
         <div>
-          <div class="font-medium">Team Members</div>
-          <div class="text-xs text-white/60">Manage team</div>
+          <div class="font-medium text-sm">Team Members</div>
+          <div class="text-[10px] text-white/60">Manage team</div>
         </div>
       </a>
 
-      <a href="{{ route('admin.tryout-programs.index') }}" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white">
-        <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <a href="{{ route('admin.tryout-programs.index') }}" class="sidebar-item flex items-center p-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white">
+        <div class="w-8 h-8 bg-white/10 rounded flex items-center justify-center mr-3">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18"/>
           </svg>
         </div>
         <div>
-          <div class="font-medium">Tryout</div>
-          <div class="text-xs text-white/60">Manage tryouts</div>
+          <div class="font-medium text-sm">Tryout</div>
+          <div class="text-[10px] text-white/60">Manage tryouts</div>
         </div>
       </a>
 
-      <a href="{{ route('admin.bimbel-programs.index') }}" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white">
-        <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <a href="{{ route('admin.bimbel-programs.index') }}" class="sidebar-item flex items-center p-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white">
+        <div class="w-8 h-8 bg-white/10 rounded flex items-center justify-center mr-3">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2"/>
           </svg>
         </div>
         <div>
-          <div class="font-medium">Bimbel</div>
-          <div class="text-xs text-white/60">Manage Bimbel Programs</div>
+          <div class="font-medium text-sm">Bimbel</div>
+          <div class="text-[10px] text-white/60">Manage Bimbel Programs</div>
         </div>
       </a>
 
-      <a href="{{ route('admin.users.index') }}" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white">
-        <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <a href="{{ route('admin.users.index') }}" class="sidebar-item flex items-center p-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white">
+        <div class="w-8 h-8 bg-white/10 rounded flex items-center justify-center mr-3">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
           </svg>
         </div>
         <div>
-          <div class="font-medium">Users</div>
-          <div class="text-xs text-white/60">User management</div>
+          <div class="font-medium text-sm">Users</div>
+          <div class="text-[10px] text-white/60">User management</div>
         </div>
       </a>
+      <a href="{{ route('admin.alumni.index') }}" class="sidebar-item flex items-center p-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white">
+        <div class="w-8 h-8 bg-white/10 rounded flex items-center justify-center mr-3">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="font-medium text-sm">Alumni</div>
+          <div class="text-[10px] text-white/60">Data alumni</div>
+        </div>
+      </a>
+      
       
       <!-- Logout tetap di sidebar untuk mobile/akses alternatif -->
       <div class="pt-6 md:hidden">
@@ -247,15 +259,26 @@
       </div>
     </div>
     <nav class="p-6 space-y-2">
-      <a href="{{ route('admin.dashboard') }}" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white active-menu">
-        <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <a href="{{ route('admin.dashboard') }}" class="sidebar-item flex items-center p-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white active-menu">
+        <div class="w-8 h-8 bg-white/10 rounded flex items-center justify-center mr-3">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"/>
           </svg>
         </div>
         <div>
-          <div class="font-medium">Dashboard</div>
-          <div class="text-xs text-white/60">Overview & Analytics</div>
+          <div class="font-medium text-sm">Dashboard</div>
+          <div class="text-[10px] text-white/60">Overview & Analytics</div>
+        </div>
+      </a>
+      <a href="{{ route('admin.alumni.index') }}" class="sidebar-item flex items-center p-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white">
+        <div class="w-8 h-8 bg-white/10 rounded flex items-center justify-center mr-3">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="font-medium text-sm">Alumni</div>
+          <div class="text-[10px] text-white/60">Data alumni</div>
         </div>
       </a>
       <a href="{{ route('admin.posts.index') }}" class="sidebar-item flex items-center p-4 rounded-xl text-white/90 hover:bg-white/10 hover:text-white">

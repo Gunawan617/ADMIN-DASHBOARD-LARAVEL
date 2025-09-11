@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Alumni extends Model
 {
     use HasFactory;
-
+    protected $table = 'alumni';
     protected $fillable = [
         'name',
         'batch',
