@@ -12,15 +12,46 @@ use Illuminate\Support\Facades\Storage;
 class BookController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource (API for public).
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $books = Book::all();
-            return response()->json($books);
+            $query = Book::where('status', 'published');
+            
+            // Filter by audience_type if provided
+            if ($request->has('audience_type')) {
+                $query->where('audience_type', $request->audience_type);
+            }
+            
+            // Search by title or author
+            if ($request->has('search')) {
+                $search = $request->search;
+                $query->where(function($q) use ($search) {
+                    $q->where('title', 'like', "%{$search}%")
+                      ->orWhere('author', 'like', "%{$search}%");
+                });
+            }
+            
+            $books = $query->latest()->get();
+            
+            // Convert cover_image path to full URL
+            $books = $books->map(function($book) {
+                if (!empty($book->cover_image) && !filter_var($book->cover_image, FILTER_VALIDATE_URL)) {
+                    $book->cover_image = asset('storage/' . $book->cover_image);
+                }
+                return $book;
+            });
+            
+            return response()->json([
+                'success' => true,
+                'data' => $books
+            ]);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json([
+                'success' => false,
+                'error' => $e->getMessage()
+            ], 500);
         }
     }
 
@@ -55,12 +86,21 @@ class BookController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource (API for public).
      */
     public function show(string $id)
     {
-        $book = Book::findOrFail($id);
-        return response()->json($book);
+        $book = Book::where('status', 'published')->findOrFail($id);
+        
+        // Convert cover_image path to full URL
+        if (!empty($book->cover_image) && !filter_var($book->cover_image, FILTER_VALIDATE_URL)) {
+            $book->cover_image = asset('storage/' . $book->cover_image);
+        }
+        
+        return response()->json([
+            'success' => true,
+            'data' => $book
+        ]);
     }
 
     /**
@@ -128,6 +168,9 @@ class BookController extends Controller
             'excerpt' => 'required|string',
             'description' => 'required|string',
             'price' => 'required|string',
+            'audience_type' => 'required|in:nurse,midwife',
+            'buy_link' => 'nullable|url',
+            'status' => 'required|in:draft,published',
             'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,bmp|max:51200', // 5MB
         ], [
             'cover_image.image' => 'File harus berupa gambar.',

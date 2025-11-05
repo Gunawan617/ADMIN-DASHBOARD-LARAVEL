@@ -99,7 +99,7 @@
                 </div>
 
                 <!-- Harga Buku -->
-                <div class="md:col-span-2">
+                <div>
                     <label for="price" class="block text-sm font-medium text-gray-700 mb-2">
                         Harga <span class="text-red-500">*</span>
                     </label>
@@ -109,10 +109,66 @@
                         id="price" 
                         name="price" 
                         value="{{ old('price') }}"
-                        placeholder="Masukkan harga buku"
+                        placeholder="Rp 150.000"
                         required
                     >
                     @error('price')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Audience Type -->
+                <div>
+                    <label for="audience_type" class="block text-sm font-medium text-gray-700 mb-2">
+                        Untuk <span class="text-red-500">*</span>
+                    </label>
+                    <select 
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 @error('audience_type') border-red-500 @enderror" 
+                        id="audience_type" 
+                        name="audience_type"
+                        required
+                    >
+                        <option value="nurse" {{ old('audience_type') == 'nurse' ? 'selected' : '' }}>Perawat</option>
+                        <option value="midwife" {{ old('audience_type') == 'midwife' ? 'selected' : '' }}>Bidan</option>
+                    </select>
+                    @error('audience_type')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Buy Link -->
+                <div class="md:col-span-2">
+                    <label for="buy_link" class="block text-sm font-medium text-gray-700 mb-2">
+                        Link Pembelian
+                    </label>
+                    <input 
+                        type="url" 
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 @error('buy_link') border-red-500 @enderror" 
+                        id="buy_link" 
+                        name="buy_link" 
+                        value="{{ old('buy_link') }}"
+                        placeholder="https://tokopedia.com/..."
+                    >
+                    @error('buy_link')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Status -->
+                <div class="md:col-span-2">
+                    <label for="status" class="block text-sm font-medium text-gray-700 mb-2">
+                        Status <span class="text-red-500">*</span>
+                    </label>
+                    <select 
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 @error('status') border-red-500 @enderror" 
+                        id="status" 
+                        name="status"
+                        required
+                    >
+                        <option value="published" {{ old('status', 'published') == 'published' ? 'selected' : '' }}>Published</option>
+                        <option value="draft" {{ old('status') == 'draft' ? 'selected' : '' }}>Draft</option>
+                    </select>
+                    @error('status')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
