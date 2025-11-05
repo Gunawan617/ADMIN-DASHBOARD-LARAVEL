@@ -78,6 +78,7 @@ class ProgramDetailController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
+            'schedule_info' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
             'product_type' => 'required|in:bimbel,tryout,books,video',
             'audience_type' => 'required|in:nurse,midwife',
@@ -123,6 +124,7 @@ class ProgramDetailController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
+            'schedule_info' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
             'product_type' => 'required|in:bimbel,tryout,books,video',
             'audience_type' => 'required|in:nurse,midwife',

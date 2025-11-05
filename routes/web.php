@@ -78,6 +78,15 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
     // Program Details Management
     Route::resource('program-details', App\Http\Controllers\Admin\ProgramDetailController::class);
+
+    // Formulir Pendaftaran Management
+    Route::prefix('formulir')->name('formulir.')->group(function () {
+        Route::get('/', [App\Http\Controllers\Admin\FormulirAdminController::class, 'index'])->name('index');
+        Route::post('bulk-delete', [App\Http\Controllers\Admin\FormulirAdminController::class, 'bulkDelete'])->name('bulk-delete');
+        Route::get('{id}', [App\Http\Controllers\Admin\FormulirAdminController::class, 'show'])->name('show');
+        Route::post('{id}/status', [App\Http\Controllers\Admin\FormulirAdminController::class, 'updateStatus'])->name('update-status');
+        Route::delete('{id}', [App\Http\Controllers\Admin\FormulirAdminController::class, 'destroy'])->name('destroy');
+    });
 });
 
 // Dashboard user biasa (setelah login)
@@ -90,11 +99,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Auth routes (login, register, logout)
-Auth::routes();
+// Admin Auth routes (login, logout only)
+Route::prefix('admin')->group(function () {
+    // Login Routes
+    Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
+    Route::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+});
 
 // SPA Fallback - Catch all routes and return React app
 // This must be the LAST route
 Route::get('/{any}', function () {
     return view('website');
-})->where('any', '^(?!api|admin|storage|login|register|logout).*$');
+})->where('any', '^(?!api|admin|storage).*$');

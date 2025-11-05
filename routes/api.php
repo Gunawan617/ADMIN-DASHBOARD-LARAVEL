@@ -12,6 +12,7 @@ use App\Http\Controllers\BimbelProgramController;
 use App\Http\Controllers\TeamMemberController;
 use App\Http\Controllers\TryoutProgramController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\FormulirController;
 
 Route::get('public/posts/slug/{slug}', [PostController::class, 'showBySlug']);
 Route::post('analytics/track', [AnalyticsController::class, 'store']);
@@ -30,6 +31,9 @@ Route::get('public/alumni/{id}', [AlumniController::class, 'show']);
 Route::get('public/testimonials', [TestimonialController::class, 'index']);
 Route::get('public/program-details', [App\Http\Controllers\Admin\ProgramDetailController::class, 'apiIndex']);
 Route::get('public/program-details/{slug}', [App\Http\Controllers\Admin\ProgramDetailController::class, 'apiShow']);
+
+// Formulir Pendaftaran
+Route::post('public/formulir', [FormulirController::class, 'store']);
 
 // Protected (admin)
 Route::middleware('auth:sanctum')->group(function () {
@@ -86,5 +90,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('admin/testimonials/{id}/approve', [TestimonialController::class, 'approve']);
     Route::post('admin/testimonials/{id}/reject', [TestimonialController::class, 'reject']);
     Route::delete('admin/testimonials/{id}', [TestimonialController::class, 'adminDestroy']);
+
+    // Admin Formulir
+    Route::get('admin/formulir', [FormulirController::class, 'index']);
+    Route::get('admin/formulir/{id}', [FormulirController::class, 'show']);
+    Route::put('admin/formulir/{id}/status', [FormulirController::class, 'updateStatus']);
+    Route::delete('admin/formulir/{id}', [FormulirController::class, 'destroy']);
 });
 

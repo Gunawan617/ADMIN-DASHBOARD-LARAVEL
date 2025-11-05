@@ -7,11 +7,18 @@ import { Clock, Users, Award, BookOpen, DollarSign } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import type { ProductType, AudienceType } from "./ProductSwitcher";
 
+interface ScheduleItem {
+  week: string;
+  topic: string;
+}
+
 interface Program {
   id: number;
   slug: string;
   title: string;
   description: string;
+  scheduleInfo?: string;
+  schedule?: ScheduleItem[] | string;
   image: string;
   duration?: string;
   students?: string;
@@ -258,6 +265,7 @@ export function Programs({ selectedProduct, selectedAudience, onProductChange, o
   const [programs, setPrograms] = useState<Program[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
 
   useEffect(() => {
     const fetchPrograms = async () => {
@@ -276,6 +284,8 @@ export function Programs({ selectedProduct, selectedAudience, onProductChange, o
           slug: item.slug,
           title: item.title,
           description: item.description,
+          scheduleInfo: item.schedule_info || undefined,
+          schedule: item.schedule || undefined,
           image: item.image?.startsWith('http') ? item.image : `https://images.unsplash.com/photo-1725870475677-7dc91efe9f93?w=1080`,
           duration: item.duration || undefined,
           students: item.students || undefined,
@@ -305,14 +315,27 @@ export function Programs({ selectedProduct, selectedAudience, onProductChange, o
 
   const filteredPrograms = programs.filter(
     (program) =>
+      program && 
       program.productType === selectedProduct &&
       program.audienceType === selectedAudience
   );
 
+  // Set first program as selected when filtered programs change
+  useEffect(() => {
+    if (filteredPrograms.length > 0) {
+      // Always select the first program when filter changes
+      setSelectedProgram(filteredPrograms[0]);
+    } else {
+      setSelectedProgram(null);
+    }
+  }, [selectedProduct, selectedAudience]);
+
   const getProductTitle = () => {
-    const titles = {
+    const titles: Record<ProductType, string> = {
       bimbel: "Program Bimbel",
-      tryout: "Paket Try Out"
+      tryout: "Paket Try Out",
+      books: "Buku UKOM",
+      video: "Video Pembelajaran"
     };
     return titles[selectedProduct];
   };
@@ -339,27 +362,25 @@ export function Programs({ selectedProduct, selectedAudience, onProductChange, o
           </p>
         </div>
 
-        {/* Product Switcher - Integrated */}
+        {/* Product Switcher */}
         <div className="max-w-4xl mx-auto mb-12">
-          {/* Product Type Selector */}
           <div className="flex flex-col gap-6">
-            <div className="flex justify-center">
-              <div className="inline-flex bg-gray-100 rounded-xl p-1.5 gap-1">
-                {products.map((product) => (
-                  <button
-                    key={product.id}
-                    onClick={() => onProductChange(product.id)}
-                    className={`px-8 py-3 rounded-lg font-medium transition-all duration-200 ${
-                      selectedProduct === product.id
-                        ? "bg-white text-blue-600 shadow-md"
-                        : "text-gray-600 hover:text-gray-800"
-                    }`}
-                  >
-                    <span className="mr-2">{product.icon}</span>
-                    {product.label}
-                  </button>
-                ))}
-              </div>
+            {/* Product Type Selector */}
+            <div className="flex flex-wrap gap-3 justify-center">
+              {products.map((product) => (
+                <button
+                  key={product.id}
+                  onClick={() => onProductChange(product.id)}
+                  className={`px-8 py-3 rounded-lg font-medium transition-all ${
+                    selectedProduct === product.id
+                      ? "bg-blue-600 text-white shadow-lg"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  }`}
+                >
+                  <span className="mr-2">{product.icon}</span>
+                  {product.label}
+                </button>
+              ))}
             </div>
 
             {/* Audience Selector */}
@@ -413,88 +434,184 @@ export function Programs({ selectedProduct, selectedAudience, onProductChange, o
           </div>
         )}
 
-        {/* Programs Grid */}
+        {/* Programs Grid - Split Layout with Image */}
         {!loading && (
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="space-y-8 max-w-6xl mx-auto">
             {filteredPrograms.length === 0 ? (
-              <div className="col-span-full text-center py-12">
+              <div className="text-center py-12">
                 <p className="text-muted-foreground">Belum ada program tersedia untuk kategori ini.</p>
               </div>
             ) : (
-              filteredPrograms.map((program) => (
-            <Card key={program.id} className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-blue-200">
-              <CardHeader className="p-0">
-                <div className="relative overflow-hidden rounded-t-lg">
-                  {program.tag && (
-                    <Badge className="absolute top-4 left-4 z-10 bg-blue-600">
-                      {program.tag}
-                    </Badge>
-                  )}
-                  <ImageWithFallback
-                    src={program.image}
-                    alt={program.title}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-              </CardHeader>
-              <CardContent className="p-6 space-y-4">
-                <div>
-                  <CardTitle className="mb-2">{program.title}</CardTitle>
-                  <CardDescription>{program.description}</CardDescription>
-                </div>
-
-                <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
-                  {program.duration && (
-                    <div className="flex items-center gap-1">
-                      <Clock size={16} />
-                      <span>{program.duration}</span>
-                    </div>
-                  )}
-                  {program.students && (
-                    <div className="flex items-center gap-1">
-                      <Users size={16} />
-                      <span>{program.students}</span>
-                    </div>
-                  )}
-                  {program.level && (
-                    <div className="flex items-center gap-1">
-                      <Award size={16} />
-                      <span>{program.level}</span>
-                    </div>
-                  )}
-                  {program.pages && (
-                    <div className="flex items-center gap-1">
-                      <BookOpen size={16} />
-                      <span>{program.pages}</span>
-                    </div>
-                  )}
-                  {program.questions && (
-                    <div className="flex items-center gap-1">
-                      <Award size={16} />
-                      <span>{program.questions}</span>
-                    </div>
-                  )}
-                </div>
-
-                {program.price && (
-                  <div className="flex items-center gap-2 pt-2 border-t">
-                    <DollarSign size={16} className="text-blue-600" />
-                    <span className="text-blue-600">{program.price}</span>
-                  </div>
-                )}
-
-                <Link to={`/${program.productType === 'tryout' ? 'tryout' : 'program'}/${program.slug}`}>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                    Selengkapnya
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-              ))
+              filteredPrograms.map((program) => {
+                if (!program || !program.id) return null;
+                
+                return <ProgramCard key={program.id} program={program} />;
+              })
             )}
           </div>
         )}
       </div>
     </section>
+  );
+}
+
+// Separate component for each program card to manage tab state
+function ProgramCard({ program }: { program: Program }) {
+  const [activeTab, setActiveTab] = useState<'info' | 'modul'>('info');
+
+  return (
+    <Card className="hover:shadow-xl transition-all duration-300 border-2 hover:border-blue-300 overflow-hidden">
+      <div className="grid md:grid-cols-2 gap-0">
+        {/* Left Side - Image */}
+        <div className="relative bg-gray-800 min-h-[400px]">
+          {program.tag && (
+            <Badge className="absolute top-4 left-4 z-10 bg-blue-600">
+              {program.tag}
+            </Badge>
+          )}
+          <ImageWithFallback
+            src={program.image}
+            alt={program.title}
+            className="w-full h-full object-cover opacity-90"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
+        </div>
+
+        {/* Right Side - Information */}
+        <div className="p-8">
+          {/* Tabs */}
+          <div className="flex gap-4 mb-6 border-b pb-2">
+            <button 
+              onClick={() => setActiveTab('info')}
+              className={`text-sm font-medium pb-2 transition-colors ${
+                activeTab === 'info' 
+                  ? 'text-blue-600 border-b-2 border-blue-600' 
+                  : 'text-gray-400 hover:text-gray-600'
+              }`}
+            >
+              Informasi Program
+            </button>
+            <button 
+              onClick={() => setActiveTab('modul')}
+              className={`text-sm font-medium pb-2 transition-colors ${
+                activeTab === 'modul' 
+                  ? 'text-blue-600 border-b-2 border-blue-600' 
+                  : 'text-gray-400 hover:text-gray-600'
+              }`}
+            >
+              Lihat Modul
+            </button>
+          </div>
+
+          {/* Tab Content */}
+          {activeTab === 'info' ? (
+            <>
+              {/* Jadwal */}
+              {program.scheduleInfo && (
+                <div className="mb-6">
+                  <h4 className="font-semibold mb-3">Jadwal</h4>
+                  <div className="text-sm text-gray-700 whitespace-pre-line">
+                    {program.scheduleInfo}
+                  </div>
+                </div>
+              )}
+
+                      {/* Durasi Section */}
+                      <div className="mb-6">
+                        <h4 className="font-semibold mb-3">Durasi</h4>
+                        <div className="space-y-2">
+                          {program.duration && (
+                            <div className="flex items-center justify-between text-sm">
+                              <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                                <span>{program.title}</span>
+                              </div>
+                              <span className="font-medium">{program.duration}</span>
+                            </div>
+                          )}
+                          {program.students && (
+                            <div className="flex items-center justify-between text-sm">
+                              <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                                <span>Total Peserta</span>
+                              </div>
+                              <span className="font-medium">{program.students}</span>
+                            </div>
+                          )}
+                          {program.level && (
+                            <div className="flex items-center justify-between text-sm">
+                              <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                                <span>Level</span>
+                              </div>
+                              <span className="font-medium">{program.level}</span>
+                            </div>
+                          )}
+                          {program.pages && (
+                            <div className="flex items-center justify-between text-sm">
+                              <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                                <span>Halaman</span>
+                              </div>
+                              <span className="font-medium">{program.pages}</span>
+                            </div>
+                          )}
+                          {program.questions && (
+                            <div className="flex items-center justify-between text-sm">
+                              <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                                <span>Jumlah Soal</span>
+                              </div>
+                              <span className="font-medium">{program.questions}</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Harga Section */}
+                      <div className="mb-6">
+                        <h4 className="font-semibold mb-3">Harga</h4>
+                        {program.price && (
+                          <div className="flex items-center gap-3">
+                            {program.tag && <Badge className="bg-red-500 text-white">-20%</Badge>}
+                            <span className="text-3xl font-bold text-orange-500">{program.price}</span>
+                          </div>
+                        )}
+                      </div>
+
+              {/* Button */}
+              <Link to={`/${program.productType === 'tryout' ? 'tryout' : 'program'}/${program.slug}`}>
+                <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-4 text-base">
+                  Course Details
+                </Button>
+              </Link>
+            </>
+          ) : (
+            <>
+              {/* Modul Pembelajaran */}
+              {program.schedule && Array.isArray(program.schedule) && program.schedule.length > 0 ? (
+                <div className="space-y-3">
+                  <h4 className="font-semibold mb-4">Modul Pembelajaran</h4>
+                  {program.schedule.map((item, index) => (
+                    <div key={index} className="flex gap-3 p-3 bg-gray-50 rounded-lg">
+                      <div className="flex-shrink-0 w-20 text-sm font-medium text-blue-600">
+                        {item.week}
+                      </div>
+                      <div className="flex-1 text-sm text-gray-700">
+                        {item.topic}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8 text-gray-500">
+                  <p>Modul pembelajaran belum tersedia</p>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+    </Card>
   );
 }

@@ -1,8 +1,11 @@
 import { Button } from "./ui/button";
 import { ArrowRight, Play } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { useNavigate } from "react-router-dom";
 
 export function Hero() {
+  const navigate = useNavigate();
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white py-20 lg:py-32">
       {/* Background Pattern */}
@@ -30,8 +33,12 @@ export function Hero() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
-                Lihat Program
+              <Button
+                size="lg"
+                onClick={() => navigate('/daftar')}
+                className="bg-blue-600 hover:bg-blue-700"
+              >
+                Daftar Sekarang
                 <ArrowRight className="ml-2" size={20} />
               </Button>
               <Button size="lg" variant="outline" className="gap-2">

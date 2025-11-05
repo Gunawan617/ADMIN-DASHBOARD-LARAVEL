@@ -54,6 +54,12 @@
       </div>
 
       <div class="mt-4">
+        <label class="block text-sm font-medium mb-2">Jadwal</label>
+        <textarea name="schedule_info" rows="3" class="w-full px-3 py-2 border rounded-lg" placeholder="Contoh: Senin-Jumat: Self Learning, Sabtu-Minggu: Live Session 10.00-12.00">{{ old('schedule_info', $programDetail->schedule_info) }}</textarea>
+        <p class="text-sm text-gray-500 mt-1">Opsional - Jadwal pelaksanaan program</p>
+      </div>
+
+      <div class="mt-4">
         <label class="block text-sm font-medium mb-2">Gambar</label>
         @if($programDetail->image)
           <img src="{{ asset('storage/' . $programDetail->image) }}" class="w-32 h-32 object-cover rounded mb-2">
@@ -108,7 +114,7 @@
 
     {{-- Schedule (for bimbel only) --}}
     <div class="border-b pb-4" id="schedule_section" style="display: {{ $programDetail->product_type === 'bimbel' ? 'block' : 'none' }};">
-      <h2 class="text-xl font-bold mb-4">Jadwal Pembelajaran <span class="text-red-500">*</span></h2>
+      <h2 class="text-xl font-bold mb-4">Modul Pembelajaran <span class="text-red-500">*</span></h2>
       @php
         $scheduleText = '';
         if (is_array($programDetail->schedule)) {

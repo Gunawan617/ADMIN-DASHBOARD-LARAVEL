@@ -13,6 +13,7 @@ class ProgramDetail extends Model
         'slug',
         'title',
         'description',
+        'schedule_info',
         'image',
         'product_type',
         'audience_type',

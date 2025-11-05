@@ -5,7 +5,7 @@ import { Hero } from "./components/Hero";
 import { ProductType, AudienceType } from "./components/ProductSwitcher";
 import { Programs } from "./components/Programs";
 import { Features } from "./components/Features";
-// import { Testimonials } from "./components/Testimonials"; // Commented out - using dedicated page instead
+import { Testimonials } from "./components/Testimonials";
 import { Blog } from "./components/Blog";
 import { Partners } from "./components/Partners";
 import { Footer } from "./components/Footer";
@@ -21,6 +21,7 @@ import { TryoutDetailPage } from "./pages/TryoutDetailPage";
 import { BooksPage } from "./pages/BooksPage";
 import { BookDetailPage } from "./pages/BookDetailPage";
 import { Books } from "./components/Books";
+import DaftarPage from "./pages/DaftarPage";
 
 function HomePage() {
   const [selectedProduct, setSelectedProduct] = useState<ProductType>("bimbel");
@@ -37,7 +38,7 @@ function HomePage() {
       />
       <Books />
       <Features />
-      {/* <Testimonials /> */}
+      <Testimonials />
       <Blog />
       <Partners />
     </>
@@ -63,6 +64,7 @@ export default function App() {
             <Route path="/tryout/:slug" element={<TryoutDetailPage />} />
             <Route path="/books" element={<BooksPage />} />
             <Route path="/books/:id" element={<BookDetailPage />} />
+            <Route path="/daftar" element={<DaftarPage />} />
           </Routes>
         </main>
         <Footer />

@@ -43,14 +43,14 @@ export function ProgramDetailPage() {
         try {
             setLoading(true);
             const response = await fetch(`/api/public/program-details/${slug}`);
-            
+
             if (!response.ok) {
                 throw new Error('Program not found');
             }
-            
+
             const result = await response.json();
             const data = result.data || result;
-            
+
             setProgram(data);
         } catch (error) {
             console.error("Error fetching program:", error);
@@ -198,7 +198,10 @@ export function ProgramDetailPage() {
                                     </div>
                                     <DollarSign size={48} className="text-blue-200" />
                                 </div>
-                                <Button className="w-full bg-white text-blue-600 hover:bg-blue-50 font-semibold text-lg py-6">
+                                <Button 
+                                    onClick={() => navigate('/daftar')}
+                                    className="w-full bg-white text-blue-600 hover:bg-blue-50 font-semibold text-lg py-6"
+                                >
                                     Daftar Sekarang
                                 </Button>
                             </div>
@@ -244,7 +247,7 @@ export function ProgramDetailPage() {
                 <section className="py-12">
                     <div className="container mx-auto px-4 lg:px-8">
                         <div className="max-w-4xl mx-auto">
-                            <h2 className="text-3xl font-bold mb-8">Jadwal Pembelajaran</h2>
+                            <h2 className="text-3xl font-bold mb-8">Modul Pembelajaran</h2>
                             <div className="space-y-4">
                                 {schedule.map((item: any, index: number) => (
                                     <Card key={index}>
@@ -277,7 +280,10 @@ export function ProgramDetailPage() {
                             Bergabunglah dengan ribuan alumni yang telah berhasil lulus UKOM
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Button className="bg-white text-blue-600 hover:bg-blue-50 font-semibold text-lg px-8 py-6">
+                            <Button 
+                                onClick={() => navigate('/daftar')}
+                                className="bg-white text-blue-600 hover:bg-blue-50 font-semibold text-lg px-8 py-6"
+                            >
                                 Daftar Sekarang
                             </Button>
                             <Button className="bg-blue-700 text-white hover:bg-blue-800 font-semibold text-lg px-8 py-6 border-2 border-white/20">

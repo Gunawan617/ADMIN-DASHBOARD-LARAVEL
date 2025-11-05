@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 export function Partners() {
+  const navigate = useNavigate();
   const hospitals = [
     "RSUP Dr. Sardjito", "RS Siloam", "RS Hermina", "RSUD Tangerang", "RS Premier", 
     "RSCM", "RS Mitra Keluarga", "RS Harapan Kita", "RS Pondok Indah", "RS Mayapada"
@@ -34,8 +37,11 @@ export function Partners() {
             Daftar sekarang dan bergabung dengan batch berikutnya. Raih STR Anda bersama kami!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-3 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition-colors">
-              Lihat Program
+            <button 
+              onClick={() => navigate('/daftar')}
+              className="px-8 py-3 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
+            >
+              Daftar Sekarang
             </button>
             <button className="px-8 py-3 border-2 border-white text-white rounded-lg hover:bg-white/10 transition-colors">
               Konsultasi Gratis
