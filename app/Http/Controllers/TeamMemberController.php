@@ -23,7 +23,7 @@ class TeamMemberController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'src'  => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // foto optional
+            'src'  => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $path = null;

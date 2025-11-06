@@ -581,8 +581,8 @@ function ProgramCard({ program }: { program: Program }) {
 
               {/* Button */}
               <Link to={`/${program.productType === 'tryout' ? 'tryout' : 'program'}/${program.slug}`}>
-                <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-4 text-base">
-                  Course Details
+                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 text-base">
+                  Lihat Detail
                 </Button>
               </Link>
             </>

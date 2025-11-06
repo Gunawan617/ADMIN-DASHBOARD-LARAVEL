@@ -21,6 +21,7 @@ import { TryoutDetailPage } from "./pages/TryoutDetailPage";
 import { BooksPage } from "./pages/BooksPage";
 import { BookDetailPage } from "./pages/BookDetailPage";
 import { Books } from "./components/Books";
+import { TeamMarketing } from "./components/TeamMarketing";
 import DaftarPage from "./pages/DaftarPage";
 
 function HomePage() {
@@ -39,6 +40,7 @@ function HomePage() {
       <Books />
       <Features />
       <Testimonials />
+      <TeamMarketing />
       <Blog />
       <Partners />
     </>
