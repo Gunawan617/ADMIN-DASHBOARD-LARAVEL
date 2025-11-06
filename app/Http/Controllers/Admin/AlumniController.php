@@ -196,4 +196,37 @@ class AlumniController extends Controller
         return redirect()->route('admin.alumni.index')
                          ->with('success', 'Alumni berhasil dihapus.');
     }
+
+    /**
+     * User submit alumni photo (authenticated users only)
+     */
+    public function userSubmit(Request $request)
+    {
+        $user = $request->user();
+
+        $validated = $request->validate([
+            'photo' => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'caption' => 'nullable|string|max:255',
+        ]);
+
+        // Use user data for alumni info
+        $data = [
+            'name' => $user->name,
+            'batch' => $user->batch ?? 'N/A',
+            'major' => $user->major ?? 'N/A',
+            'caption' => $validated['caption'] ?? null,
+        ];
+
+        if ($request->hasFile('photo')) {
+            $data['photo'] = $request->file('photo')->store('alumni', 'public');
+        }
+
+        $alumni = Alumni::create($data);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Foto alumni berhasil disubmit',
+            'data' => $alumni
+        ], 201);
+    }
 }

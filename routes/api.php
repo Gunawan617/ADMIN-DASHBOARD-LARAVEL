@@ -28,6 +28,9 @@ Route::get('public/books/{id}', [BookController::class, 'show']);
 // Route::get('public/tryout-programs/{id}', [TryoutProgramController::class, 'show']);
 Route::get('public/alumni', [AlumniController::class, 'index']);
 Route::get('public/alumni/{id}', [AlumniController::class, 'show']);
+
+// User submit alumni photo (authenticated)
+Route::middleware('auth:sanctum')->post('user/alumni/submit', [AlumniController::class, 'userSubmit']);
 Route::get('public/testimonials', [TestimonialController::class, 'index']);
 Route::get('public/program-details', [App\Http\Controllers\Admin\ProgramDetailController::class, 'apiIndex']);
 Route::get('public/program-details/{slug}', [App\Http\Controllers\Admin\ProgramDetailController::class, 'apiShow']);

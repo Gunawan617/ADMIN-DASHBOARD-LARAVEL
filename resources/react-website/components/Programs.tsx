@@ -36,7 +36,7 @@ const allPrograms: Program[] = [
   {
     id: 1,
     slug: "bimbel-ukom-perawat-reguler",
-    title: "Bimbel UKOM Perawat Reguler",
+    title: "Klinik Ukom Perawat Reguler",
     description: "Program persiapan lengkap UKOM untuk perawat dengan materi komprehensif, latihan soal, dan try out berkala.",
     image: "https://images.unsplash.com/photo-1725870475677-7dc91efe9f93?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxudXJzaW5nJTIwZWR1Y2F0aW9ufGVufDF8fHx8MTc2MjE0MzIxNnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     duration: "2 Bulan",
@@ -50,7 +50,7 @@ const allPrograms: Program[] = [
   {
     id: 2,
     slug: "bimbel-ukom-perawat-intensif",
-    title: "Bimbel UKOM Perawat Intensif",
+    title: "Klinik Ukom Perawat Intensif",
     description: "Program intensif dengan bimbingan mentor pribadi, kelas kecil, dan pendampingan hingga lulus UKOM.",
     image: "https://images.unsplash.com/photo-1652787544912-137c7f92f99b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwdGV4dGJvb2slMjBzdHVkeXxlbnwxfHx8fDE3NjIxNDMyMTZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     duration: "1 Bulan",
@@ -65,7 +65,7 @@ const allPrograms: Program[] = [
   {
     id: 3,
     slug: "bimbel-ukom-bidan-reguler",
-    title: "Bimbel UKOM Bidan Reguler",
+    title: "Klinik Ukom Bidan Reguler",
     description: "Persiapan UKOM khusus bidan dengan materi terkini, simulasi ujian, dan pembahasan kasus klinis.",
     image: "https://images.unsplash.com/photo-1560306990-18fa759c8713?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaWR3aWZlJTIwaGVhbHRoY2FyZXxlbnwxfHx8fDE3NjIwNjQxMTh8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     duration: "2 Bulan",
@@ -79,7 +79,7 @@ const allPrograms: Program[] = [
   {
     id: 4,
     slug: "bimbel-ukom-bidan-intensif",
-    title: "Bimbel UKOM Bidan Intensif",
+    title: "Klinik Ukom Bidan Intensif",
     description: "Program super intensif untuk bidan dengan target lulus cepat, materi ringkas, dan drilling soal.",
     image: "https://images.unsplash.com/photo-1576670160060-c4e874631c5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwcHJvZmVzc2lvbmFsJTIwbGVhcm5pbmd8ZW58MXx8fHwxNzYyMTQzMjE3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     duration: "1 Bulan",

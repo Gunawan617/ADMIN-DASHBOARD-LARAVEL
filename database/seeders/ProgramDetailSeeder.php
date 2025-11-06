@@ -13,7 +13,7 @@ class ProgramDetailSeeder extends Seeder
             // Bimbel - Perawat
             [
                 'slug' => 'bimbel-ukom-perawat-reguler',
-                'title' => 'Bimbel UKOM Perawat Reguler',
+                'title' => 'Klinik Ukom Perawat Reguler',
                 'description' => 'Program persiapan lengkap UKOM untuk perawat dengan materi komprehensif, latihan soal, dan try out berkala.',
                 'image' => 'https://images.unsplash.com/photo-1725870475677-7dc91efe9f93?w=1080',
                 'product_type' => 'bimbel',
@@ -43,7 +43,7 @@ class ProgramDetailSeeder extends Seeder
             ],
             [
                 'slug' => 'bimbel-ukom-perawat-intensif',
-                'title' => 'Bimbel UKOM Perawat Intensif',
+                'title' => 'Klinik Ukom Perawat Intensif',
                 'description' => 'Program intensif dengan bimbingan mentor pribadi, kelas kecil, dan pendampingan hingga lulus UKOM.',
                 'image' => 'https://images.unsplash.com/photo-1652787544912-137c7f92f99b?w=1080',
                 'product_type' => 'bimbel',
@@ -74,7 +74,7 @@ class ProgramDetailSeeder extends Seeder
             // Bimbel - Bidan
             [
                 'slug' => 'bimbel-ukom-bidan-reguler',
-                'title' => 'Bimbel UKOM Bidan Reguler',
+                'title' => 'Klinik Ukom Bidan Reguler',
                 'description' => 'Persiapan UKOM khusus bidan dengan materi terkini, simulasi ujian, dan pembahasan kasus klinis.',
                 'image' => 'https://images.unsplash.com/photo-1560306990-18fa759c8713?w=1080',
                 'product_type' => 'bimbel',
@@ -104,7 +104,7 @@ class ProgramDetailSeeder extends Seeder
             ],
             [
                 'slug' => 'bimbel-ukom-bidan-intensif',
-                'title' => 'Bimbel UKOM Bidan Intensif',
+                'title' => 'Klinik Ukom Bidan Intensif',
                 'description' => 'Program super intensif untuk bidan dengan target lulus cepat, materi ringkas, dan drilling soal.',
                 'image' => 'https://images.unsplash.com/photo-1576670160060-c4e874631c5a?w=1080',
                 'product_type' => 'bimbel',

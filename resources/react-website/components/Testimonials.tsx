@@ -72,9 +72,9 @@ export function Testimonials() {
 
         {/* Testimonial Card */}
         <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
-          <div className="flex flex-col md:flex-row gap-8 items-start">
+          <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
             {/* Left Side - Profile */}
-            <div className="flex-shrink-0 text-center md:text-left">
+            <div className="flex-shrink-0 text-center md:text-left w-full md:w-auto">
               <div className="w-24 h-24 mx-auto md:mx-0 mb-4 rounded-full overflow-hidden bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center">
                 {currentTestimonial.photo ? (
                   <img 
@@ -127,9 +127,24 @@ export function Testimonials() {
         </div>
 
         {/* Navigation */}
-        <div className="flex items-center justify-center gap-4 mt-8">
-          {/* Dots */}
-          <div className="flex gap-2">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 mt-8">
+          {/* Dropdown for Desktop */}
+          {/* <div className="hidden md:block">
+            <select
+              value={currentIndex}
+              onChange={(e) => setCurrentIndex(Number(e.target.value))}
+              className="px-4 py-2 border-2 border-blue-600 rounded-lg bg-white text-gray-700 font-medium hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+            >
+              {testimonials.map((testimonial, index) => (
+                <option key={index} value={index}>
+                  {testimonial.name} - {testimonial.program}
+                </option>
+              ))}
+            </select>
+          </div> */}
+
+          {/* Dots for Mobile */}
+          <div className="flex gap-2 md:hidden">
             {testimonials.map((_, index) => (
               <button
                 key={index}

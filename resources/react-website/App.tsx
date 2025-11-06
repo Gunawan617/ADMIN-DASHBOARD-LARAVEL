@@ -22,7 +22,10 @@ import { BooksPage } from "./pages/BooksPage";
 import { BookDetailPage } from "./pages/BookDetailPage";
 import { Books } from "./components/Books";
 import { TeamMarketing } from "./components/TeamMarketing";
+import { AlumniGallery } from "./components/AlumniGallery";
 import DaftarPage from "./pages/DaftarPage";
+import { AlumniPage } from "./pages/AlumniPage";
+import { SubmitAlumniPage } from "./pages/SubmitAlumniPage";
 
 function HomePage() {
   const [selectedProduct, setSelectedProduct] = useState<ProductType>("bimbel");
@@ -31,15 +34,16 @@ function HomePage() {
   return (
     <>
       <Hero />
-      <Programs 
+      <Programs
         selectedProduct={selectedProduct}
         selectedAudience={selectedAudience}
         onProductChange={setSelectedProduct}
         onAudienceChange={setSelectedAudience}
       />
-      <Books />
       <Features />
+      <Books />
       <Testimonials />
+      <AlumniGallery />
       <TeamMarketing />
       <Blog />
       <Partners />
@@ -67,6 +71,8 @@ export default function App() {
             <Route path="/books" element={<BooksPage />} />
             <Route path="/books/:id" element={<BookDetailPage />} />
             <Route path="/daftar" element={<DaftarPage />} />
+            <Route path="/alumni" element={<AlumniPage />} />
+            <Route path="/submit-alumni" element={<SubmitAlumniPage />} />
           </Routes>
         </main>
         <Footer />

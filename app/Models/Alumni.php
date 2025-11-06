@@ -14,5 +14,6 @@ class Alumni extends Model
         'batch',
         'major',
         'photo',
+        'caption',
     ];
 }

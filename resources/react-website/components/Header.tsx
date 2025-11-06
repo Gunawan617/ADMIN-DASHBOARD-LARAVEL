@@ -8,6 +8,7 @@ export function Header() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showTestimoniDropdown, setShowTestimoniDropdown] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const isHomePage = location.pathname === "/";
@@ -15,6 +16,22 @@ export function Header() {
   useEffect(() => {
     checkAuth();
   }, [location]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (showTestimoniDropdown && !target.closest('.relative.group')) {
+        setShowTestimoniDropdown(false);
+      }
+      if (showUserMenu && !target.closest('.relative')) {
+        setShowUserMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showTestimoniDropdown, showUserMenu]);
 
   const checkAuth = () => {
     const token = localStorage.getItem("auth_token");
@@ -28,7 +45,25 @@ export function Header() {
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    const token = localStorage.getItem("auth_token");
+    
+    // Call logout API to revoke token
+    if (token) {
+      try {
+        await fetch("/api/logout", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Accept": "application/json",
+          },
+        });
+      } catch (error) {
+        console.error("Logout error:", error);
+      }
+    }
+    
+    // Clear local storage
     localStorage.removeItem("auth_token");
     localStorage.removeItem("user");
     setIsAuthenticated(false);
@@ -42,11 +77,9 @@ export function Header() {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600">
-              <span className="text-white">U</span>
-            </div>
-            <span className="text-lg">Bimbel UKOM</span>
+          <Link to="/" className="flex items-center gap-3">
+            <img src="/nfc.png" alt="NFC" className="h-10 w-auto" />
+            <img src="/klikom.png" alt="Klinik Ukom" className="h-10 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -70,9 +103,41 @@ export function Header() {
                 </Link>
               </>
             )}
-            <Link to="/testimonials" className="text-sm hover:text-primary transition-colors">
-              Testimoni
-            </Link>
+            <div 
+              className="relative group"
+            >
+              <button 
+                className="text-sm hover:text-primary transition-colors flex items-center gap-1 py-2"
+                onClick={() => setShowTestimoniDropdown(!showTestimoniDropdown)}
+              >
+                Testimoni
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {showTestimoniDropdown && (
+                <>
+                  {/* Invisible bridge to prevent dropdown from closing */}
+                  <div className="absolute top-full left-0 w-48 h-2 -mt-0" />
+                  <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                    <Link
+                      to="/testimonials"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={() => setShowTestimoniDropdown(false)}
+                    >
+                      📝 Testimoni
+                    </Link>
+                    <Link
+                      to="/alumni"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={() => setShowTestimoniDropdown(false)}
+                    >
+                      📸 Galeri Alumni
+                    </Link>
+                  </div>
+                </>
+              )}
+            </div>
             <Link to="/blog" className="text-sm hover:text-primary transition-colors">
               Artikel
             </Link>
@@ -197,9 +262,15 @@ export function Header() {
                   </Link>
                 </>
               )}
-              <Link to="/testimonials" className="text-sm hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>
-                Testimoni
-              </Link>
+              <div className="flex flex-col gap-2 pl-4">
+                <div className="text-sm font-medium text-gray-500">Testimoni</div>
+                <Link to="/testimonials" className="text-sm hover:text-primary transition-colors pl-2" onClick={() => setMobileMenuOpen(false)}>
+                  📝 Testimoni
+                </Link>
+                <Link to="/alumni" className="text-sm hover:text-primary transition-colors pl-2" onClick={() => setMobileMenuOpen(false)}>
+                  📸 Galeri Alumni
+                </Link>
+              </div>
               <Link to="/blog" className="text-sm hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>
                 Artikel
               </Link>

@@ -7,11 +7,9 @@ export function Footer() {
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600">
-                <span className="text-white">U</span>
-              </div>
-              <span className="text-white text-lg">Bimbel UKOM</span>
+            <div className="flex items-center gap-3 mb-4">
+              <img src="/nfc.png" alt="NFC" className="h-8 w-auto" />
+              <img src="/klikom.png" alt="Klinik Ukom" className="h-8 w-auto" />
             </div>
             <p className="text-sm mb-4 max-w-xs">
               Bimbingan belajar terpercaya untuk persiapan Uji Kompetensi perawat dan bidan dengan tingkat kelulusan tinggi.
@@ -70,7 +68,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-gray-800 pt-8 text-center text-sm">
-          <p>&copy; 2025 Bimbel UKOM. Hak cipta dilindungi undang-undang.</p>
+          <p>&copy; 2025 Klinik Ukom. Hak cipta dilindungi undang-undang.</p>
         </div>
       </div>
     </footer>

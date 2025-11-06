@@ -25,7 +25,7 @@ export function Hero() {
 
             <div className="space-y-4">
               <h1 className="text-4xl lg:text-5xl xl:text-6xl">
-                Lulus UKOM dengan Percaya Diri
+                Temani perjalananmu menuju kompeten 1x ujian
               </h1>
               <p className="text-lg text-muted-foreground">
                 Persiapan lengkap Uji Kompetensi untuk Perawat dan Bidan. Bimbingan intensif dengan materi terkini, try out berkala, dan pendampingan hingga lulus.

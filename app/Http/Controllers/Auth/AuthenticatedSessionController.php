@@ -24,13 +24,22 @@ class AuthenticatedSessionController extends Controller
         ]);
 
         if (!Auth::attempt($request->only('email', 'password'))) {
-            return response()->json(['message' => 'Unauthorized'], 401);
+            return response()->json([
+                'success' => false,
+                'message' => 'Email atau password salah'
+            ], 401);
         }
 
         $user = Auth::user();
+        
+        // Revoke all previous tokens
+        $user->tokens()->delete();
+        
+        // Create new token
         $token = $user->createToken('api-token')->plainTextToken;
 
         return response()->json([
+            'success' => true,
             'access_token' => $token,
             'token_type' => 'Bearer',
             'user' => $user

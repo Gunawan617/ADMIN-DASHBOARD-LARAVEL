@@ -40,7 +40,7 @@ export function Features() {
       <div className="container mx-auto px-4 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl lg:text-4xl mb-4">Keunggulan Bimbel UKOM</h2>
+          <h2 className="text-3xl lg:text-4xl mb-4">Keunggulan Klinik Ukom</h2>
           <p className="text-lg text-muted-foreground">
             Semua yang Anda butuhkan untuk lulus UKOM dengan nilai maksimal.
           </p>
