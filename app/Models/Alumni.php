@@ -13,6 +13,7 @@ class Alumni extends Model
         'name',
         'batch',
         'major',
+        'whatsapp',
         'photo',
         'caption',
     ];

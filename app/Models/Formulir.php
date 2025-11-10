@@ -16,9 +16,15 @@ class Formulir extends Model
         'email',
         'whatsapp',
         'jenis_program',
+        'team_member_id',
         'pesan',
         'status',
     ];
+
+    public function teamMember()
+    {
+        return $this->belongsTo(TeamMember::class);
+    }
 
     protected $casts = [
         'created_at' => 'datetime',

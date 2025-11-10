@@ -31,228 +31,228 @@ interface Program {
   audienceType: AudienceType;
 }
 
-const allPrograms: Program[] = [
-  // Bimbel - Perawat
-  {
-    id: 1,
-    slug: "bimbel-ukom-perawat-reguler",
-    title: "Klinik Ukom Perawat Reguler",
-    description: "Program persiapan lengkap UKOM untuk perawat dengan materi komprehensif, latihan soal, dan try out berkala.",
-    image: "https://images.unsplash.com/photo-1725870475677-7dc91efe9f93?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxudXJzaW5nJTIwZWR1Y2F0aW9ufGVufDF8fHx8MTc2MjE0MzIxNnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    duration: "2 Bulan",
-    students: "3,200+",
-    level: "Semua Level",
-    price: "Rp 850.000",
-    tag: "Paling Populer",
-    productType: "bimbel",
-    audienceType: "nurse"
-  },
-  {
-    id: 2,
-    slug: "bimbel-ukom-perawat-intensif",
-    title: "Klinik Ukom Perawat Intensif",
-    description: "Program intensif dengan bimbingan mentor pribadi, kelas kecil, dan pendampingan hingga lulus UKOM.",
-    image: "https://images.unsplash.com/photo-1652787544912-137c7f92f99b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwdGV4dGJvb2slMjBzdHVkeXxlbnwxfHx8fDE3NjIxNDMyMTZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    duration: "1 Bulan",
-    students: "1,500+",
-    level: "Intensif",
-    price: "Rp 1.200.000",
-    tag: "Batch Baru",
-    productType: "bimbel",
-    audienceType: "nurse"
-  },
-  // Bimbel - Bidan
-  {
-    id: 3,
-    slug: "bimbel-ukom-bidan-reguler",
-    title: "Klinik Ukom Bidan Reguler",
-    description: "Persiapan UKOM khusus bidan dengan materi terkini, simulasi ujian, dan pembahasan kasus klinis.",
-    image: "https://images.unsplash.com/photo-1560306990-18fa759c8713?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaWR3aWZlJTIwaGVhbHRoY2FyZXxlbnwxfHx8fDE3NjIwNjQxMTh8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    duration: "2 Bulan",
-    students: "2,800+",
-    level: "Semua Level",
-    price: "Rp 800.000",
-    tag: "",
-    productType: "bimbel",
-    audienceType: "midwife"
-  },
-  {
-    id: 4,
-    slug: "bimbel-ukom-bidan-intensif",
-    title: "Klinik Ukom Bidan Intensif",
-    description: "Program super intensif untuk bidan dengan target lulus cepat, materi ringkas, dan drilling soal.",
-    image: "https://images.unsplash.com/photo-1576670160060-c4e874631c5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwcHJvZmVzc2lvbmFsJTIwbGVhcm5pbmd8ZW58MXx8fHwxNzYyMTQzMjE3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    duration: "1 Bulan",
-    students: "1,200+",
-    level: "Intensif",
-    price: "Rp 1.100.000",
-    tag: "",
-    productType: "bimbel",
-    audienceType: "midwife"
-  },
-  // Books - Perawat
-  {
-    id: 5,
-    slug: "buku-ukom-perawat-lengkap",
-    title: "Buku UKOM Perawat Lengkap",
-    description: "Buku panduan lengkap UKOM perawat dengan ringkasan materi, contoh soal, dan pembahasan detail.",
-    image: "https://images.unsplash.com/photo-1652787544912-137c7f92f99b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwdGV4dGJvb2slMjBzdHVkeXxlbnwxfHx8fDE3NjIxNDMyMTZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    pages: "500+ Halaman",
-    questions: "1,000+ Soal",
-    price: "Rp 150.000",
-    tag: "Best Seller",
-    productType: "books",
-    audienceType: "nurse"
-  },
-  {
-    id: 6,
-    slug: "buku-soal-ukom-perawat",
-    title: "Buku Soal UKOM Perawat",
-    description: "Kumpulan soal UKOM perawat dengan pembahasan lengkap dari berbagai topik sesuai blueprint terbaru.",
-    image: "https://images.unsplash.com/photo-1652787544912-137c7f92f99b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwdGV4dGJvb2slMjBzdHVkeXxlbnwxfHx8fDE3NjIxNDMyMTZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    pages: "300+ Halaman",
-    questions: "1,500+ Soal",
-    price: "Rp 120.000",
-    tag: "",
-    productType: "books",
-    audienceType: "nurse"
-  },
-  // Books - Bidan
-  {
-    id: 7,
-    slug: "buku-ukom-bidan-lengkap",
-    title: "Buku UKOM Bidan Lengkap",
-    description: "Buku panduan lengkap UKOM bidan dengan materi esensial, latihan soal, dan kunci jawaban.",
-    image: "https://images.unsplash.com/photo-1652787544912-137c7f92f99b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwdGV4dGJvb2slMjBzdHVkeXxlbnwxfHx8fDE3NjIxNDMyMTZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    pages: "450+ Halaman",
-    questions: "900+ Soal",
-    price: "Rp 140.000",
-    tag: "Best Seller",
-    productType: "books",
-    audienceType: "midwife"
-  },
-  {
-    id: 8,
-    slug: "buku-soal-ukom-bidan",
-    title: "Buku Soal UKOM Bidan",
-    description: "Bank soal UKOM bidan dengan pembahasan komprehensif untuk persiapan ujian yang maksimal.",
-    image: "https://images.unsplash.com/photo-1652787544912-137c7f92f99b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwdGV4dGJvb2slMjBzdHVkeXxlbnwxfHx8fDE3NjIxNDMyMTZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    pages: "280+ Halaman",
-    questions: "1,200+ Soal",
-    price: "Rp 110.000",
-    tag: "",
-    productType: "books",
-    audienceType: "midwife"
-  },
-  // Try Out - Perawat
-  {
-    id: 9,
-    slug: "try-out-ukom-perawat-premium",
-    title: "Try Out UKOM Perawat Premium",
-    description: "Paket try out online dengan sistem CBT mirip ujian sesungguhnya, pembahasan lengkap, dan analisis hasil.",
-    image: "https://images.unsplash.com/photo-1725870475677-7dc91efe9f93?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxudXJzaW5nJTIwZWR1Y2F0aW9ufGVufDF8fHx8MTc2MjE0MzIxNnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    questions: "10x Try Out",
-    duration: "3 Bulan Akses",
-    price: "Rp 200.000",
-    tag: "Unlimited",
-    productType: "tryout",
-    audienceType: "nurse"
-  },
-  {
-    id: 10,
-    slug: "try-out-ukom-perawat-basic",
-    title: "Try Out UKOM Perawat Basic",
-    description: "Paket try out dasar untuk perawat dengan soal-soal pilihan sesuai blueprint UKOM terkini.",
-    image: "https://images.unsplash.com/photo-1725870475677-7dc91efe9f93?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxudXJzaW5nJTIwZWR1Y2F0aW9ufGVufDF8fHx8MTc2MjE0MzIxNnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    questions: "5x Try Out",
-    duration: "1 Bulan Akses",
-    price: "Rp 100.000",
-    tag: "",
-    productType: "tryout",
-    audienceType: "nurse"
-  },
-  // Try Out - Bidan
-  {
-    id: 11,
-    slug: "try-out-ukom-bidan-premium",
-    title: "Try Out UKOM Bidan Premium",
-    description: "Paket try out online untuk bidan dengan simulasi ujian lengkap dan evaluasi hasil yang mendetail.",
-    image: "https://images.unsplash.com/photo-1560306990-18fa759c8713?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaWR3aWZlJTIwaGVhbHRoY2FyZXxlbnwxfHx8fDE3NjIwNjQxMTh8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    questions: "10x Try Out",
-    duration: "3 Bulan Akses",
-    price: "Rp 180.000",
-    tag: "Unlimited",
-    productType: "tryout",
-    audienceType: "midwife"
-  },
-  {
-    id: 12,
-    slug: "try-out-ukom-bidan-basic",
-    title: "Try Out UKOM Bidan Basic",
-    description: "Paket try out dasar untuk bidan dengan soal-soal esensial dan pembahasan singkat.",
-    image: "https://images.unsplash.com/photo-1560306990-18fa759c8713?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaWR3aWZlJTIwaGVhbHRoY2FyZXxlbnwxfHx8fDE3NjIwNjQxMTh8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    questions: "5x Try Out",
-    duration: "1 Bulan Akses",
-    price: "Rp 90.000",
-    tag: "",
-    productType: "tryout",
-    audienceType: "midwife"
-  },
-  // Video - Perawat
-  {
-    id: 13,
-    slug: "video-pembelajaran-ukom-perawat",
-    title: "Video Pembelajaran UKOM Perawat",
-    description: "Koleksi video pembelajaran lengkap dengan penjelasan materi UKOM perawat dari ahli.",
-    image: "https://images.unsplash.com/photo-1576670160060-c4e874631c5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwcHJvZmVzc2lvbmFsJTIwbGVhcm5pbmd8ZW58MXx8fHwxNzYyMTQzMjE3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    duration: "50+ Video",
-    level: "HD Quality",
-    price: "Rp 250.000",
-    tag: "Lengkap",
-    productType: "video",
-    audienceType: "nurse"
-  },
-  {
-    id: 14,
-    slug: "video-ringkas-ukom-perawat",
-    title: "Video Ringkas UKOM Perawat",
-    description: "Video ringkasan materi penting UKOM perawat untuk belajar cepat dan efisien.",
-    image: "https://images.unsplash.com/photo-1576670160060-c4e874631c5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwcHJvZmVzc2lvbmFsJTIwbGVhcm5pbmd8ZW58MXx8fHwxNzYyMTQzMjE3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    duration: "20+ Video",
-    level: "HD Quality",
-    price: "Rp 150.000",
-    tag: "",
-    productType: "video",
-    audienceType: "nurse"
-  },
-  // Video - Bidan
-  {
-    id: 15,
-    slug: "video-pembelajaran-ukom-bidan",
-    title: "Video Pembelajaran UKOM Bidan",
-    description: "Koleksi video pembelajaran komprehensif dengan materi UKOM bidan dari praktisi berpengalaman.",
-    image: "https://images.unsplash.com/photo-1576670160060-c4e874631c5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwcHJvZmVzc2lvbmFsJTIwbGVhcm5pbmd8ZW58MXx8fHwxNzYyMTQzMjE3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    duration: "45+ Video",
-    level: "HD Quality",
-    price: "Rp 230.000",
-    tag: "Lengkap",
-    productType: "video",
-    audienceType: "midwife"
-  },
-  {
-    id: 16,
-    slug: "video-ringkas-ukom-bidan",
-    title: "Video Ringkas UKOM Bidan",
-    description: "Video ringkasan materi esensial UKOM bidan untuk pembelajaran yang efektif dan tepat sasaran.",
-    image: "https://images.unsplash.com/photo-1576670160060-c4e874631c5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwcHJvZmVzc2lvbmFsJTIwbGVhcm5pbmd8ZW58MXx8fHwxNzYyMTQzMjE3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    duration: "18+ Video",
-    level: "HD Quality",
-    price: "Rp 140.000",
-    tag: "",
-    productType: "video",
-    audienceType: "midwife"
-  }
-];
+// const allPrograms: Program[] = [
+//   // Bimbel - Perawat
+//   {
+//     id: 1,
+//     slug: "bimbel-ukom-perawat-reguler",
+//     title: "Klinik Ukom Perawat Reguler",
+//     description: "Program persiapan lengkap UKOM untuk perawat dengan materi komprehensif, latihan soal, dan try out berkala.",
+//     image: "https://images.unsplash.com/photo-1725870475677-7dc91efe9f93?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxudXJzaW5nJTIwZWR1Y2F0aW9ufGVufDF8fHx8MTc2MjE0MzIxNnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+//     duration: "2 Bulan",
+//     students: "3,200+",
+//     level: "Semua Level",
+//     price: "Rp 850.000",
+//     tag: "Paling Populer",
+//     productType: "bimbel",
+//     audienceType: "nurse"
+//   },
+//   {
+//     id: 2,
+//     slug: "bimbel-ukom-perawat-intensif",
+//     title: "Klinik Ukom Perawat Intensif",
+//     description: "Program intensif dengan bimbingan mentor pribadi, kelas kecil, dan pendampingan hingga lulus UKOM.",
+//     image: "https://images.unsplash.com/photo-1652787544912-137c7f92f99b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwdGV4dGJvb2slMjBzdHVkeXxlbnwxfHx8fDE3NjIxNDMyMTZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+//     duration: "1 Bulan",
+//     students: "1,500+",
+//     level: "Intensif",
+//     price: "Rp 1.200.000",
+//     tag: "Batch Baru",
+//     productType: "bimbel",
+//     audienceType: "nurse"
+//   },
+//   // Bimbel - Bidan
+//   {
+//     id: 3,
+//     slug: "bimbel-ukom-bidan-reguler",
+//     title: "Klinik Ukom Bidan Reguler",
+//     description: "Persiapan UKOM khusus bidan dengan materi terkini, simulasi ujian, dan pembahasan kasus klinis.",
+//     image: "https://images.unsplash.com/photo-1560306990-18fa759c8713?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaWR3aWZlJTIwaGVhbHRoY2FyZXxlbnwxfHx8fDE3NjIwNjQxMTh8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+//     duration: "2 Bulan",
+//     students: "2,800+",
+//     level: "Semua Level",
+//     price: "Rp 800.000",
+//     tag: "",
+//     productType: "bimbel",
+//     audienceType: "midwife"
+//   },
+//   {
+//     id: 4,
+//     slug: "bimbel-ukom-bidan-intensif",
+//     title: "Klinik Ukom Bidan Intensif",
+//     description: "Program super intensif untuk bidan dengan target lulus cepat, materi ringkas, dan drilling soal.",
+//     image: "https://images.unsplash.com/photo-1576670160060-c4e874631c5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwcHJvZmVzc2lvbmFsJTIwbGVhcm5pbmd8ZW58MXx8fHwxNzYyMTQzMjE3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+//     duration: "1 Bulan",
+//     students: "1,200+",
+//     level: "Intensif",
+//     price: "Rp 1.100.000",
+//     tag: "",
+//     productType: "bimbel",
+//     audienceType: "midwife"
+//   },
+//   // Books - Perawat
+//   {
+//     id: 5,
+//     slug: "buku-ukom-perawat-lengkap",
+//     title: "Buku UKOM Perawat Lengkap",
+//     description: "Buku panduan lengkap UKOM perawat dengan ringkasan materi, contoh soal, dan pembahasan detail.",
+//     image: "https://images.unsplash.com/photo-1652787544912-137c7f92f99b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwdGV4dGJvb2slMjBzdHVkeXxlbnwxfHx8fDE3NjIxNDMyMTZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+//     pages: "500+ Halaman",
+//     questions: "1,000+ Soal",
+//     price: "Rp 150.000",
+//     tag: "Best Seller",
+//     productType: "books",
+//     audienceType: "nurse"
+//   },
+//   {
+//     id: 6,
+//     slug: "buku-soal-ukom-perawat",
+//     title: "Buku Soal UKOM Perawat",
+//     description: "Kumpulan soal UKOM perawat dengan pembahasan lengkap dari berbagai topik sesuai blueprint terbaru.",
+//     image: "https://images.unsplash.com/photo-1652787544912-137c7f92f99b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwdGV4dGJvb2slMjBzdHVkeXxlbnwxfHx8fDE3NjIxNDMyMTZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+//     pages: "300+ Halaman",
+//     questions: "1,500+ Soal",
+//     price: "Rp 120.000",
+//     tag: "",
+//     productType: "books",
+//     audienceType: "nurse"
+//   },
+//   // Books - Bidan
+//   {
+//     id: 7,
+//     slug: "buku-ukom-bidan-lengkap",
+//     title: "Buku UKOM Bidan Lengkap",
+//     description: "Buku panduan lengkap UKOM bidan dengan materi esensial, latihan soal, dan kunci jawaban.",
+//     image: "https://images.unsplash.com/photo-1652787544912-137c7f92f99b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwdGV4dGJvb2slMjBzdHVkeXxlbnwxfHx8fDE3NjIxNDMyMTZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+//     pages: "450+ Halaman",
+//     questions: "900+ Soal",
+//     price: "Rp 140.000",
+//     tag: "Best Seller",
+//     productType: "books",
+//     audienceType: "midwife"
+//   },
+//   {
+//     id: 8,
+//     slug: "buku-soal-ukom-bidan",
+//     title: "Buku Soal UKOM Bidan",
+//     description: "Bank soal UKOM bidan dengan pembahasan komprehensif untuk persiapan ujian yang maksimal.",
+//     image: "https://images.unsplash.com/photo-1652787544912-137c7f92f99b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwdGV4dGJvb2slMjBzdHVkeXxlbnwxfHx8fDE3NjIxNDMyMTZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+//     pages: "280+ Halaman",
+//     questions: "1,200+ Soal",
+//     price: "Rp 110.000",
+//     tag: "",
+//     productType: "books",
+//     audienceType: "midwife"
+//   },
+//   // Try Out - Perawat
+//   {
+//     id: 9,
+//     slug: "try-out-ukom-perawat-premium",
+//     title: "Try Out UKOM Perawat Premium",
+//     description: "Paket try out online dengan sistem CBT mirip ujian sesungguhnya, pembahasan lengkap, dan analisis hasil.",
+//     image: "https://images.unsplash.com/photo-1725870475677-7dc91efe9f93?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxudXJzaW5nJTIwZWR1Y2F0aW9ufGVufDF8fHx8MTc2MjE0MzIxNnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+//     questions: "10x Try Out",
+//     duration: "3 Bulan Akses",
+//     price: "Rp 200.000",
+//     tag: "Unlimited",
+//     productType: "tryout",
+//     audienceType: "nurse"
+//   },
+//   {
+//     id: 10,
+//     slug: "try-out-ukom-perawat-basic",
+//     title: "Try Out UKOM Perawat Basic",
+//     description: "Paket try out dasar untuk perawat dengan soal-soal pilihan sesuai blueprint UKOM terkini.",
+//     image: "https://images.unsplash.com/photo-1725870475677-7dc91efe9f93?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxudXJzaW5nJTIwZWR1Y2F0aW9ufGVufDF8fHx8MTc2MjE0MzIxNnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+//     questions: "5x Try Out",
+//     duration: "1 Bulan Akses",
+//     price: "Rp 100.000",
+//     tag: "",
+//     productType: "tryout",
+//     audienceType: "nurse"
+//   },
+//   // Try Out - Bidan
+//   {
+//     id: 11,
+//     slug: "try-out-ukom-bidan-premium",
+//     title: "Try Out UKOM Bidan Premium",
+//     description: "Paket try out online untuk bidan dengan simulasi ujian lengkap dan evaluasi hasil yang mendetail.",
+//     image: "https://images.unsplash.com/photo-1560306990-18fa759c8713?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaWR3aWZlJTIwaGVhbHRoY2FyZXxlbnwxfHx8fDE3NjIwNjQxMTh8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+//     questions: "10x Try Out",
+//     duration: "3 Bulan Akses",
+//     price: "Rp 180.000",
+//     tag: "Unlimited",
+//     productType: "tryout",
+//     audienceType: "midwife"
+//   },
+//   {
+//     id: 12,
+//     slug: "try-out-ukom-bidan-basic",
+//     title: "Try Out UKOM Bidan Basic",
+//     description: "Paket try out dasar untuk bidan dengan soal-soal esensial dan pembahasan singkat.",
+//     image: "https://images.unsplash.com/photo-1560306990-18fa759c8713?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaWR3aWZlJTIwaGVhbHRoY2FyZXxlbnwxfHx8fDE3NjIwNjQxMTh8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+//     questions: "5x Try Out",
+//     duration: "1 Bulan Akses",
+//     price: "Rp 90.000",
+//     tag: "",
+//     productType: "tryout",
+//     audienceType: "midwife"
+//   },
+//   // Video - Perawat
+//   {
+//     id: 13,
+//     slug: "video-pembelajaran-ukom-perawat",
+//     title: "Video Pembelajaran UKOM Perawat",
+//     description: "Koleksi video pembelajaran lengkap dengan penjelasan materi UKOM perawat dari ahli.",
+//     image: "https://images.unsplash.com/photo-1576670160060-c4e874631c5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwcHJvZmVzc2lvbmFsJTIwbGVhcm5pbmd8ZW58MXx8fHwxNzYyMTQzMjE3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+//     duration: "50+ Video",
+//     level: "HD Quality",
+//     price: "Rp 250.000",
+//     tag: "Lengkap",
+//     productType: "video",
+//     audienceType: "nurse"
+//   },
+//   {
+//     id: 14,
+//     slug: "video-ringkas-ukom-perawat",
+//     title: "Video Ringkas UKOM Perawat",
+//     description: "Video ringkasan materi penting UKOM perawat untuk belajar cepat dan efisien.",
+//     image: "https://images.unsplash.com/photo-1576670160060-c4e874631c5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwcHJvZmVzc2lvbmFsJTIwbGVhcm5pbmd8ZW58MXx8fHwxNzYyMTQzMjE3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+//     duration: "20+ Video",
+//     level: "HD Quality",
+//     price: "Rp 150.000",
+//     tag: "",
+//     productType: "video",
+//     audienceType: "nurse"
+//   },
+//   // Video - Bidan
+//   {
+//     id: 15,
+//     slug: "video-pembelajaran-ukom-bidan",
+//     title: "Video Pembelajaran UKOM Bidan",
+//     description: "Koleksi video pembelajaran komprehensif dengan materi UKOM bidan dari praktisi berpengalaman.",
+//     image: "https://images.unsplash.com/photo-1576670160060-c4e874631c5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwcHJvZmVzc2lvbmFsJTIwbGVhcm5pbmd8ZW58MXx8fHwxNzYyMTQzMjE3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+//     duration: "45+ Video",
+//     level: "HD Quality",
+//     price: "Rp 230.000",
+//     tag: "Lengkap",
+//     productType: "video",
+//     audienceType: "midwife"
+//   },
+//   {
+//     id: 16,
+//     slug: "video-ringkas-ukom-bidan",
+//     title: "Video Ringkas UKOM Bidan",
+//     description: "Video ringkasan materi esensial UKOM bidan untuk pembelajaran yang efektif dan tepat sasaran.",
+//     image: "https://images.unsplash.com/photo-1576670160060-c4e874631c5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwcHJvZmVzc2lvbmFsJTIwbGVhcm5pbmd8ZW58MXx8fHwxNzYyMTQzMjE3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+//     duration: "18+ Video",
+//     level: "HD Quality",
+//     price: "Rp 140.000",
+//     tag: "",
+//     productType: "video",
+//     audienceType: "midwife"
+//   }
+// ];
 
 interface ProgramsProps {
   selectedProduct: ProductType;
@@ -277,7 +277,7 @@ export function Programs({ selectedProduct, selectedAudience, onProductChange, o
         }
         const result = await response.json();
         const data = result.data || result; // Handle both {data: [...]} and [...] formats
-        
+
         // Transform API data to match Program interface
         const transformedPrograms: Program[] = data.map((item: any) => ({
           id: item.id,
@@ -297,7 +297,7 @@ export function Programs({ selectedProduct, selectedAudience, onProductChange, o
           productType: item.product_type as ProductType,
           audienceType: item.audience_type as AudienceType,
         }));
-        
+
         setPrograms(transformedPrograms);
         setError(null);
       } catch (err) {
@@ -315,7 +315,7 @@ export function Programs({ selectedProduct, selectedAudience, onProductChange, o
 
   const filteredPrograms = programs.filter(
     (program) =>
-      program && 
+      program &&
       program.productType === selectedProduct &&
       program.audienceType === selectedAudience
   );
@@ -371,11 +371,10 @@ export function Programs({ selectedProduct, selectedAudience, onProductChange, o
                 <button
                   key={product.id}
                   onClick={() => onProductChange(product.id)}
-                  className={`px-8 py-3 rounded-lg font-medium transition-all ${
-                    selectedProduct === product.id
-                      ? "bg-blue-600 text-white shadow-lg"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
+                  className={`px-8 py-3 rounded-lg font-medium transition-all ${selectedProduct === product.id
+                    ? "bg-blue-600 text-white shadow-lg"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    }`}
                 >
                   <span className="mr-2">{product.icon}</span>
                   {product.label}
@@ -388,21 +387,19 @@ export function Programs({ selectedProduct, selectedAudience, onProductChange, o
               <div className="inline-flex bg-gray-100 rounded-xl p-1.5 gap-1">
                 <button
                   onClick={() => onAudienceChange("nurse")}
-                  className={`px-8 py-3 rounded-lg font-medium transition-all duration-200 ${
-                    selectedAudience === "nurse"
-                      ? "bg-white text-blue-600 shadow-md"
-                      : "text-gray-600 hover:text-gray-800"
-                  }`}
+                  className={`px-8 py-3 rounded-lg font-medium transition-all duration-200 ${selectedAudience === "nurse"
+                    ? "bg-white text-blue-600 shadow-md"
+                    : "text-gray-600 hover:text-gray-800"
+                    }`}
                 >
                   👨‍⚕️ Perawat
                 </button>
                 <button
                   onClick={() => onAudienceChange("midwife")}
-                  className={`px-8 py-3 rounded-lg font-medium transition-all duration-200 ${
-                    selectedAudience === "midwife"
-                      ? "bg-white text-blue-600 shadow-md"
-                      : "text-gray-600 hover:text-gray-800"
-                  }`}
+                  className={`px-8 py-3 rounded-lg font-medium transition-all duration-200 ${selectedAudience === "midwife"
+                    ? "bg-white text-blue-600 shadow-md"
+                    : "text-gray-600 hover:text-gray-800"
+                    }`}
                 >
                   👩‍⚕️ Bidan
                 </button>
@@ -444,7 +441,7 @@ export function Programs({ selectedProduct, selectedAudience, onProductChange, o
             ) : (
               filteredPrograms.map((program) => {
                 if (!program || !program.id) return null;
-                
+
                 return <ProgramCard key={program.id} program={program} />;
               })
             )}
@@ -481,23 +478,21 @@ function ProgramCard({ program }: { program: Program }) {
         <div className="p-8">
           {/* Tabs */}
           <div className="flex gap-4 mb-6 border-b pb-2">
-            <button 
+            <button
               onClick={() => setActiveTab('info')}
-              className={`text-sm font-medium pb-2 transition-colors ${
-                activeTab === 'info' 
-                  ? 'text-blue-600 border-b-2 border-blue-600' 
-                  : 'text-gray-400 hover:text-gray-600'
-              }`}
+              className={`text-sm font-medium pb-2 transition-colors ${activeTab === 'info'
+                ? 'text-blue-600 border-b-2 border-blue-600'
+                : 'text-gray-400 hover:text-gray-600'
+                }`}
             >
               Informasi Program
             </button>
-            <button 
+            <button
               onClick={() => setActiveTab('modul')}
-              className={`text-sm font-medium pb-2 transition-colors ${
-                activeTab === 'modul' 
-                  ? 'text-blue-600 border-b-2 border-blue-600' 
-                  : 'text-gray-400 hover:text-gray-600'
-              }`}
+              className={`text-sm font-medium pb-2 transition-colors ${activeTab === 'modul'
+                ? 'text-blue-600 border-b-2 border-blue-600'
+                : 'text-gray-400 hover:text-gray-600'
+                }`}
             >
               Lihat Modul
             </button>
@@ -516,68 +511,68 @@ function ProgramCard({ program }: { program: Program }) {
                 </div>
               )}
 
-                      {/* Durasi Section */}
-                      <div className="mb-6">
-                        <h4 className="font-semibold mb-3">Durasi</h4>
-                        <div className="space-y-2">
-                          {program.duration && (
-                            <div className="flex items-center justify-between text-sm">
-                              <div className="flex items-center gap-2">
-                                <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                                <span>{program.title}</span>
-                              </div>
-                              <span className="font-medium">{program.duration}</span>
-                            </div>
-                          )}
-                          {program.students && (
-                            <div className="flex items-center justify-between text-sm">
-                              <div className="flex items-center gap-2">
-                                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                                <span>Total Peserta</span>
-                              </div>
-                              <span className="font-medium">{program.students}</span>
-                            </div>
-                          )}
-                          {program.level && (
-                            <div className="flex items-center justify-between text-sm">
-                              <div className="flex items-center gap-2">
-                                <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                                <span>Level</span>
-                              </div>
-                              <span className="font-medium">{program.level}</span>
-                            </div>
-                          )}
-                          {program.pages && (
-                            <div className="flex items-center justify-between text-sm">
-                              <div className="flex items-center gap-2">
-                                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                                <span>Halaman</span>
-                              </div>
-                              <span className="font-medium">{program.pages}</span>
-                            </div>
-                          )}
-                          {program.questions && (
-                            <div className="flex items-center justify-between text-sm">
-                              <div className="flex items-center gap-2">
-                                <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                                <span>Jumlah Soal</span>
-                              </div>
-                              <span className="font-medium">{program.questions}</span>
-                            </div>
-                          )}
-                        </div>
+              {/* Durasi Section */}
+              <div className="mb-6">
+                <h4 className="font-semibold mb-3">Durasi</h4>
+                <div className="space-y-2">
+                  {program.duration && (
+                    <div className="flex items-center justify-between text-sm">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                        <span>{program.title}</span>
                       </div>
+                      <span className="font-medium">{program.duration}</span>
+                    </div>
+                  )}
+                  {program.students && (
+                    <div className="flex items-center justify-between text-sm">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span>Total Peserta</span>
+                      </div>
+                      <span className="font-medium">{program.students}</span>
+                    </div>
+                  )}
+                  {program.level && (
+                    <div className="flex items-center justify-between text-sm">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                        <span>Level</span>
+                      </div>
+                      <span className="font-medium">{program.level}</span>
+                    </div>
+                  )}
+                  {program.pages && (
+                    <div className="flex items-center justify-between text-sm">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        <span>Halaman</span>
+                      </div>
+                      <span className="font-medium">{program.pages}</span>
+                    </div>
+                  )}
+                  {program.questions && (
+                    <div className="flex items-center justify-between text-sm">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                        <span>Jumlah Soal</span>
+                      </div>
+                      <span className="font-medium">{program.questions}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
 
-                      {/* Harga Section */}
-                      <div className="mb-6">
-                        <h4 className="font-semibold mb-3">Harga</h4>
-                        {program.price && (
-                          <div className="flex items-center gap-3">
-                            {program.tag && <Badge className="bg-red-500 text-white">-20%</Badge>}
-                            <span className="text-3xl font-bold text-orange-500">{program.price}</span>
-                          </div>
-                        )}
-                      </div>
+              {/* Harga Section */}
+              <div className="mb-6">
+                <h4 className="font-semibold mb-3">Harga</h4>
+                {program.price && (
+                  <div className="flex items-center gap-3">
+                    {program.tag && <Badge className="bg-red-500 text-white">-20%</Badge>}
+                    <span className="text-3xl font-bold text-orange-500">{program.price}</span>
+                  </div>
+                )}
+              </div>
 
               {/* Button */}
               <Link to={`/${program.productType === 'tryout' ? 'tryout' : 'program'}/${program.slug}`}>

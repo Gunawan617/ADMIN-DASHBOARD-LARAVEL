@@ -58,10 +58,40 @@ class BookController extends Controller
     /**
      * Display a listing of books for admin web interface.
      */
-    public function indexWeb()
+    public function indexWeb(Request $request)
     {
-        $books = Book::all();
-        return view('admin.book.index', compact('books'));
+        $query = Book::query();
+
+        // Search functionality
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('author', 'like', "%{$search}%")
+                  ->orWhere('category', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        // Filter by status
+        if ($request->has('status') && $request->status != '') {
+            $query->where('status', $request->status);
+        }
+
+        // Filter by audience_type
+        if ($request->has('audience_type') && $request->audience_type != '') {
+            $query->where('audience_type', $request->audience_type);
+        }
+
+        // Filter by category
+        if ($request->has('category') && $request->category != '') {
+            $query->where('category', $request->category);
+        }
+
+        $books = $query->latest()->paginate(15)->withQueryString();
+        $categories = Book::distinct()->pluck('category')->filter();
+        
+        return view('admin.book.index', compact('books', 'categories'));
     }
 
     /**

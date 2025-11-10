@@ -38,6 +38,42 @@
                     >
                 </div>
 
+                <!-- Role -->
+                <div>
+                    <label for="role" class="block text-sm font-medium text-gray-700 mb-2">
+                        Role / Jabatan
+                        <span class="ml-2 text-xs font-normal text-blue-600">(Penting untuk tampil di website)</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        id="role" 
+                        name="role"
+                        value="{{ old('role') }}"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        placeholder="Contoh: Marketing Manager, Customer Service"
+                    >
+                    <div class="mt-2 bg-blue-50 border-l-4 border-blue-400 p-3 rounded">
+                        <p class="text-sm text-blue-800">
+                            <strong>ℹ️ Info:</strong> Member dengan <strong>Role</strong> bisa dipilih di halaman Daftar. 
+                            Semua member (dengan atau tanpa role) tetap tampil di section "Tim Kami" di homepage.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- WhatsApp -->
+                <div>
+                    <label for="whatsapp" class="block text-sm font-medium text-gray-700 mb-2">Nomor WhatsApp</label>
+                    <input 
+                        type="text" 
+                        id="whatsapp" 
+                        name="whatsapp"
+                        value="{{ old('whatsapp') }}"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        placeholder="Contoh: 628123456789"
+                    >
+                    <p class="mt-1 text-sm text-gray-500">Format: 628xxx (tanpa tanda +, spasi, atau tanda hubung)</p>
+                </div>
+
                 <!-- Foto -->
                 <div>
                     <label for="src" class="block text-sm font-medium text-gray-700 mb-2">Foto</label>

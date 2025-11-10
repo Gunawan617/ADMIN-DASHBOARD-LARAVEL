@@ -12,12 +12,12 @@ use Illuminate\Support\Facades\Storage;
 class AlumniController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource (API - only approved).
      */
     public function index()
     {
         try {
-            $alumni = Alumni::all();
+            $alumni = Alumni::where('status', 'approved')->get();
             return response()->json($alumni);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
@@ -27,10 +27,61 @@ class AlumniController extends Controller
     /**
      * Display a listing of alumni for admin web interface.
      */
-    public function indexWeb()
+    public function indexWeb(Request $request)
     {
-        $alumni = Alumni::all();
-        return view('admin.alumni.index', compact('alumni'));
+        $query = Alumni::query();
+
+        // Search functionality
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('batch', 'like', "%{$search}%")
+                  ->orWhere('major', 'like', "%{$search}%")
+                  ->orWhere('caption', 'like', "%{$search}%");
+            });
+        }
+
+        // Filter by status
+        if ($request->has('status') && $request->status != '') {
+            $query->where('status', $request->status);
+        }
+
+        // Filter by batch
+        if ($request->has('batch') && $request->batch != '') {
+            $query->where('batch', $request->batch);
+        }
+
+        $alumni = $query->latest()->paginate(15)->withQueryString();
+        $batches = Alumni::distinct()->pluck('batch')->filter()->sort();
+        
+        return view('admin.alumni.index', compact('alumni', 'batches'));
+    }
+
+    /**
+     * Approve alumni submission
+     */
+    public function approve(string $id)
+    {
+        $alumni = Alumni::findOrFail($id);
+        $alumni->status = 'approved';
+        $alumni->save();
+
+        return redirect()->route('admin.alumni.index')
+            ->with('success', 'Alumni berhasil diapprove!');
+    }
+
+    /**
+     * Reject alumni submission
+     */
+    public function reject(string $id)
+    {
+        $alumni = Alumni::findOrFail($id);
+        $alumni->status = 'rejected';
+        $alumni->save();
+
+        return redirect()->route('admin.alumni.index')
+            ->with('success', 'Alumni berhasil direject!');
     }
 
     /**
@@ -125,11 +176,16 @@ class AlumniController extends Controller
             'name' => 'required|string|max:255',
             'batch' => 'required|string|max:10',
             'major' => 'required|string|max:255',
+            'whatsapp' => 'nullable|string|max:20|regex:/^[0-9]+$/',
+            'caption' => 'nullable|string|max:255',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,bmp|max:5120',
         ], [
             'name.required' => 'Nama alumni wajib diisi.',
             'batch.required' => 'Angkatan wajib diisi.',
             'major.required' => 'Jurusan wajib diisi.',
+            'whatsapp.regex' => 'Nomor WhatsApp hanya boleh berisi angka.',
+            'whatsapp.max' => 'Nomor WhatsApp maksimal 20 karakter.',
+            'caption.max' => 'Caption maksimal 255 karakter.',
             'photo.image' => 'File harus berupa gambar.',
             'photo.mimes' => 'Format gambar yang didukung: JPEG, PNG, JPG, GIF, WebP, BMP.',
             'photo.max' => 'Ukuran gambar maksimal 5MB.',
@@ -156,11 +212,16 @@ class AlumniController extends Controller
             'name' => 'required|string|max:255',
             'batch' => 'required|string|max:10',
             'major' => 'required|string|max:255',
+            'whatsapp' => 'nullable|string|max:20|regex:/^[0-9]+$/',
+            'caption' => 'nullable|string|max:255',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,bmp|max:5120',
         ], [
             'name.required' => 'Nama alumni wajib diisi.',
             'batch.required' => 'Angkatan wajib diisi.',
             'major.required' => 'Jurusan wajib diisi.',
+            'whatsapp.regex' => 'Nomor WhatsApp hanya boleh berisi angka.',
+            'whatsapp.max' => 'Nomor WhatsApp maksimal 20 karakter.',
+            'caption.max' => 'Caption maksimal 255 karakter.',
             'photo.image' => 'File harus berupa gambar.',
             'photo.mimes' => 'Format gambar yang didukung: JPEG, PNG, JPG, GIF, WebP, BMP.',
             'photo.max' => 'Ukuran gambar maksimal 5MB.',
@@ -214,7 +275,9 @@ class AlumniController extends Controller
             'name' => $user->name,
             'batch' => $user->batch ?? 'N/A',
             'major' => $user->major ?? 'N/A',
+            'whatsapp' => $user->phone ?? null,
             'caption' => $validated['caption'] ?? null,
+            'status' => 'pending', // Default status is pending
         ];
 
         if ($request->hasFile('photo')) {
@@ -225,7 +288,7 @@ class AlumniController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Foto alumni berhasil disubmit',
+            'message' => 'Foto alumni berhasil disubmit dan menunggu approval admin',
             'data' => $alumni
         ], 201);
     }

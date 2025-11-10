@@ -1,9 +1,6 @@
-import { useNavigate } from "react-router-dom";
-
 export function Partners() {
-  const navigate = useNavigate();
   const hospitals = [
-    "RSUP Dr. Sardjito", "RS Siloam", "RS Hermina", "RSUD Tangerang", "RS Premier", 
+    "RSUP Dr. Sardjito", "RS Siloam", "RS Hermina", "RSUD Tangerang", "RS Premier",
     "RSCM", "RS Mitra Keluarga", "RS Harapan Kita", "RS Pondok Indah", "RS Mayapada"
   ];
 
@@ -30,8 +27,8 @@ export function Partners() {
           ))}
         </div>
 
-        {/* CTA Section */}
-        <div className="mt-20 bg-blue-600 rounded-2xl p-12 text-center text-white">
+        {/* CTA Section - Hidden */}
+        {/* <div className="mt-20 bg-blue-600 rounded-2xl p-12 text-center text-white">
           <h3 className="text-2xl lg:text-3xl mb-4">Siap Memulai Persiapan UKOM?</h3>
           <p className="text-lg mb-8 opacity-90">
             Daftar sekarang dan bergabung dengan batch berikutnya. Raih STR Anda bersama kami!
@@ -47,7 +44,7 @@ export function Partners() {
               Konsultasi Gratis
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

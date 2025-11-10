@@ -15,6 +15,7 @@ class FormulirController extends Controller
             'email' => 'required|email|max:255',
             'whatsapp' => 'required|string|max:20',
             'jenis_program' => 'required|in:bimbel,tryout',
+            'team_member_id' => 'nullable|exists:team_members,id',
             'pesan' => 'nullable|string',
         ]);
 

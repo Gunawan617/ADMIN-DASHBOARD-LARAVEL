@@ -8,10 +8,39 @@ use Illuminate\Http\Request;
 
 class FormulirAdminController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $formulir = Formulir::orderBy('created_at', 'desc')->paginate(20);
-        return view('admin.formulir.index', compact('formulir'));
+        $query = Formulir::with('teamMember');
+
+        // Search
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nama', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('whatsapp', 'like', "%{$search}%");
+            });
+        }
+
+        // Filter by status
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Filter by jenis program
+        if ($request->filled('jenis_program')) {
+            $query->where('jenis_program', $request->jenis_program);
+        }
+
+        // Filter by team member
+        if ($request->filled('team_member_id')) {
+            $query->where('team_member_id', $request->team_member_id);
+        }
+
+        $formulir = $query->orderBy('created_at', 'desc')->paginate(15);
+        $teamMembers = \App\Models\TeamMember::all();
+        
+        return view('admin.formulir.index', compact('formulir', 'teamMembers'));
     }
 
     public function show($id)

@@ -26,6 +26,10 @@ import { AlumniGallery } from "./components/AlumniGallery";
 import DaftarPage from "./pages/DaftarPage";
 import { AlumniPage } from "./pages/AlumniPage";
 import { SubmitAlumniPage } from "./pages/SubmitAlumniPage";
+import { VideoSection } from "./components/VideoSection";
+import { ContactPage } from "./pages/ContactPage";
+import { FAQPage } from "./pages/FAQPage";
+import { FAQ } from "./components/FAQ";
 
 function HomePage() {
   const [selectedProduct, setSelectedProduct] = useState<ProductType>("bimbel");
@@ -34,6 +38,7 @@ function HomePage() {
   return (
     <>
       <Hero />
+      <VideoSection />
       <Programs
         selectedProduct={selectedProduct}
         selectedAudience={selectedAudience}
@@ -46,7 +51,8 @@ function HomePage() {
       <AlumniGallery />
       <TeamMarketing />
       <Blog />
-      <Partners />
+      <FAQ />
+      {/* <Partners /> */}
     </>
   );
 }
@@ -73,6 +79,8 @@ export default function App() {
             <Route path="/daftar" element={<DaftarPage />} />
             <Route path="/alumni" element={<AlumniPage />} />
             <Route path="/submit-alumni" element={<SubmitAlumniPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/faq" element={<FAQPage />} />
           </Routes>
         </main>
         <Footer />

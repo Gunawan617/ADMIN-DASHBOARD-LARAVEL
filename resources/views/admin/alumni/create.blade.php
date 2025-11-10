@@ -103,6 +103,42 @@
                     @enderror
                 </div>
 
+                <!-- WhatsApp -->
+                <div class="md:col-span-2">
+                    <label for="whatsapp" class="block text-sm font-medium text-gray-700 mb-2">
+                        Nomor WhatsApp
+                    </label>
+                    <input
+                        type="text"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 @error('whatsapp') border-red-500 @enderror"
+                        id="whatsapp"
+                        name="whatsapp"
+                        value="{{ old('whatsapp') }}"
+                        placeholder="Contoh: 628123456789 (gunakan format 62)"
+                    >
+                    <p class="mt-1 text-xs text-gray-500">Format: 62 diikuti nomor tanpa 0 di awal (contoh: 628123456789)</p>
+                    @error('whatsapp')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Caption -->
+                <div class="md:col-span-2">
+                    <label for="caption" class="block text-sm font-medium text-gray-700 mb-2">
+                        Caption/Keterangan
+                    </label>
+                    <textarea
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 @error('caption') border-red-500 @enderror"
+                        id="caption"
+                        name="caption"
+                        rows="3"
+                        placeholder="Masukkan caption atau keterangan tambahan (opsional)"
+                    >{{ old('caption') }}</textarea>
+                    @error('caption')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
                 <!-- Foto Alumni -->
                 <div class="md:col-span-2">
                     <label for="photo" class="block text-sm font-medium text-gray-700 mb-2">

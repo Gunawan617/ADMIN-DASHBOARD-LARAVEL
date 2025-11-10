@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 interface TeamMember {
     id: number;
     name: string;
+    role?: string | null;
     src: string;
 }
 

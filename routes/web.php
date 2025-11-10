@@ -32,7 +32,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // CRUD Posts, Users, Books
     Route::resource('posts', PostController::class)->names('posts');
     Route::resource('users', App\Http\Controllers\Admin\UserController::class)
-        ->except(['create', 'store', 'destroy', 'show'])
+        ->except(['create', 'store', 'show'])
         ->names('users');
     
     // CRUD Books (Web Interface)
@@ -62,6 +62,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::get('/', [App\Http\Controllers\Admin\AlumniController::class, 'indexWeb'])->name('index');
         Route::get('/create', [App\Http\Controllers\Admin\AlumniController::class, 'create'])->name('create');
         Route::post('/', [App\Http\Controllers\Admin\AlumniController::class, 'storeWeb'])->name('store');
+        Route::post('/{id}/approve', [App\Http\Controllers\Admin\AlumniController::class, 'approve'])->name('approve');
+        Route::post('/{id}/reject', [App\Http\Controllers\Admin\AlumniController::class, 'reject'])->name('reject');
         Route::get('/{id}', [App\Http\Controllers\Admin\AlumniController::class, 'showWeb'])->name('show');
         Route::get('/{id}/edit', [App\Http\Controllers\Admin\AlumniController::class, 'edit'])->name('edit');
         Route::put('/{id}', [App\Http\Controllers\Admin\AlumniController::class, 'updateWeb'])->name('update');
@@ -71,6 +73,10 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // Testimonials Management
     Route::prefix('testimonials')->name('testimonials.')->group(function () {
         Route::get('/', [App\Http\Controllers\Admin\TestimonialAdminController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Admin\TestimonialAdminController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\Admin\TestimonialAdminController::class, 'store'])->name('store');
+        Route::get('/{testimonial}/edit', [App\Http\Controllers\Admin\TestimonialAdminController::class, 'edit'])->name('edit');
+        Route::put('/{testimonial}', [App\Http\Controllers\Admin\TestimonialAdminController::class, 'update'])->name('update');
         Route::post('/{testimonial}/approve', [App\Http\Controllers\Admin\TestimonialAdminController::class, 'approve'])->name('approve');
         Route::post('/{testimonial}/reject', [App\Http\Controllers\Admin\TestimonialAdminController::class, 'reject'])->name('reject');
         Route::delete('/{testimonial}', [App\Http\Controllers\Admin\TestimonialAdminController::class, 'destroy'])->name('destroy');
@@ -87,6 +93,25 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::post('{id}/status', [App\Http\Controllers\Admin\FormulirAdminController::class, 'updateStatus'])->name('update-status');
         Route::delete('{id}', [App\Http\Controllers\Admin\FormulirAdminController::class, 'destroy'])->name('destroy');
     });
+
+    // Contact Messages Management
+    Route::prefix('contacts')->name('contacts.')->group(function () {
+        Route::get('/', [App\Http\Controllers\Admin\ContactAdminController::class, 'index'])->name('index');
+        Route::get('{id}', [App\Http\Controllers\Admin\ContactAdminController::class, 'show'])->name('show');
+        Route::post('{id}/status', [App\Http\Controllers\Admin\ContactAdminController::class, 'updateStatus'])->name('update-status');
+        Route::delete('{id}', [App\Http\Controllers\Admin\ContactAdminController::class, 'destroy'])->name('destroy');
+    });
+
+    // FAQ Management
+    Route::resource('faqs', App\Http\Controllers\Admin\FaqController::class);
+
+    // Hero Sections Management
+    Route::resource('hero-sections', App\Http\Controllers\Admin\HeroSectionController::class);
+    Route::patch('hero-sections/{heroSection}/toggle-active', [App\Http\Controllers\Admin\HeroSectionController::class, 'toggleActive'])->name('hero-sections.toggle-active');
+
+    // Video Sections Management
+    Route::resource('video-sections', App\Http\Controllers\Admin\VideoSectionController::class);
+    Route::patch('video-sections/{videoSection}/toggle-active', [App\Http\Controllers\Admin\VideoSectionController::class, 'toggleActive'])->name('video-sections.toggle-active');
 });
 
 // Dashboard user biasa (setelah login)

@@ -13,7 +13,10 @@ class TeamMemberController extends Controller
      */
     public function index()
     {
-        return response()->json(TeamMember::all(), 200);
+        // Return all team members
+        // Filtering will be done on frontend based on use case
+        $teamMembers = TeamMember::orderBy('created_at', 'desc')->get();
+        return response()->json($teamMembers, 200);
     }
 
     /**
@@ -23,6 +26,8 @@ class TeamMemberController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'role' => 'nullable|string|max:100',
+            'whatsapp' => 'nullable|string|max:20',
             'src'  => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -33,6 +38,8 @@ class TeamMemberController extends Controller
 
         $teamMember = TeamMember::create([
             'name' => $validated['name'],
+            'role' => $validated['role'] ?? null,
+            'whatsapp' => $validated['whatsapp'] ?? null,
             'src'  => $path,
         ]);
 
@@ -57,11 +64,21 @@ class TeamMemberController extends Controller
 
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
+            'role' => 'nullable|string|max:100',
+            'whatsapp' => 'nullable|string|max:20',
             'src'  => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         if ($request->has('name')) {
             $teamMember->name = $validated['name'];
+        }
+
+        if ($request->has('role')) {
+            $teamMember->role = $validated['role'];
+        }
+
+        if ($request->has('whatsapp')) {
+            $teamMember->whatsapp = $validated['whatsapp'];
         }
 
         if ($request->hasFile('src')) {

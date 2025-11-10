@@ -25,6 +25,8 @@ class StoreAlumniRequest extends FormRequest
             'name' => 'required|string|max:255',
             'batch' => 'required|string|max:10',
             'major' => 'required|string|max:255',
+            'whatsapp' => 'nullable|string|max:20|regex:/^[0-9]+$/',
+            'caption' => 'nullable|string|max:255',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,bmp|max:5120',
         ];
     }
@@ -38,6 +40,9 @@ class StoreAlumniRequest extends FormRequest
             'name.required' => 'Nama alumni wajib diisi.',
             'batch.required' => 'Angkatan wajib diisi.',
             'major.required' => 'Jurusan wajib diisi.',
+            'whatsapp.regex' => 'Nomor WhatsApp hanya boleh berisi angka.',
+            'whatsapp.max' => 'Nomor WhatsApp maksimal 20 karakter.',
+            'caption.max' => 'Caption maksimal 255 karakter.',
             'photo.image' => 'File harus berupa gambar.',
             'photo.mimes' => 'Format gambar yang didukung: JPEG, PNG, JPG, GIF, WebP, BMP.',
             'photo.max' => 'Ukuran gambar maksimal 5MB.',

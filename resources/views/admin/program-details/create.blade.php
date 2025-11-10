@@ -25,8 +25,6 @@
           <select name="product_type" required class="w-full px-3 py-2 border rounded-lg">
             <option value="bimbel">Bimbel</option>
             <option value="tryout">Try Out</option>
-            <option value="books">Buku</option>
-            <option value="video">Video</option>
           </select>
         </div>
 

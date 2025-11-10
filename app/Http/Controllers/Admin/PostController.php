@@ -222,10 +222,36 @@ class PostController extends Controller
         ]);
     }
     // List semua post
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::latest()->paginate(10);
-        return view('admin.posts.index', compact('posts'));
+        $query = Post::query();
+
+        // Search functionality
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('summary', 'like', "%{$search}%")
+                  ->orWhere('author', 'like', "%{$search}%")
+                  ->orWhere('category', 'like', "%{$search}%")
+                  ->orWhere('content', 'like', "%{$search}%");
+            });
+        }
+
+        // Filter by status
+        if ($request->has('status') && $request->status != '') {
+            $query->where('status', $request->status);
+        }
+
+        // Filter by category
+        if ($request->has('category') && $request->category != '') {
+            $query->where('category', $request->category);
+        }
+
+        $posts = $query->latest()->paginate(15)->withQueryString();
+        $categories = Post::distinct()->pluck('category')->filter();
+        
+        return view('admin.posts.index', compact('posts', 'categories'));
     }
 
     // Tampilkan form create

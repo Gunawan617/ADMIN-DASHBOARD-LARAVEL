@@ -9,6 +9,7 @@ export function Header() {
   const [user, setUser] = useState<any>(null);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showTestimoniDropdown, setShowTestimoniDropdown] = useState(false);
+  const [showBantuanDropdown, setShowBantuanDropdown] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const isHomePage = location.pathname === "/";
@@ -21,8 +22,11 @@ export function Header() {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
-      if (showTestimoniDropdown && !target.closest('.relative.group')) {
+      if (showTestimoniDropdown && !target.closest('.testimoni-dropdown')) {
         setShowTestimoniDropdown(false);
+      }
+      if (showBantuanDropdown && !target.closest('.bantuan-dropdown')) {
+        setShowBantuanDropdown(false);
       }
       if (showUserMenu && !target.closest('.relative')) {
         setShowUserMenu(false);
@@ -31,7 +35,7 @@ export function Header() {
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [showTestimoniDropdown, showUserMenu]);
+  }, [showTestimoniDropdown, showBantuanDropdown, showUserMenu]);
 
   const checkAuth = () => {
     const token = localStorage.getItem("auth_token");
@@ -47,7 +51,7 @@ export function Header() {
 
   const handleLogout = async () => {
     const token = localStorage.getItem("auth_token");
-    
+
     // Call logout API to revoke token
     if (token) {
       try {
@@ -62,7 +66,7 @@ export function Header() {
         console.error("Logout error:", error);
       }
     }
-    
+
     // Clear local storage
     localStorage.removeItem("auth_token");
     localStorage.removeItem("user");
@@ -85,28 +89,18 @@ export function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             {isHomePage ? (
-              <>
-                <a href="#programs" className="text-sm hover:text-primary transition-colors">
-                  Program
-                </a>
-                <a href="#features" className="text-sm hover:text-primary transition-colors">
-                  Keunggulan
-                </a>
-              </>
+              <a href="#programs" className="text-sm hover:text-primary transition-colors">
+                Program
+              </a>
             ) : (
-              <>
-                <Link to="/#programs" className="text-sm hover:text-primary transition-colors">
-                  Program
-                </Link>
-                <Link to="/#features" className="text-sm hover:text-primary transition-colors">
-                  Keunggulan
-                </Link>
-              </>
+              <Link to="/#programs" className="text-sm hover:text-primary transition-colors">
+                Program
+              </Link>
             )}
-            <div 
-              className="relative group"
+            <div
+              className="relative group testimoni-dropdown"
             >
-              <button 
+              <button
                 className="text-sm hover:text-primary transition-colors flex items-center gap-1 py-2"
                 onClick={() => setShowTestimoniDropdown(!showTestimoniDropdown)}
               >
@@ -141,11 +135,41 @@ export function Header() {
             <Link to="/blog" className="text-sm hover:text-primary transition-colors">
               Artikel
             </Link>
-            {isHomePage && (
-              <a href="#partners" className="text-sm hover:text-primary transition-colors">
-                Mitra
-              </a>
-            )}
+            <div
+              className="relative group bantuan-dropdown"
+            >
+              <button
+                className="text-sm hover:text-primary transition-colors flex items-center gap-1 py-2"
+                onClick={() => setShowBantuanDropdown(!showBantuanDropdown)}
+              >
+                Bantuan
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {showBantuanDropdown && (
+                <>
+                  {/* Invisible bridge to prevent dropdown from closing */}
+                  <div className="absolute top-full left-0 w-48 h-2 -mt-0" />
+                  <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                    <Link
+                      to="/faq"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={() => setShowBantuanDropdown(false)}
+                    >
+                      ❓ FAQ
+                    </Link>
+                    <Link
+                      to="/contact"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={() => setShowBantuanDropdown(false)}
+                    >
+                      📧 Kontak Kami
+                    </Link>
+                  </div>
+                </>
+              )}
+            </div>
           </nav>
 
           {/* Desktop CTA */}
@@ -244,23 +268,13 @@ export function Header() {
           <div className="md:hidden py-4 border-t">
             <nav className="flex flex-col gap-4">
               {isHomePage ? (
-                <>
-                  <a href="#programs" className="text-sm hover:text-primary transition-colors">
-                    Program
-                  </a>
-                  <a href="#features" className="text-sm hover:text-primary transition-colors">
-                    Keunggulan
-                  </a>
-                </>
+                <a href="#programs" className="text-sm hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                  Program
+                </a>
               ) : (
-                <>
-                  <Link to="/#programs" className="text-sm hover:text-primary transition-colors">
-                    Program
-                  </Link>
-                  <Link to="/#features" className="text-sm hover:text-primary transition-colors">
-                    Keunggulan
-                  </Link>
-                </>
+                <Link to="/#programs" className="text-sm hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                  Program
+                </Link>
               )}
               <div className="flex flex-col gap-2 pl-4">
                 <div className="text-sm font-medium text-gray-500">Testimoni</div>
@@ -274,11 +288,15 @@ export function Header() {
               <Link to="/blog" className="text-sm hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>
                 Artikel
               </Link>
-              {isHomePage && (
-                <a href="#partners" className="text-sm hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>
-                  Mitra
-                </a>
-              )}
+              <div className="flex flex-col gap-2 pl-4">
+                <div className="text-sm font-medium text-gray-500">Bantuan</div>
+                <Link to="/faq" className="text-sm hover:text-primary transition-colors pl-2" onClick={() => setMobileMenuOpen(false)}>
+                  ❓ FAQ
+                </Link>
+                <Link to="/contact" className="text-sm hover:text-primary transition-colors pl-2" onClick={() => setMobileMenuOpen(false)}>
+                  📧 Kontak Kami
+                </Link>
+              </div>
               <div className="flex flex-col gap-2 pt-2 border-t">
                 {isAuthenticated && user ? (
                   <>

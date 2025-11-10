@@ -21,13 +21,21 @@ Sistem testimoni lengkap yang memungkinkan alumni untuk submit testimoni mereka,
 - Memerlukan autentikasi (login)
 - Success message setelah submit
 
-### 3. Admin Panel Testimoni (`/admin/testimonials`)
+### 3. Admin Panel Testimoni (`/admin/testimonials`) ⭐ NEW: Manual Input
 - Dashboard dengan statistics (pending, approved, rejected)
 - Tab filtering berdasarkan status
+- **✨ Create manual testimonial** - Admin bisa input testimoni dari sumber offline (WhatsApp, telepon, email)
+- **✨ Edit testimonial** - Admin bisa edit semua field testimoni yang sudah ada
 - Approve/Reject testimoni dengan notes
 - Delete testimoni
 - Tampilan lengkap semua detail testimoni
 - Pagination
+
+**Keunggulan Manual Input:**
+- Langsung publish dengan status "Approved" atau simpan sebagai "Pending"
+- Upload foto atau skip jika tidak ada
+- Tambahkan admin notes untuk catatan internal (sumber testimoni, context, dll)
+- Cocok untuk testimoni dari alumni yang tidak tech-savvy atau dari sumber offline
 
 ## Database Schema
 
@@ -97,6 +105,18 @@ DELETE /api/admin/testimonials/{id}
 ```
 GET /admin/testimonials
 - Halaman management testimoni
+
+GET /admin/testimonials/create
+- Form create testimoni manual
+
+POST /admin/testimonials
+- Store testimoni baru (manual input)
+
+GET /admin/testimonials/{id}/edit
+- Form edit testimoni
+
+PUT /admin/testimonials/{id}
+- Update testimoni
 
 POST /admin/testimonials/{id}/approve
 - Approve testimoni
@@ -176,9 +196,19 @@ routes/
 ### Untuk Admin
 1. Login ke admin panel
 2. Klik menu "Testimonials" di sidebar
-3. Review testimoni pending
-4. Klik "Approve" untuk menyetujui
-5. Atau klik "Reject" dan berikan alasan penolakan
+3. **Opsi 1: Review testimoni pending**
+   - Review testimoni yang disubmit alumni
+   - Klik "Approve" untuk menyetujui
+   - Atau klik "Reject" dan berikan alasan penolakan
+4. **Opsi 2: Input manual testimoni**
+   - Klik tombol "Add Testimonial"
+   - Isi form dengan data testimoni dari sumber offline (WhatsApp, telepon, email, dll)
+   - Pilih status "Approved" untuk publish langsung, atau "Pending" untuk review nanti
+   - Tambahkan admin notes untuk catatan internal
+5. **Edit testimoni**
+   - Klik tombol "Edit" pada testimoni yang ingin diubah
+   - Update field yang diperlukan
+   - Bisa ganti status, foto, atau semua field lainnya
 
 ### Untuk Visitor
 1. Akses halaman `/testimonials`
@@ -203,6 +233,29 @@ routes/
 - Admin actions memerlukan autentikasi admin
 - Photo upload dengan validasi tipe dan ukuran file
 
+## Keuntungan Admin Input Manual
+
+### Mengapa Fitur Ini Berguna?
+1. **Fleksibilitas Sumber Data**
+   - Testimoni dari WhatsApp, telepon, email
+   - Testimoni lisan yang dicatat admin
+   - Testimoni dari media sosial atau review eksternal
+
+2. **Kontrol Penuh**
+   - Admin bisa langsung publish (status: approved)
+   - Tidak perlu menunggu alumni submit sendiri
+   - Bisa menambahkan testimoni historis/lama
+
+3. **Kualitas Konten**
+   - Admin bisa edit dan polish testimoni
+   - Memastikan format dan bahasa konsisten
+   - Menambahkan context melalui admin notes
+
+4. **Efisiensi Marketing**
+   - Cepat menambahkan testimoni untuk campaign
+   - Bisa menambahkan testimoni dari alumni yang tidak tech-savvy
+   - Membangun library testimoni lebih cepat
+
 ## Future Improvements
 - Email notification ke alumni saat testimoni approved/rejected
 - Rich text editor untuk testimoni
@@ -210,3 +263,4 @@ routes/
 - Featured testimonials
 - Testimonial categories
 - Export testimonials to PDF
+- Bulk import testimonials from CSV/Excel

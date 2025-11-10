@@ -76,6 +76,71 @@
         </div>
     </div>
 
+    <!-- Search and Filter -->
+    <div class="bg-white rounded-xl shadow-sm p-6 mb-6 border border-gray-100">
+        <form method="GET" action="{{ route('admin.formulir.index') }}" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <!-- Search -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Cari</label>
+                    <input 
+                        type="text" 
+                        name="search" 
+                        value="{{ request('search') }}"
+                        placeholder="Nama, email, atau WhatsApp..."
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    >
+                </div>
+
+                <!-- Filter Status -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                    <select name="status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Semua Status</option>
+                        <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                        <option value="contacted" {{ request('status') == 'contacted' ? 'selected' : '' }}>Dihubungi</option>
+                        <option value="registered" {{ request('status') == 'registered' ? 'selected' : '' }}>Terdaftar</option>
+                    </select>
+                </div>
+
+                <!-- Filter Jenis Program -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Jenis Program</label>
+                    <select name="jenis_program" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Semua Program</option>
+                        <option value="bimbel" {{ request('jenis_program') == 'bimbel' ? 'selected' : '' }}>Bimbel</option>
+                        <option value="tryout" {{ request('jenis_program') == 'tryout' ? 'selected' : '' }}>Try Out</option>
+                    </select>
+                </div>
+
+                <!-- Filter Team Member -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Team Member</label>
+                    <select name="team_member_id" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Semua Team</option>
+                        @foreach($teamMembers as $member)
+                            <option value="{{ $member->id }}" {{ request('team_member_id') == $member->id ? 'selected' : '' }}>
+                                {{ $member->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="flex gap-2">
+                <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                    <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                    Filter
+                </button>
+                <a href="{{ route('admin.formulir.index') }}" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors">
+                    Reset
+                </a>
+            </div>
+        </form>
+    </div>
+
     <!-- Action Buttons -->
     @if($formulir->total() > 0)
     <div class="flex flex-wrap gap-3 mb-4">
@@ -123,6 +188,7 @@
                                 <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700 min-w-[180px]">Nama</th>
                                 <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700 min-w-[200px]">Kontak</th>
                                 <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700 min-w-[100px]">Program</th>
+                                <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700 min-w-[140px]">Team Member</th>
                                 <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700 min-w-[140px]">Status</th>
                                 <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700 min-w-[120px]">Tanggal</th>
                                 <th class="text-left py-4 px-4 text-sm font-semibold text-gray-700 min-w-[120px]">Aksi</th>
@@ -161,6 +227,27 @@
                                         <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium {{ $item->jenis_program == 'bimbel' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700' }}">
                                             {{ ucfirst($item->jenis_program) }}
                                         </span>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        @if($item->teamMember)
+                                            <div class="flex items-center gap-2">
+                                                @if($item->teamMember->src)
+                                                    <img src="{{ asset('storage/' . $item->teamMember->src) }}" alt="{{ $item->teamMember->name }}" class="w-8 h-8 rounded-full object-cover">
+                                                @else
+                                                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center text-white font-semibold text-xs">
+                                                        {{ substr($item->teamMember->name, 0, 1) }}
+                                                    </div>
+                                                @endif
+                                                <div>
+                                                    <p class="text-sm font-medium text-gray-900">{{ $item->teamMember->name }}</p>
+                                                    @if($item->teamMember->role)
+                                                        <p class="text-xs text-gray-500">{{ $item->teamMember->role }}</p>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @else
+                                            <span class="text-sm text-gray-400 italic">Belum ditentukan</span>
+                                        @endif
                                     </td>
                                     <td class="py-4 px-4">
                                         <form action="{{ route('admin.formulir.update-status', $item->id) }}" method="POST" class="status-form">
@@ -212,7 +299,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="py-12 text-center">
+                                    <td colspan="8" class="py-12 text-center">
                                         <div class="flex flex-col items-center justify-center">
                                             <svg class="w-16 h-16 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
@@ -230,7 +317,7 @@
 
         @if($formulir->hasPages())
             <div class="px-6 py-4 border-t border-gray-200">
-                {{ $formulir->links() }}
+                {{ $formulir->appends(request()->query())->links() }}
             </div>
         @endif
     </div>

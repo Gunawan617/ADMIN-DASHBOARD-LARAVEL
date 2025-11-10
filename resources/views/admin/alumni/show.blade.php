@@ -73,6 +73,18 @@
                                         <span class="text-gray-600">Jurusan:</span>
                                         <span class="font-medium">{{ $alumni->major }}</span>
                                     </div>
+                                    @if($alumni->whatsapp)
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">WhatsApp:</span>
+                                        <span class="font-medium">{{ $alumni->whatsapp }}</span>
+                                    </div>
+                                    @endif
+                                    @if($alumni->caption)
+                                    <div class="pt-2 border-t">
+                                        <span class="text-gray-600">Caption:</span>
+                                        <p class="font-medium mt-1">{{ $alumni->caption }}</p>
+                                    </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -93,11 +105,17 @@
 
                         <!-- Action Buttons -->
                         <div class="flex gap-4 pt-4">
-                            <a href="https://wa.me/6281295012668?text=Halo,%20saya%20ingin%20menghubungi%20alumni%20{{ urlencode($alumni->name) }}%20angkatan%20{{ urlencode($alumni->batch) }}"
+                            @if($alumni->whatsapp)
+                            <a href="https://wa.me/{{ $alumni->whatsapp }}?text=Halo%20{{ urlencode($alumni->name) }},%20saya%20ingin%20bertanya%20tentang%20pengalaman%20di%20{{ urlencode($alumni->major) }}"
                                target="_blank"
                                class="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg font-medium transition-colors text-center">
                                 💬 Hubungi via WhatsApp
                             </a>
+                            @else
+                            <div class="flex-1 bg-gray-400 text-white py-3 px-6 rounded-lg font-medium text-center cursor-not-allowed">
+                                💬 WhatsApp Tidak Tersedia
+                            </div>
+                            @endif
                             <form action="{{ route('admin.alumni.destroy', $alumni->id) }}"
                                   method="POST"
                                   class="flex-1"

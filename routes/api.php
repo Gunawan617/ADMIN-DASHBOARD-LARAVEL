@@ -38,6 +38,20 @@ Route::get('public/program-details/{slug}', [App\Http\Controllers\Admin\ProgramD
 // Formulir Pendaftaran
 Route::post('public/formulir', [FormulirController::class, 'store']);
 
+// Contact Form
+Route::post('public/contact', [App\Http\Controllers\ContactController::class, 'store']);
+
+// FAQ
+Route::get('public/faqs', function () {
+    return response()->json(App\Models\Faq::active()->ordered()->get());
+});
+
+// Hero Section
+Route::get('public/hero-section', [App\Http\Controllers\Api\HeroSectionController::class, 'index']);
+
+// Video Section
+Route::get('public/video-section', [App\Http\Controllers\Api\VideoSectionController::class, 'index']);
+
 // Protected (admin)
 Route::middleware('auth:sanctum')->group(function () {
     // DEPRECATED, use program-details instead
