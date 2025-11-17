@@ -38,15 +38,15 @@ function HomePage() {
   return (
     <>
       <Hero />
-      <VideoSection />
       <Programs
         selectedProduct={selectedProduct}
         selectedAudience={selectedAudience}
         onProductChange={setSelectedProduct}
         onAudienceChange={setSelectedAudience}
       />
-      <Features />
       <Books />
+      <VideoSection />
+      <Features />
       <Testimonials />
       <AlumniGallery />
       <TeamMarketing />

@@ -94,16 +94,14 @@ export function FAQ() {
                                     </h3>
                                 </div>
                                 <ChevronDown
-                                    className={`w-6 h-6 text-gray-400 flex-shrink-0 transition-transform duration-300 ${
-                                        openIndex === index ? 'transform rotate-180' : ''
-                                    }`}
+                                    className={`w-6 h-6 text-gray-400 flex-shrink-0 transition-transform duration-300 ${openIndex === index ? 'transform rotate-180' : ''
+                                        }`}
                                 />
                             </button>
-                            
+
                             <div
-                                className={`overflow-hidden transition-all duration-300 ${
-                                    openIndex === index ? 'max-h-96' : 'max-h-0'
-                                }`}
+                                className={`overflow-hidden transition-all duration-300 ${openIndex === index ? 'max-h-96' : 'max-h-0'
+                                    }`}
                             >
                                 <div className="px-6 pb-5 pt-2">
                                     <div className="pl-4 border-l-4 border-blue-500">

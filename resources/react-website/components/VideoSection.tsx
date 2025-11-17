@@ -112,15 +112,15 @@ export function VideoSection() {
     }
 
     return (
-        <section ref={sectionRef} className="py-20 bg-white">
+        <section ref={sectionRef} className="py-12 sm:py-16 lg:py-20 bg-white">
             <div className="container mx-auto px-4 lg:px-8">
                 <div className="max-w-5xl mx-auto">
                     {/* Header */}
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+                    <div className="text-center mb-8 sm:mb-12">
+                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 px-2">
                             {data.title}
                         </h2>
-                        <p className="text-lg text-muted-foreground">
+                        <p className="text-base sm:text-lg text-muted-foreground px-4">
                             {data.description}
                         </p>
                     </div>
@@ -171,9 +171,8 @@ export function VideoSection() {
                                                 console.error('Video error:', e);
                                                 console.error('Video src:', data.video_url.startsWith('http') ? data.video_url : `/storage/${data.video_url}`);
                                             }}
-                                            className={`w-full h-full object-cover transition-opacity duration-500 ${
-                                                isLoaded ? 'opacity-100' : 'opacity-0'
-                                            }`}
+                                            className={`w-full h-full object-cover transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'
+                                                }`}
                                         >
                                             <source src={data.video_url.startsWith('http') ? data.video_url : `/storage/${data.video_url}`} type="video/mp4" />
                                             {data.video_webm_url && <source src={data.video_webm_url.startsWith('http') ? data.video_webm_url : `/storage/${data.video_webm_url}`} type="video/webm" />}
@@ -186,30 +185,30 @@ export function VideoSection() {
                             {isLoaded && (
                                 <button
                                     onClick={toggleMute}
-                                    className="absolute top-6 right-6 bg-white/90 backdrop-blur-sm hover:bg-white p-3 rounded-full shadow-lg transition-all hover:scale-110 group"
+                                    className="absolute top-3 right-3 sm:top-6 sm:right-6 bg-white/90 backdrop-blur-sm hover:bg-white p-2 sm:p-3 rounded-full shadow-lg transition-all hover:scale-110 group"
                                     title={isMuted ? "Aktifkan Suara" : "Matikan Suara"}
                                 >
                                     {isMuted ? (
-                                        <VolumeX className="w-5 h-5 text-gray-700" />
+                                        <VolumeX className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
                                     ) : (
-                                        <Volume2 className="w-5 h-5 text-blue-600" />
+                                        <Volume2 className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
                                     )}
                                 </button>
                             )}
 
                             {/* Info Badge */}
-                            <div className="absolute bottom-6 left-6 right-6">
-                                <div className="bg-white/95 backdrop-blur-sm rounded-lg p-4 flex items-center justify-between">
-                                    <div>
-                                        <h3 className="font-bold text-lg mb-1">{data.badge_title}</h3>
-                                        <p className="text-sm text-gray-600">{data.badge_subtitle}</p>
+                            <div className="absolute bottom-3 left-3 right-3 sm:bottom-6 sm:left-6 sm:right-6">
+                                <div className="bg-white/95 backdrop-blur-sm rounded-lg p-3 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4">
+                                    <div className="flex-1 min-w-0">
+                                        <h3 className="font-bold text-sm sm:text-lg mb-0.5 sm:mb-1 truncate">{data.badge_title}</h3>
+                                        <p className="text-xs sm:text-sm text-gray-600 truncate">{data.badge_subtitle}</p>
                                     </div>
                                     {isMuted && (
                                         <button
                                             onClick={toggleMute}
-                                            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                                            className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-xs sm:text-sm font-medium whitespace-nowrap flex-shrink-0"
                                         >
-                                            <Volume2 className="w-4 h-4" />
+                                            <Volume2 className="w-3 h-3 sm:w-4 sm:h-4" />
                                             Aktifkan Suara
                                         </button>
                                     )}
@@ -229,27 +228,27 @@ export function VideoSection() {
                     </div>
 
                     {/* Video Features */}
-                    <div className="grid md:grid-cols-3 gap-6 mt-12">
-                        <div className="text-center p-6 bg-blue-50 rounded-xl">
-                            <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <span className="text-2xl">{data.feature1_icon}</span>
+                    <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mt-8 sm:mt-12">
+                        <div className="text-center p-4 sm:p-6 bg-blue-50 rounded-xl">
+                            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                                <span className="text-xl sm:text-2xl">{data.feature1_icon}</span>
                             </div>
-                            <h3 className="font-bold mb-2">{data.feature1_title}</h3>
-                            <p className="text-sm text-gray-600">{data.feature1_description}</p>
+                            <h3 className="font-bold mb-1.5 sm:mb-2 text-sm sm:text-base">{data.feature1_title}</h3>
+                            <p className="text-xs sm:text-sm text-gray-600">{data.feature1_description}</p>
                         </div>
-                        <div className="text-center p-6 bg-blue-50 rounded-xl">
-                            <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <span className="text-2xl">{data.feature2_icon}</span>
+                        <div className="text-center p-4 sm:p-6 bg-blue-50 rounded-xl">
+                            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                                <span className="text-xl sm:text-2xl">{data.feature2_icon}</span>
                             </div>
-                            <h3 className="font-bold mb-2">{data.feature2_title}</h3>
-                            <p className="text-sm text-gray-600">{data.feature2_description}</p>
+                            <h3 className="font-bold mb-1.5 sm:mb-2 text-sm sm:text-base">{data.feature2_title}</h3>
+                            <p className="text-xs sm:text-sm text-gray-600">{data.feature2_description}</p>
                         </div>
-                        <div className="text-center p-6 bg-blue-50 rounded-xl">
-                            <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <span className="text-2xl">{data.feature3_icon}</span>
+                        <div className="text-center p-4 sm:p-6 bg-blue-50 rounded-xl sm:col-span-2 md:col-span-1">
+                            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                                <span className="text-xl sm:text-2xl">{data.feature3_icon}</span>
                             </div>
-                            <h3 className="font-bold mb-2">{data.feature3_title}</h3>
-                            <p className="text-sm text-gray-600">{data.feature3_description}</p>
+                            <h3 className="font-bold mb-1.5 sm:mb-2 text-sm sm:text-base">{data.feature3_title}</h3>
+                            <p className="text-xs sm:text-sm text-gray-600">{data.feature3_description}</p>
                         </div>
                     </div>
                 </div>
