@@ -62,8 +62,8 @@ export function Hero() {
   };
 
   const data = heroData || defaultData;
-  const imageUrl = heroData?.image_url.startsWith('http') 
-    ? heroData.image_url 
+  const imageUrl = heroData?.image_url.startsWith('http')
+    ? heroData.image_url
     : `/storage/${heroData?.image_url || defaultData.image_url}`;
 
   if (loading) {
@@ -81,24 +81,24 @@ export function Hero() {
   }
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white py-20 lg:py-32">
+    <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white pt-20 lg:pt-32 pb-32 lg:pb-40">
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
+      <div className="absolute inset-0 opacity-10 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-400 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-4 lg:px-8 relative">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-12">
           {/* Left Content */}
-          <div className="space-y-8">
+          <div className="space-y-8 lg:max-w-xl z-10 relative">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full">
               <span className="w-2 h-2 bg-blue-600 rounded-full animate-pulse"></span>
               <span className="text-sm">{data.badge_text}</span>
             </div>
 
             <div className="space-y-4">
-              <h1 className="text-4xl lg:text-5xl xl:text-6xl">
+              <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold font-poppins">
                 {data.title}
               </h1>
               <p className="text-lg text-muted-foreground">
@@ -116,9 +116,9 @@ export function Hero() {
                 <ArrowRight className="ml-2" size={20} />
               </Button>
               {data.secondary_button_text && (
-                <Button 
-                  size="lg" 
-                  variant="outline" 
+                <Button
+                  size="lg"
+                  variant="outline"
                   className="gap-2"
                   onClick={() => data.secondary_button_link && window.open(data.secondary_button_link, '_blank')}
                 >
@@ -145,26 +145,26 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Right Image */}
-          <div className="relative">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+          {/* Right Image - Positioned Lower */}
+          <div className="relative lg:absolute lg:right-8 lg:-top-8 lg:w-1/2 lg:max-w-2xl">
+            <div className="relative mt-8 lg:mt-0">
               <ImageWithFallback
                 src={imageUrl}
                 alt="Hero Image"
-                className="w-full h-auto"
+                className="w-full h-auto object-cover rounded-lg"
               />
-            </div>
-            {/* Floating Card */}
-            <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-lg border">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                  <span className="text-2xl">✓</span>
+              {/* Floating Card */}
+              {/* <div className="absolute -bottom-6 lg:-bottom-8 -left-4 lg:-left-6 bg-white p-4 lg:p-6 rounded-xl shadow-lg border z-10">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                    <span className="text-2xl">✓</span>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">{data.floating_card_text}</p>
+                    <div className="text-xl">{data.floating_card_value}</div>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">{data.floating_card_text}</p>
-                  <div className="text-xl">{data.floating_card_value}</div>
-                </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

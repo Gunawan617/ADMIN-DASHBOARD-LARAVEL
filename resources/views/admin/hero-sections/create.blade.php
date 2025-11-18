@@ -175,34 +175,7 @@
                     </div>
 
                     <!-- Floating Card -->
-                    <div class="border-t border-gray-200 pt-6 mb-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Floating Card</h3>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Floating Card Text *</label>
-                                <input type="text" 
-                                       name="floating_card_text" 
-                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('floating_card_text') border-red-500 @enderror" 
-                                       value="{{ old('floating_card_text', 'Peserta Lulus') }}"
-                                       required>
-                                @error('floating_card_text')
-                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Floating Card Value *</label>
-                                <input type="text" 
-                                       name="floating_card_value" 
-                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('floating_card_value') border-red-500 @enderror" 
-                                       value="{{ old('floating_card_value', '92% Berhasil') }}"
-                                       required>
-                                @error('floating_card_value')
-                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
+                    
 
                     <!-- Active Status -->
                     <div class="mb-6">

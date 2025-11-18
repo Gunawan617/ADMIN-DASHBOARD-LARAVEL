@@ -11,15 +11,6 @@ interface VideoData {
     thumbnail_url: string;
     badge_title: string;
     badge_subtitle: string;
-    feature1_icon: string;
-    feature1_title: string;
-    feature1_description: string;
-    feature2_icon: string;
-    feature2_title: string;
-    feature2_description: string;
-    feature3_icon: string;
-    feature3_title: string;
-    feature3_description: string;
 }
 
 export function VideoSection() {
@@ -83,16 +74,7 @@ export function VideoSection() {
         video_webm_url: "/videos/hero-video.webm",
         thumbnail_url: "https://images.unsplash.com/photo-1588072432836-e10032774350?w=1200",
         badge_title: "Testimoni Alumni Klinik Ukom",
-        badge_subtitle: "Video otomatis diputar",
-        feature1_icon: "📚",
-        feature1_title: "Materi Lengkap",
-        feature1_description: "Semua materi UKOM dari A-Z",
-        feature2_icon: "👨‍🏫",
-        feature2_title: "Mentor Berpengalaman",
-        feature2_description: "Dibimbing langsung oleh ahli",
-        feature3_icon: "✅",
-        feature3_title: "Garansi Lulus",
-        feature3_description: "Bimbingan hingga lulus UKOM"
+        badge_subtitle: "Video otomatis diputar"
     };
 
     const data = videoData || defaultData;
@@ -196,25 +178,6 @@ export function VideoSection() {
                                 </button>
                             )}
 
-                            {/* Info Badge */}
-                            <div className="absolute bottom-3 left-3 right-3 sm:bottom-6 sm:left-6 sm:right-6">
-                                <div className="bg-white/95 backdrop-blur-sm rounded-lg p-3 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4">
-                                    <div className="flex-1 min-w-0">
-                                        <h3 className="font-bold text-sm sm:text-lg mb-0.5 sm:mb-1 truncate">{data.badge_title}</h3>
-                                        <p className="text-xs sm:text-sm text-gray-600 truncate">{data.badge_subtitle}</p>
-                                    </div>
-                                    {isMuted && (
-                                        <button
-                                            onClick={toggleMute}
-                                            className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-xs sm:text-sm font-medium whitespace-nowrap flex-shrink-0"
-                                        >
-                                            <Volume2 className="w-3 h-3 sm:w-4 sm:h-4" />
-                                            Aktifkan Suara
-                                        </button>
-                                    )}
-                                </div>
-                            </div>
-
                             {/* Loading Indicator */}
                             {isInView && !isLoaded && (
                                 <div className="absolute inset-0 flex items-center justify-center bg-black/20">
@@ -227,30 +190,7 @@ export function VideoSection() {
                         </div>
                     </div>
 
-                    {/* Video Features */}
-                    <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mt-8 sm:mt-12">
-                        <div className="text-center p-4 sm:p-6 bg-blue-50 rounded-xl">
-                            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                                <span className="text-xl sm:text-2xl">{data.feature1_icon}</span>
-                            </div>
-                            <h3 className="font-bold mb-1.5 sm:mb-2 text-sm sm:text-base">{data.feature1_title}</h3>
-                            <p className="text-xs sm:text-sm text-gray-600">{data.feature1_description}</p>
-                        </div>
-                        <div className="text-center p-4 sm:p-6 bg-blue-50 rounded-xl">
-                            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                                <span className="text-xl sm:text-2xl">{data.feature2_icon}</span>
-                            </div>
-                            <h3 className="font-bold mb-1.5 sm:mb-2 text-sm sm:text-base">{data.feature2_title}</h3>
-                            <p className="text-xs sm:text-sm text-gray-600">{data.feature2_description}</p>
-                        </div>
-                        <div className="text-center p-4 sm:p-6 bg-blue-50 rounded-xl sm:col-span-2 md:col-span-1">
-                            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                                <span className="text-xl sm:text-2xl">{data.feature3_icon}</span>
-                            </div>
-                            <h3 className="font-bold mb-1.5 sm:mb-2 text-sm sm:text-base">{data.feature3_title}</h3>
-                            <p className="text-xs sm:text-sm text-gray-600">{data.feature3_description}</p>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </section>

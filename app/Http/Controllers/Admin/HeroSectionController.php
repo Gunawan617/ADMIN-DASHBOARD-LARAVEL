@@ -37,8 +37,6 @@ class HeroSectionController extends Controller
             'stat2_label' => 'required|string|max:255',
             'stat3_value' => 'required|string|max:50',
             'stat3_label' => 'required|string|max:255',
-            'floating_card_text' => 'required|string|max:255',
-            'floating_card_value' => 'required|string|max:255',
             'is_active' => 'boolean',
         ]);
 
@@ -78,8 +76,6 @@ class HeroSectionController extends Controller
             'stat2_label' => 'required|string|max:255',
             'stat3_value' => 'required|string|max:50',
             'stat3_label' => 'required|string|max:255',
-            'floating_card_text' => 'required|string|max:255',
-            'floating_card_value' => 'required|string|max:255',
             'is_active' => 'boolean',
         ]);
 

@@ -31,15 +31,6 @@ class VideoSectionController extends Controller
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
             'badge_title' => 'required|string|max:255',
             'badge_subtitle' => 'required|string|max:255',
-            'feature1_icon' => 'required|string|max:10',
-            'feature1_title' => 'required|string|max:255',
-            'feature1_description' => 'required|string|max:255',
-            'feature2_icon' => 'required|string|max:10',
-            'feature2_title' => 'required|string|max:255',
-            'feature2_description' => 'required|string|max:255',
-            'feature3_icon' => 'required|string|max:10',
-            'feature3_title' => 'required|string|max:255',
-            'feature3_description' => 'required|string|max:255',
             'is_active' => 'boolean',
         ]);
 
@@ -59,6 +50,15 @@ class VideoSectionController extends Controller
         }
 
         $validated['video_webm_url'] = null;
+        $validated['feature1_icon'] = null;
+        $validated['feature1_title'] = null;
+        $validated['feature1_description'] = null;
+        $validated['feature2_icon'] = null;
+        $validated['feature2_title'] = null;
+        $validated['feature2_description'] = null;
+        $validated['feature3_icon'] = null;
+        $validated['feature3_title'] = null;
+        $validated['feature3_description'] = null;
 
         if ($request->has('is_active') && $request->is_active) {
             VideoSection::where('is_active', true)->update(['is_active' => false]);
@@ -93,15 +93,6 @@ class VideoSectionController extends Controller
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'badge_title' => 'required|string|max:255',
             'badge_subtitle' => 'required|string|max:255',
-            'feature1_icon' => 'required|string|max:10',
-            'feature1_title' => 'required|string|max:255',
-            'feature1_description' => 'required|string|max:255',
-            'feature2_icon' => 'required|string|max:10',
-            'feature2_title' => 'required|string|max:255',
-            'feature2_description' => 'required|string|max:255',
-            'feature3_icon' => 'required|string|max:10',
-            'feature3_title' => 'required|string|max:255',
-            'feature3_description' => 'required|string|max:255',
             'is_active' => 'boolean',
         ]);
 

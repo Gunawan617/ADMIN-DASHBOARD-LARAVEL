@@ -1,0 +1,468 @@
+import { Link } from "react-router-dom";
+import { BookOpen, X } from "lucide-react";
+import { useState, useEffect } from "react";
+
+interface Program {
+  id: number;
+  title: string;
+  tag?: string | null;
+  card_type: string;
+  sold_count?: string | null;
+  features: string[];
+  price: string;
+  link: string;
+  type: 'bimbel' | 'tryout' | 'bundle';
+  major: string;
+  level: 'd3' | 'profesi' | 's1';
+  order: number;
+  is_active: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export function ProgramsNew() {
+  const [programs, setPrograms] = useState<Program[]>([]);
+  const [availableMajors, setAvailableMajors] = useState<string[]>(['Keperawatan', 'Kebidanan']);
+  const [loading, setLoading] = useState(true);
+  const [showFilterModal, setShowFilterModal] = useState(false);
+  const [filterStep, setFilterStep] = useState<'type' | 'selection'>('type');
+  const [selectedType, setSelectedType] = useState<'bimbel' | 'tryout' | null>('bimbel');
+  const [selectedMajor, setSelectedMajor] = useState<string | null>('Keperawatan');
+  const [selectedLevel, setSelectedLevel] = useState<'d3' | 'profesi' | 's1' | null>('profesi');
+  const [tempMajor, setTempMajor] = useState<string | null>('Keperawatan');
+  const [tempLevel, setTempLevel] = useState<'d3' | 'profesi' | 's1' | null>('profesi');
+
+  useEffect(() => {
+    fetchMajors();
+  }, []);
+
+  const fetchMajors = async () => {
+    try {
+      const response = await fetch('/api/public/program-news?get_majors=1');
+      const data = await response.json();
+      if (data.majors && data.majors.length > 0) {
+        setAvailableMajors(data.majors);
+      }
+    } catch (error) {
+      console.error('Error fetching majors:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPrograms();
+  }, [selectedType, selectedMajor, selectedLevel]);
+
+  const fetchPrograms = async () => {
+    try {
+      setLoading(true);
+      const params = new URLSearchParams();
+      if (selectedType) params.append('type', selectedType);
+      if (selectedMajor) params.append('major', selectedMajor);
+      if (selectedLevel) params.append('level', selectedLevel);
+
+      const response = await fetch(`/api/public/program-news?${params}`);
+      const data = await response.json();
+      setPrograms(data);
+    } catch (error) {
+      console.error('Error fetching programs:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleOpenFilter = () => {
+    setShowFilterModal(true);
+    setFilterStep('type');
+    setTempMajor(selectedMajor);
+    setTempLevel(selectedLevel);
+  };
+
+  const handleTypeSelect = (type: 'bimbel' | 'tryout') => {
+    setSelectedType(type);
+    setFilterStep('selection');
+  };
+
+  const handleApplyFilter = () => {
+    if (tempMajor && tempLevel) {
+      setSelectedMajor(tempMajor);
+      setSelectedLevel(tempLevel);
+      setShowFilterModal(false);
+    }
+  };
+
+  const getDisplayText = () => {
+    if (!selectedType) return 'Pilih Program';
+    const typeText = selectedType === 'bimbel' ? 'Bimbel' : 'Try Out';
+    const majorText = selectedMajor || '';
+    const levelText = selectedLevel === 'd3' ? 'D3' : selectedLevel === 'profesi' ? 'Profesi' : selectedLevel === 's1' ? 'S1' : '';
+
+    if (selectedLevel && selectedMajor) return `${typeText} - ${levelText} ${majorText}`;
+    if (selectedMajor) return `${typeText} - ${majorText}`;
+    return typeText;
+  };
+
+  return (
+    <section className="min-h-screen bg-[#f5f5f5] py-10 px-5 -mt-20">
+      <div className="max-w-[1200px] mx-auto">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-[#1a202c] mb-6">
+            Pilih Paket Belajarmu
+          </h1>
+
+          {/* Dropdown Selector */}
+          <button
+            onClick={handleOpenFilter}
+            className="bg-[#1e293b] text-white px-7 py-3 rounded-lg font-semibold inline-flex items-center gap-2 hover:bg-[#334155] transition-all shadow-[0_2px_8px_rgba(30,41,59,0.15)] hover:shadow-[0_4px_12px_rgba(30,41,59,0.2)] hover:-translate-y-0.5"
+          >
+            {getDisplayText()}
+            <span className="text-xs">▼</span>
+          </button>
+        </div>
+
+        {/* Programs Grid */}
+        {loading ? (
+          <div className="text-center py-16">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">Memuat program...</p>
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+              {programs.map((program) => (
+                <ProgramCard key={program.id} program={program} />
+              ))}
+            </div>
+
+            {/* Empty State */}
+            {programs.length === 0 && (
+              <div className="text-center py-16">
+                <div className="text-6xl mb-4">📦</div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Belum Ada Program</h3>
+                <p className="text-gray-600">Program untuk kategori ini sedang dalam pengembangan</p>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+
+      {/* Filter Modal */}
+      {showFilterModal && (
+        <FilterModal
+          step={filterStep}
+          tempMajor={tempMajor}
+          tempLevel={tempLevel}
+          availableMajors={availableMajors}
+          onClose={() => setShowFilterModal(false)}
+          onTypeSelect={handleTypeSelect}
+          onMajorSelect={setTempMajor}
+          onLevelSelect={setTempLevel}
+          onApply={handleApplyFilter}
+        />
+      )}
+    </section>
+  );
+}
+
+interface FilterModalProps {
+  step: 'type' | 'selection';
+  tempMajor: string | null;
+  tempLevel: 'd3' | 'profesi' | 's1' | null;
+  availableMajors: string[];
+  onClose: () => void;
+  onTypeSelect: (type: 'bimbel' | 'tryout') => void;
+  onMajorSelect: (major: string) => void;
+  onLevelSelect: (level: 'd3' | 'profesi' | 's1') => void;
+  onApply: () => void;
+}
+
+function FilterModal({ step, tempMajor, tempLevel, availableMajors, onClose, onTypeSelect, onMajorSelect, onLevelSelect, onApply }: FilterModalProps) {
+  const getMajorIcon = (major: string) => {
+    const lowerMajor = major.toLowerCase();
+    if (lowerMajor.includes('keperawatan')) return '👨‍⚕️';
+    if (lowerMajor.includes('kebidanan')) return '👩‍⚕️';
+    if (lowerMajor.includes('gizi')) return '🥗';
+    if (lowerMajor.includes('farmasi')) return '💊';
+    if (lowerMajor.includes('analis')) return '🔬';
+    return '🎓';
+  };
+
+  const getMajorColor = (major: string) => {
+    const lowerMajor = major.toLowerCase();
+    if (lowerMajor.includes('keperawatan')) return 'bg-blue-100';
+    if (lowerMajor.includes('kebidanan')) return 'bg-pink-100';
+    if (lowerMajor.includes('gizi')) return 'bg-green-100';
+    if (lowerMajor.includes('farmasi')) return 'bg-purple-100';
+    if (lowerMajor.includes('analis')) return 'bg-yellow-100';
+    return 'bg-gray-100';
+  };
+  return (
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-2 md:p-4" onClick={onClose}>
+      <div className="bg-white rounded-xl md:rounded-2xl max-w-3xl w-full max-h-[95vh] md:max-h-[90vh] overflow-y-auto shadow-2xl relative" onClick={(e) => e.stopPropagation()}>
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-2 right-2 md:top-3 md:right-3 p-1.5 hover:bg-gray-100 rounded-lg transition-colors z-10"
+        >
+          <X className="w-5 h-5 text-gray-600" />
+        </button>
+
+        <div className="p-4 md:p-6">
+          {/* Step 1: Select Type (Bimbel or Try Out) */}
+          {step === 'type' && (
+            <div className="text-center">
+              <h2 className="text-xl md:text-2xl font-bold text-[#1a202c] mb-2">Pilih Tipe Program</h2>
+              <p className="text-xs md:text-sm text-gray-500 mb-4 md:mb-6">Pilih antara Bimbel atau Try Out untuk memulai</p>
+
+              <div className="grid grid-cols-2 gap-3 md:gap-4 max-w-xl mx-auto">
+                <button
+                  onClick={() => onTypeSelect('bimbel')}
+                  className="p-4 md:p-6 border-2 border-gray-200 rounded-lg md:rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all group"
+                >
+                  <div className="text-3xl md:text-4xl mb-2 md:mb-3">🎓</div>
+                  <h3 className="text-base md:text-lg font-bold text-gray-900 mb-1">Bimbel</h3>
+                  <p className="text-[10px] md:text-xs text-gray-600">Program bimbingan belajar lengkap</p>
+                </button>
+
+                <button
+                  onClick={() => onTypeSelect('tryout')}
+                  className="p-4 md:p-6 border-2 border-gray-200 rounded-lg md:rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all group"
+                >
+                  <div className="text-3xl md:text-4xl mb-2 md:mb-3">📝</div>
+                  <h3 className="text-base md:text-lg font-bold text-gray-900 mb-1">Try Out</h3>
+                  <p className="text-[10px] md:text-xs text-gray-600">Latihan soal dan simulasi ujian</p>
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Step 2: Select Major and Level Together */}
+          {step === 'selection' && (
+            <div className="text-center">
+              {/* Pilih Jurusan */}
+              <h2 className="text-xl md:text-2xl font-bold text-[#1a202c] mb-2">Pilih Jurusan</h2>
+              <p className="text-xs md:text-sm text-gray-500 mb-4 md:mb-5">Mulai perjalanan UKOM-mu dengan memilih jurusan yang sesuai</p>
+
+              <div className={`grid gap-2 md:gap-3 mb-6 md:mb-8 ${availableMajors.length === 1 ? 'grid-cols-1 max-w-xs mx-auto' :
+                  availableMajors.length === 2 ? 'grid-cols-2 max-w-md mx-auto' :
+                    availableMajors.length === 3 ? 'grid-cols-3' :
+                      availableMajors.length === 4 ? 'grid-cols-2 md:grid-cols-4' :
+                        'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'
+                }`}>
+                {availableMajors.map((major) => (
+                  <button
+                    key={major}
+                    onClick={() => onMajorSelect(major)}
+                    className={`p-2 md:p-4 border-2 rounded-lg md:rounded-xl transition-all ${tempMajor === major
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-gray-200 hover:border-blue-500 hover:bg-blue-50'
+                      }`}
+                  >
+                    <div className={`w-12 h-12 md:w-16 md:h-16 mx-auto mb-1 md:mb-2 ${getMajorColor(major)} rounded-full flex items-center justify-center text-2xl md:text-3xl`}>
+                      {getMajorIcon(major)}
+                    </div>
+                    <h3 className="text-xs md:text-base font-bold text-gray-900">{major}</h3>
+                  </button>
+                ))}
+              </div>
+
+              {/* Pilih Program Studi */}
+              <h2 className="text-xl md:text-2xl font-bold text-[#1a202c] mb-2">Pilih Program Studi</h2>
+              <p className="text-xs md:text-sm text-gray-500 mb-4 md:mb-5">Tentukan jenjang program studi kamu untuk mendapatkan pembelajaran yang sesuai</p>
+
+              <div className="grid grid-cols-3 gap-2 md:gap-3 mb-4 md:mb-6">
+                <button
+                  onClick={() => onLevelSelect('d3')}
+                  className={`p-2 md:p-4 border-2 rounded-lg md:rounded-xl transition-all ${tempLevel === 'd3'
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-gray-200 hover:border-blue-500 hover:bg-blue-50'
+                    }`}
+                >
+                  <div className="text-2xl md:text-3xl mb-1 md:mb-2">🎓</div>
+                  <h3 className="text-xs md:text-base font-bold text-gray-900">
+                    D3 <span className="hidden md:inline">{tempMajor || ''}</span>
+                  </h3>
+                </button>
+
+                <button
+                  onClick={() => onLevelSelect('profesi')}
+                  className={`p-2 md:p-4 border-2 rounded-lg md:rounded-xl transition-all ${tempLevel === 'profesi'
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-gray-200 hover:border-blue-500 hover:bg-blue-50'
+                    }`}
+                >
+                  <div className="text-2xl md:text-3xl mb-1 md:mb-2">🎓</div>
+                  <h3 className="text-xs md:text-base font-bold text-gray-900">Profesi</h3>
+                </button>
+
+                <button
+                  onClick={() => onLevelSelect('s1')}
+                  className={`p-2 md:p-4 border-2 rounded-lg md:rounded-xl transition-all ${tempLevel === 's1'
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-gray-200 hover:border-blue-500 hover:bg-blue-50'
+                    }`}
+                >
+                  <div className="text-2xl md:text-3xl mb-1 md:mb-2">🎓</div>
+                  <h3 className="text-xs md:text-base font-bold text-gray-900">
+                    S1 <span className="hidden md:inline">{tempMajor || ''}</span>
+                  </h3>
+                </button>
+              </div>
+
+              <div className="mt-4 md:mt-6">
+                <button
+                  onClick={onApply}
+                  disabled={!tempMajor || !tempLevel}
+                  className="bg-blue-600 text-white px-8 md:px-10 py-2.5 md:py-3 rounded-lg font-bold text-sm md:text-base hover:bg-blue-700 transition-all shadow-lg disabled:bg-gray-400 disabled:cursor-not-allowed w-full md:w-auto"
+                >
+                  Mulai Sekarang
+                </button>
+                <p className="text-[10px] md:text-xs text-gray-500 mt-2 md:mt-3">
+                  Sudah memiliki akun Appskep? <Link to="/login" className="text-blue-600 font-semibold hover:underline">Login</Link>
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProgramCard({ program }: { program: Program }) {
+  const [showModal, setShowModal] = useState(false);
+
+  return (
+    <>
+      <div className="bg-white rounded-xl overflow-hidden transition-all duration-300 shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-[#e5e7eb] hover:-translate-y-2 hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)] hover:border-[#2563eb] relative flex flex-col">
+        {/* Header with gradient */}
+        <div className="relative bg-gradient-to-br from-[#2563eb] to-[#1e40af] px-5 pt-4 pb-10 overflow-hidden h-[110px]">
+          {/* Badge */}
+          {program.tag && (
+            <div className="absolute top-3 right-3 z-20 bg-gradient-to-br from-[#f59e0b] to-[#d97706] text-white px-3 py-1 rounded text-[10px] font-bold uppercase shadow-[0_2px_8px_rgba(245,158,11,0.3)]">
+              {program.tag}
+            </div>
+          )}
+
+          {/* Icon and Label */}
+          <div className="relative z-10 text-white text-sm font-semibold flex items-center gap-2 mt-2">
+            <span className="w-8 h-8 bg-white/20 rounded inline-flex items-center justify-center text-base backdrop-blur-[10px]">
+              📖
+            </span>
+            <span>{program.card_type}</span>
+          </div>
+
+          {/* Wave decoration */}
+          <div className="absolute bottom-0 left-0 right-0 h-[30px] bg-white rounded-t-[20px] z-10"></div>
+        </div>
+
+        {/* Content */}
+        <div className="bg-white px-6 pt-5 pb-6 flex flex-col flex-1">
+          <h3 className="text-sm font-bold text-[#1a202c] leading-[1.45] min-h-[68px] mb-4">
+            {program.title}
+          </h3>
+
+          <div className="mb-5">
+            <span className="text-[#2563eb] text-xs font-bold">
+              {program.sold_count}
+            </span>
+          </div>
+
+          <ul className="list-none mb-6 flex-grow">
+            {program.features.slice(0, 2).map((feature, idx) => (
+              <li key={idx} className="text-[#4b5563] text-xs leading-[1.65] mb-3 pl-7 relative">
+                <span className="absolute left-0 top-0.5 text-[#10b981] font-bold w-5 h-5 bg-[#d1fae5] rounded-full flex items-center justify-center text-[10px]">
+                  ✓
+                </span>
+                {feature}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mb-5">
+            <button
+              onClick={() => setShowModal(true)}
+              className="text-[#2563eb] text-xs font-bold inline-flex items-center gap-1 transition-all hover:text-[#1e40af] hover:gap-2 cursor-pointer"
+            >
+              selengkapnya ›
+            </button>
+          </div>
+
+          <div className="flex justify-between items-center pt-5 border-t-2 border-[#f3f4f6] mt-auto">
+            <div className="flex flex-col">
+              <div className="text-[10px] text-[#6b7280] font-semibold mb-1.5">Rp</div>
+              <div className="text-[1.75rem] font-bold text-[#1a202c] leading-none">
+                {program.price}
+              </div>
+            </div>
+            <Link to="/daftar">
+              <button className="bg-[#2563eb] text-white border-none px-6 py-2.5 rounded-lg font-bold text-sm cursor-pointer transition-all shadow-[0_2px_8px_rgba(37,99,235,0.25)] hover:bg-[#1e40af] hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(37,99,235,0.35)] active:translate-y-0">
+                Beli
+              </button>
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Detail Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowModal(false)}>
+          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <div className="sticky top-0 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white p-6 rounded-t-2xl">
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-10 h-10 bg-white/25 rounded-lg flex items-center justify-center backdrop-blur-sm border border-white/30">
+                      <BookOpen className="w-5 h-5" />
+                    </div>
+                    <span className="font-semibold">{program.card_type}</span>
+                  </div>
+                  <h3 className="text-xl font-bold leading-tight">{program.title}</h3>
+                  {program.sold_count && (
+                    <p className="text-blue-100 text-sm mt-2">{program.sold_count}</p>
+                  )}
+                </div>
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="ml-4 p-2 hover:bg-white/20 rounded-lg transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            <div className="p-6">
+              <h4 className="font-bold text-lg mb-4 text-gray-900">Fitur Program:</h4>
+              <ul className="space-y-3 mb-6">
+                {program.features.map((feature, idx) => (
+                  <li key={idx} className="flex items-start gap-3 text-sm text-gray-700">
+                    <div className="w-5 h-5 rounded-full bg-gray-900 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="flex-1">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="flex items-center justify-between pt-6 border-t border-gray-200">
+                <div>
+                  <div className="text-xs text-gray-500 font-medium">Harga</div>
+                  <div className="text-3xl font-bold text-gray-900">
+                    Rp {program.price}
+                  </div>
+                </div>
+                <Link to="/daftar">
+                  <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3 rounded-lg transition-all shadow-lg hover:shadow-xl">
+                    Beli Sekarang
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}

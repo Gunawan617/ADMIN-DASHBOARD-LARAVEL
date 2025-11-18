@@ -14,6 +14,11 @@ Route::get('/', function () {
     return view('website');
 });
 
+// Registration page
+Route::get('/daftar', function () {
+    return view('website');
+});
+
 // Old welcome page (if needed)
 Route::get('/welcome', function () {
     return view('welcome');
@@ -112,6 +117,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // Video Sections Management
     Route::resource('video-sections', App\Http\Controllers\Admin\VideoSectionController::class);
     Route::patch('video-sections/{videoSection}/toggle-active', [App\Http\Controllers\Admin\VideoSectionController::class, 'toggleActive'])->name('video-sections.toggle-active');
+
+    // Program News Management
+    Route::resource('program-news', App\Http\Controllers\Admin\ProgramNewController::class);
 });
 
 // Dashboard user biasa (setelah login)

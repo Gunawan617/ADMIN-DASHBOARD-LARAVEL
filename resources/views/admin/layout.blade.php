@@ -244,7 +244,7 @@
         <div class="dropdown-menu pl-12 space-y-0.5 mt-1.5" id="content-menu">
           <a href="{{ route('admin.posts.index') }}" class="block px-3 py-2 rounded-lg text-sm text-white/80 hover:bg-white/10 hover:text-white transition-all duration-200 {{ request()->routeIs('admin.posts.*') ? 'bg-white/10 font-medium' : '' }}">Posts</a>
           <a href="{{ route('admin.books.index') }}" class="block px-3 py-2 rounded-lg text-sm text-white/80 hover:bg-white/10 hover:text-white transition-all duration-200 {{ request()->routeIs('admin.books.*') ? 'bg-white/10 font-medium' : '' }}">Buku</a>
-          <a href="{{ route('admin.program-details.index') }}" class="block px-3 py-2 rounded-lg text-sm text-white/80 hover:bg-white/10 hover:text-white transition-all duration-200 {{ request()->routeIs('admin.program-details.*') ? 'bg-white/10 font-medium' : '' }}">Program Details</a>
+          <a href="{{ route('admin.program-news.index') }}" class="block px-3 py-2 rounded-lg text-sm text-white/80 hover:bg-white/10 hover:text-white transition-all duration-200 {{ request()->routeIs('admin.program-news.*') ? 'bg-white/10 font-medium' : '' }}">Program News</a>
           <a href="{{ route('admin.faqs.index') }}" class="block px-3 py-2 rounded-lg text-sm text-white/80 hover:bg-white/10 hover:text-white transition-all duration-200 {{ request()->routeIs('admin.faqs.*') ? 'bg-white/10 font-medium' : '' }}">FAQ</a>
         </div>
       </div>
@@ -419,7 +419,7 @@
         <div class="dropdown-menu pl-11 space-y-1 mt-1" id="content-mobile-menu">
           <a href="{{ route('admin.posts.index') }}" class="block p-2 rounded text-sm text-white/80 hover:bg-white/10 hover:text-white {{ request()->routeIs('admin.posts.*') ? 'bg-white/10' : '' }}">Posts</a>
           <a href="{{ route('admin.books.index') }}" class="block p-2 rounded text-sm text-white/80 hover:bg-white/10 hover:text-white {{ request()->routeIs('admin.books.*') ? 'bg-white/10' : '' }}">Buku</a>
-          <a href="{{ route('admin.program-details.index') }}" class="block p-2 rounded text-sm text-white/80 hover:bg-white/10 hover:text-white {{ request()->routeIs('admin.program-details.*') ? 'bg-white/10' : '' }}">Program Details</a>
+          <a href="{{ route('admin.program-news.index') }}" class="block p-2 rounded text-sm text-white/80 hover:bg-white/10 hover:text-white {{ request()->routeIs('admin.program-news.*') ? 'bg-white/10' : '' }}">Program News</a>
         </div>
       </div>
 

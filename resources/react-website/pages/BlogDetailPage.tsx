@@ -117,8 +117,7 @@ export function BlogDetailPage() {
       {/* Article Header */}
       <article className="py-6 sm:py-8 lg:py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <div className="max-w-[65ch] mx-auto">
+          <div className="max-w-5xl mx-auto">
             {/* Category Badge */}
             {post.category && (
               <Badge className="mb-6 bg-blue-600 hover:bg-blue-700 px-4 py-1.5 text-sm font-medium">
@@ -169,7 +168,7 @@ export function BlogDetailPage() {
 
             {/* Content */}
             <article 
-              className="blog-content prose prose-sm sm:prose-base max-w-none mb-8 sm:mb-10 lg:mb-12
+              className="blog-content prose prose-sm sm:prose-base !max-w-full mb-8 sm:mb-10 lg:mb-12
                          prose-headings:font-bold prose-headings:text-gray-900 prose-headings:tracking-tight
                          prose-h1:text-2xl prose-h1:sm:text-3xl prose-h1:mb-5 prose-h1:mt-6
                          prose-h2:text-xl prose-h2:sm:text-2xl prose-h2:mb-4 prose-h2:mt-6 prose-h2:pb-2 prose-h2:border-b prose-h2:border-gray-200
@@ -224,7 +223,6 @@ export function BlogDetailPage() {
                 </div>
               </div>
             )}
-            </div>
           </div>
         </div>
       </article>

@@ -52,6 +52,10 @@ Route::get('public/hero-section', [App\Http\Controllers\Api\HeroSectionControlle
 // Video Section
 Route::get('public/video-section', [App\Http\Controllers\Api\VideoSectionController::class, 'index']);
 
+// Program News
+Route::get('public/program-news', [App\Http\Controllers\Api\ProgramNewController::class, 'index']);
+Route::get('public/program-news/{id}', [App\Http\Controllers\Api\ProgramNewController::class, 'show']);
+
 // Protected (admin)
 Route::middleware('auth:sanctum')->group(function () {
     // DEPRECATED, use program-details instead
