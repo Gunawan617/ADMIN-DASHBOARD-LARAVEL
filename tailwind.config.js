@@ -19,6 +19,7 @@ export default {
                 'primary': '#2563eb', // blue-600
                 'primary-foreground': '#ffffff',
             },
+
         },
     },
 

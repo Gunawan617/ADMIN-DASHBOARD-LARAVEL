@@ -81,7 +81,7 @@ export function Hero() {
   }
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white pt-20 lg:pt-32 pb-32 lg:pb-40">
+    <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white pt-16 lg:pt-24 pb-20 lg:pb-40">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600 rounded-full blur-3xl"></div>
@@ -101,28 +101,28 @@ export function Hero() {
               <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold font-poppins">
                 {data.title}
               </h1>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-[21px] text-muted-foreground">
                 {data.description}
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 mt-12">
               <Button
                 size="lg"
                 onClick={() => navigate(data.primary_button_link)}
-                className="bg-blue-600 hover:bg-blue-700"
+                className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-6 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all font-bold"
               >
                 {data.primary_button_text}
-                <ArrowRight className="ml-2" size={20} />
+                <ArrowRight className="ml-2" size={24} />
               </Button>
               {data.secondary_button_text && (
                 <Button
                   size="lg"
                   variant="outline"
-                  className="gap-2"
+                  className="gap-2 text-lg px-8 py-6 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all font-bold border-2"
                   onClick={() => data.secondary_button_link && window.open(data.secondary_button_link, '_blank')}
                 >
-                  <Play size={20} />
+                  <Play size={24} />
                   {data.secondary_button_text}
                 </Button>
               )}
@@ -146,12 +146,12 @@ export function Hero() {
           </div>
 
           {/* Right Image - Positioned Lower */}
-          <div className="relative lg:absolute lg:right-8 lg:-top-8 lg:w-1/2 lg:max-w-2xl">
+          <div className="relative lg:absolute lg:right-0 lg:-top-40 lg:w-[58%] lg:max-w-3xl">
             <div className="relative mt-8 lg:mt-0">
               <ImageWithFallback
                 src={imageUrl}
                 alt="Hero Image"
-                className="w-full h-auto object-cover rounded-lg"
+                className="w-full h-auto object-cover object-right rounded-lg"
               />
               {/* Floating Card */}
               {/* <div className="absolute -bottom-6 lg:-bottom-8 -left-4 lg:-left-6 bg-white p-4 lg:p-6 rounded-xl shadow-lg border z-10">

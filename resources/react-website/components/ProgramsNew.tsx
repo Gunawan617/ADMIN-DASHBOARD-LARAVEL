@@ -106,14 +106,18 @@ export function ProgramsNew() {
       <div className="max-w-[1200px] mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-[#1a202c] mb-6">
+          <h1 className="invisible text-3xl font-bold text-[#1a202c] mb-6">
+            Grab it Now
+          </h1>
+          <h1 className="text-[40px] font-bold text-[#1a202c] mb-6">
             Pilih Paket Belajarmu
           </h1>
+
 
           {/* Dropdown Selector */}
           <button
             onClick={handleOpenFilter}
-            className="bg-[#1e293b] text-white px-7 py-3 rounded-lg font-semibold inline-flex items-center gap-2 hover:bg-[#334155] transition-all shadow-[0_2px_8px_rgba(30,41,59,0.15)] hover:shadow-[0_4px_12px_rgba(30,41,59,0.2)] hover:-translate-y-0.5"
+            className="bg-[#1e293b] text-white px-7 py-3 rounded-lg font-semibold inline-flex items-center gap-2 hover:bg-[#334155] transition-all shadow-[0_2px_8px_rgba(30,41,59,0.15)] hover:shadow-[0_4px_12px_rgba(30,41,59,0.2)] hover:-translate-y-0.5 text-xl"
           >
             {getDisplayText()}
             <span className="text-xs">▼</span>
@@ -244,10 +248,10 @@ function FilterModal({ step, tempMajor, tempLevel, availableMajors, onClose, onT
               <p className="text-xs md:text-sm text-gray-500 mb-4 md:mb-5">Mulai perjalanan UKOM-mu dengan memilih jurusan yang sesuai</p>
 
               <div className={`grid gap-2 md:gap-3 mb-6 md:mb-8 ${availableMajors.length === 1 ? 'grid-cols-1 max-w-xs mx-auto' :
-                  availableMajors.length === 2 ? 'grid-cols-2 max-w-md mx-auto' :
-                    availableMajors.length === 3 ? 'grid-cols-3' :
-                      availableMajors.length === 4 ? 'grid-cols-2 md:grid-cols-4' :
-                        'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'
+                availableMajors.length === 2 ? 'grid-cols-2 max-w-md mx-auto' :
+                  availableMajors.length === 3 ? 'grid-cols-3' :
+                    availableMajors.length === 4 ? 'grid-cols-2 md:grid-cols-4' :
+                      'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'
                 }`}>
                 {availableMajors.map((major) => (
                   <button
@@ -334,21 +338,18 @@ function ProgramCard({ program }: { program: Program }) {
 
   return (
     <>
-      <div className="bg-white rounded-xl overflow-hidden transition-all duration-300 shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-[#e5e7eb] hover:-translate-y-2 hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)] hover:border-[#2563eb] relative flex flex-col">
+      <div className="bg-white rounded-xl overflow-hidden transition-all duration-300 shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-[#e5e7eb] hover:-translate-y-2 hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)] hover:border-[#2563eb] relative flex flex-col font-['Helvetica',sans-serif]">
         {/* Header with gradient */}
         <div className="relative bg-gradient-to-br from-[#2563eb] to-[#1e40af] px-5 pt-4 pb-10 overflow-hidden h-[110px]">
           {/* Badge */}
           {program.tag && (
-            <div className="absolute top-3 right-3 z-20 bg-gradient-to-br from-[#f59e0b] to-[#d97706] text-white px-3 py-1 rounded text-[10px] font-bold uppercase shadow-[0_2px_8px_rgba(245,158,11,0.3)]">
+            <div className="absolute top-3 right-3 z-20 bg-gradient-to-br from-[#f59e0b] to-[#d97706] text-white px-3 py-1 rounded text-xs font-bold uppercase shadow-[0_2px_8px_rgba(245,158,11,0.3)]">
               {program.tag}
             </div>
           )}
 
           {/* Icon and Label */}
-          <div className="relative z-10 text-white text-sm font-semibold flex items-center gap-2 mt-2">
-            <span className="w-8 h-8 bg-white/20 rounded inline-flex items-center justify-center text-base backdrop-blur-[10px]">
-              📖
-            </span>
+          <div className="relative z-10 text-white text-base font-semibold flex items-center gap-2 mt-2">
             <span>{program.card_type}</span>
           </div>
 
@@ -358,20 +359,20 @@ function ProgramCard({ program }: { program: Program }) {
 
         {/* Content */}
         <div className="bg-white px-6 pt-5 pb-6 flex flex-col flex-1">
-          <h3 className="text-sm font-bold text-[#1a202c] leading-[1.45] min-h-[68px] mb-4">
+          <h3 className="text-base font-bold text-[#1a202c] leading-[1.45] min-h-[68px] mb-4">
             {program.title}
           </h3>
 
           <div className="mb-5">
-            <span className="text-[#2563eb] text-xs font-bold">
+            <span className="text-[#2563eb] text-sm font-bold">
               {program.sold_count}
             </span>
           </div>
 
           <ul className="list-none mb-6 flex-grow">
             {program.features.slice(0, 2).map((feature, idx) => (
-              <li key={idx} className="text-[#4b5563] text-xs leading-[1.65] mb-3 pl-7 relative">
-                <span className="absolute left-0 top-0.5 text-[#10b981] font-bold w-5 h-5 bg-[#d1fae5] rounded-full flex items-center justify-center text-[10px]">
+              <li key={idx} className="text-[#4b5563] text-sm leading-[1.65] mb-3 pl-7 relative">
+                <span className="absolute left-0 top-0.5 text-[#10b981] font-bold w-5 h-5 bg-[#d1fae5] rounded-full flex items-center justify-center text-xs">
                   ✓
                 </span>
                 {feature}
@@ -382,7 +383,7 @@ function ProgramCard({ program }: { program: Program }) {
           <div className="mb-5">
             <button
               onClick={() => setShowModal(true)}
-              className="text-[#2563eb] text-xs font-bold inline-flex items-center gap-1 transition-all hover:text-[#1e40af] hover:gap-2 cursor-pointer"
+              className="text-[#2563eb] text-sm font-bold inline-flex items-center gap-1 transition-all hover:text-[#1e40af] hover:gap-2 cursor-pointer"
             >
               selengkapnya ›
             </button>
@@ -390,13 +391,13 @@ function ProgramCard({ program }: { program: Program }) {
 
           <div className="flex justify-between items-center pt-5 border-t-2 border-[#f3f4f6] mt-auto">
             <div className="flex flex-col">
-              <div className="text-[10px] text-[#6b7280] font-semibold mb-1.5">Rp</div>
-              <div className="text-[1.75rem] font-bold text-[#1a202c] leading-none">
+              <div className="text-xs text-[#6b7280] font-semibold mb-1.5">Rp</div>
+              <div className="text-[2rem] font-bold text-[#1a202c] leading-none">
                 {program.price}
               </div>
             </div>
             <Link to="/daftar">
-              <button className="bg-[#2563eb] text-white border-none px-6 py-2.5 rounded-lg font-bold text-sm cursor-pointer transition-all shadow-[0_2px_8px_rgba(37,99,235,0.25)] hover:bg-[#1e40af] hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(37,99,235,0.35)] active:translate-y-0">
+              <button className="bg-[#2563eb] text-white border-none px-6 py-3 rounded-lg font-bold text-base cursor-pointer transition-all shadow-[0_2px_8px_rgba(37,99,235,0.25)] hover:bg-[#1e40af] hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(37,99,235,0.35)] active:translate-y-0">
                 Beli
               </button>
             </Link>
