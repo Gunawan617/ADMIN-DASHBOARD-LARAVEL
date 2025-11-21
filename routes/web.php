@@ -135,9 +135,9 @@ Route::middleware('auth')->group(function () {
 // Admin Auth routes (login, logout only)
 Route::prefix('admin')->group(function () {
     // Login Routes
-    Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
+    Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('admin.login');
     Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
-    Route::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+    Route::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('admin.logout');
 });
 
 // SPA Fallback - Catch all routes and return React app
