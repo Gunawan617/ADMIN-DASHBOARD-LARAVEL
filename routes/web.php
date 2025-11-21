@@ -25,7 +25,7 @@ Route::get('/welcome', function () {
 });
 
 // Group Admin (wajib login)
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AnalyticsController::class, 'dashboard'])->name('dashboard');
 
     // CRUD Bimbel Programs (Blade Dashboard) - DEPRECATED, use program-details instead
@@ -39,7 +39,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::resource('users', App\Http\Controllers\Admin\UserController::class)
         ->except(['create', 'store', 'show'])
         ->names('users');
-    
+
     // CRUD Books (Web Interface)
     Route::prefix('books')->name('books.')->group(function () {
         Route::get('/', [BookController::class, 'indexWeb'])->name('index');

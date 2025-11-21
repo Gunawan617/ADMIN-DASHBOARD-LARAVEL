@@ -13,7 +13,6 @@ interface Program {
   link: string;
   type: 'bimbel' | 'tryout' | 'bundle';
   major: string;
-  level: 'd3' | 'profesi' | 's1';
   order: number;
   is_active: boolean;
   created_at?: string;
@@ -26,11 +25,9 @@ export function ProgramsNew() {
   const [loading, setLoading] = useState(true);
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [filterStep, setFilterStep] = useState<'type' | 'selection'>('type');
-  const [selectedType, setSelectedType] = useState<'bimbel' | 'tryout' | null>('bimbel');
+  const [selectedType, setSelectedType] = useState<'bimbel' | 'tryout' | 'bundle' | null>('bimbel');
   const [selectedMajor, setSelectedMajor] = useState<string | null>('Keperawatan');
-  const [selectedLevel, setSelectedLevel] = useState<'d3' | 'profesi' | 's1' | null>('profesi');
   const [tempMajor, setTempMajor] = useState<string | null>('Keperawatan');
-  const [tempLevel, setTempLevel] = useState<'d3' | 'profesi' | 's1' | null>('profesi');
 
   useEffect(() => {
     fetchMajors();
@@ -50,7 +47,7 @@ export function ProgramsNew() {
 
   useEffect(() => {
     fetchPrograms();
-  }, [selectedType, selectedMajor, selectedLevel]);
+  }, [selectedType, selectedMajor]);
 
   const fetchPrograms = async () => {
     try {
@@ -58,7 +55,7 @@ export function ProgramsNew() {
       const params = new URLSearchParams();
       if (selectedType) params.append('type', selectedType);
       if (selectedMajor) params.append('major', selectedMajor);
-      if (selectedLevel) params.append('level', selectedLevel);
+
 
       const response = await fetch(`/api/public/program-news?${params}`);
       const data = await response.json();
@@ -74,29 +71,26 @@ export function ProgramsNew() {
     setShowFilterModal(true);
     setFilterStep('type');
     setTempMajor(selectedMajor);
-    setTempLevel(selectedLevel);
+
   };
 
-  const handleTypeSelect = (type: 'bimbel' | 'tryout') => {
+  const handleTypeSelect = (type: 'bimbel' | 'tryout' | 'bundle') => {
     setSelectedType(type);
     setFilterStep('selection');
   };
 
   const handleApplyFilter = () => {
-    if (tempMajor && tempLevel) {
+    if (tempMajor) {
       setSelectedMajor(tempMajor);
-      setSelectedLevel(tempLevel);
       setShowFilterModal(false);
     }
   };
 
   const getDisplayText = () => {
     if (!selectedType) return 'Pilih Program';
-    const typeText = selectedType === 'bimbel' ? 'Bimbel' : 'Try Out';
+    const typeText = selectedType === 'bimbel' ? 'Bimbel' : selectedType === 'tryout' ? 'Try Out' : 'Bundle';
     const majorText = selectedMajor || '';
-    const levelText = selectedLevel === 'd3' ? 'D3' : selectedLevel === 'profesi' ? 'Profesi' : selectedLevel === 's1' ? 'S1' : '';
 
-    if (selectedLevel && selectedMajor) return `${typeText} - ${levelText} ${majorText}`;
     if (selectedMajor) return `${typeText} - ${majorText}`;
     return typeText;
   };
@@ -155,12 +149,11 @@ export function ProgramsNew() {
         <FilterModal
           step={filterStep}
           tempMajor={tempMajor}
-          tempLevel={tempLevel}
+
           availableMajors={availableMajors}
           onClose={() => setShowFilterModal(false)}
           onTypeSelect={handleTypeSelect}
           onMajorSelect={setTempMajor}
-          onLevelSelect={setTempLevel}
           onApply={handleApplyFilter}
         />
       )}
@@ -171,16 +164,16 @@ export function ProgramsNew() {
 interface FilterModalProps {
   step: 'type' | 'selection';
   tempMajor: string | null;
-  tempLevel: 'd3' | 'profesi' | 's1' | null;
+
   availableMajors: string[];
   onClose: () => void;
-  onTypeSelect: (type: 'bimbel' | 'tryout') => void;
+  onTypeSelect: (type: 'bimbel' | 'tryout' | 'bundle') => void;
   onMajorSelect: (major: string) => void;
-  onLevelSelect: (level: 'd3' | 'profesi' | 's1') => void;
+
   onApply: () => void;
 }
 
-function FilterModal({ step, tempMajor, tempLevel, availableMajors, onClose, onTypeSelect, onMajorSelect, onLevelSelect, onApply }: FilterModalProps) {
+function FilterModal({ step, tempMajor, availableMajors, onClose, onTypeSelect, onMajorSelect, onApply }: FilterModalProps) {
   const getMajorIcon = (major: string) => {
     const lowerMajor = major.toLowerCase();
     if (lowerMajor.includes('keperawatan')) return '👨‍⚕️';
@@ -218,7 +211,7 @@ function FilterModal({ step, tempMajor, tempLevel, availableMajors, onClose, onT
               <h2 className="text-xl md:text-2xl font-bold text-[#1a202c] mb-2">Pilih Tipe Program</h2>
               <p className="text-xs md:text-sm text-gray-500 mb-4 md:mb-6">Pilih antara Bimbel atau Try Out untuk memulai</p>
 
-              <div className="grid grid-cols-2 gap-3 md:gap-4 max-w-xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 max-w-3xl mx-auto">
                 <button
                   onClick={() => onTypeSelect('bimbel')}
                   className="p-4 md:p-6 border-2 border-gray-200 rounded-lg md:rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all group"
@@ -235,6 +228,15 @@ function FilterModal({ step, tempMajor, tempLevel, availableMajors, onClose, onT
                   <div className="text-3xl md:text-4xl mb-2 md:mb-3">📝</div>
                   <h3 className="text-base md:text-lg font-bold text-gray-900 mb-1">Try Out</h3>
                   <p className="text-[10px] md:text-xs text-gray-600">Latihan soal dan simulasi ujian</p>
+                </button>
+
+                <button
+                  onClick={() => onTypeSelect('bundle')}
+                  className="p-4 md:p-6 border-2 border-gray-200 rounded-lg md:rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all group"
+                >
+                  <div className="text-3xl md:text-4xl mb-2 md:mb-3">📦</div>
+                  <h3 className="text-base md:text-lg font-bold text-gray-900 mb-1">Bundle</h3>
+                  <p className="text-[10px] md:text-xs text-gray-600">Paket hemat Bimbel + Try Out</p>
                 </button>
               </div>
             </div>
@@ -270,59 +272,18 @@ function FilterModal({ step, tempMajor, tempLevel, availableMajors, onClose, onT
                 ))}
               </div>
 
-              {/* Pilih Program Studi */}
-              <h2 className="text-xl md:text-2xl font-bold text-[#1a202c] mb-2">Pilih Program Studi</h2>
-              <p className="text-xs md:text-sm text-gray-500 mb-4 md:mb-5">Tentukan jenjang program studi kamu untuk mendapatkan pembelajaran yang sesuai</p>
 
-              <div className="grid grid-cols-3 gap-2 md:gap-3 mb-4 md:mb-6">
-                <button
-                  onClick={() => onLevelSelect('d3')}
-                  className={`p-2 md:p-4 border-2 rounded-lg md:rounded-xl transition-all ${tempLevel === 'd3'
-                    ? 'border-blue-500 bg-blue-50'
-                    : 'border-gray-200 hover:border-blue-500 hover:bg-blue-50'
-                    }`}
-                >
-                  <div className="text-2xl md:text-3xl mb-1 md:mb-2">🎓</div>
-                  <h3 className="text-xs md:text-base font-bold text-gray-900">
-                    D3 <span className="hidden md:inline">{tempMajor || ''}</span>
-                  </h3>
-                </button>
-
-                <button
-                  onClick={() => onLevelSelect('profesi')}
-                  className={`p-2 md:p-4 border-2 rounded-lg md:rounded-xl transition-all ${tempLevel === 'profesi'
-                    ? 'border-blue-500 bg-blue-50'
-                    : 'border-gray-200 hover:border-blue-500 hover:bg-blue-50'
-                    }`}
-                >
-                  <div className="text-2xl md:text-3xl mb-1 md:mb-2">🎓</div>
-                  <h3 className="text-xs md:text-base font-bold text-gray-900">Profesi</h3>
-                </button>
-
-                <button
-                  onClick={() => onLevelSelect('s1')}
-                  className={`p-2 md:p-4 border-2 rounded-lg md:rounded-xl transition-all ${tempLevel === 's1'
-                    ? 'border-blue-500 bg-blue-50'
-                    : 'border-gray-200 hover:border-blue-500 hover:bg-blue-50'
-                    }`}
-                >
-                  <div className="text-2xl md:text-3xl mb-1 md:mb-2">🎓</div>
-                  <h3 className="text-xs md:text-base font-bold text-gray-900">
-                    S1 <span className="hidden md:inline">{tempMajor || ''}</span>
-                  </h3>
-                </button>
-              </div>
 
               <div className="mt-4 md:mt-6">
                 <button
                   onClick={onApply}
-                  disabled={!tempMajor || !tempLevel}
+                  disabled={!tempMajor}
                   className="bg-blue-600 text-white px-8 md:px-10 py-2.5 md:py-3 rounded-lg font-bold text-sm md:text-base hover:bg-blue-700 transition-all shadow-lg disabled:bg-gray-400 disabled:cursor-not-allowed w-full md:w-auto"
                 >
                   Mulai Sekarang
                 </button>
                 <p className="text-[10px] md:text-xs text-gray-500 mt-2 md:mt-3">
-                  Sudah memiliki akun Appskep? <Link to="/login" className="text-blue-600 font-semibold hover:underline">Login</Link>
+                  Sudah memiliki akun Klinik Ukom? <Link to="/login" className="text-blue-600 font-semibold hover:underline">Login</Link>
                 </p>
               </div>
             </div>

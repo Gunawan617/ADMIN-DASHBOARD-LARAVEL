@@ -31,7 +31,6 @@ class ProgramNewController extends Controller
             'price' => 'required|string|max:255',
             'type' => 'required|in:bimbel,tryout,bundle',
             'major' => 'required|string|max:50',
-            'level' => 'required|in:d3,profesi,s1',
             'order' => 'nullable|integer',
             'is_active' => 'boolean',
         ]);
@@ -53,7 +52,7 @@ class ProgramNewController extends Controller
     public function update(Request $request, $id)
     {
         $program = ProgramNew::findOrFail($id);
-        
+
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'tag' => 'nullable|string|max:255',
@@ -64,7 +63,6 @@ class ProgramNewController extends Controller
             'price' => 'required|string|max:255',
             'type' => 'required|in:bimbel,tryout,bundle',
             'major' => 'required|string|max:50',
-            'level' => 'required|in:d3,profesi,s1',
             'order' => 'nullable|integer',
             'is_active' => 'boolean',
         ]);

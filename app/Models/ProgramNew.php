@@ -19,7 +19,6 @@ class ProgramNew extends Model
         'link',
         'type',
         'major',
-        'level',
         'order',
         'is_active',
     ];

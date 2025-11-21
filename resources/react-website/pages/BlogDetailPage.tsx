@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Calendar, Clock, ArrowLeft, User, Tag } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { Badge } from "../components/ui/badge";
 
@@ -18,6 +19,10 @@ interface Post {
   tags: Array<{ id: number; name: string }>;
   created_at: string;
   updated_at: string;
+  meta_title?: string;
+  meta_description?: string;
+  meta_keywords?: string;
+  canonical_url?: string;
 }
 
 export function BlogDetailPage() {
@@ -35,7 +40,7 @@ export function BlogDetailPage() {
       setLoading(true);
       const response = await fetch(`/api/public/posts/slug/${slug}`);
       const data = await response.json();
-      
+
       if (data.success) {
         setPost(data.data);
       } else {
@@ -101,6 +106,19 @@ export function BlogDetailPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      <Helmet>
+        <title>{post.meta_title || post.title}</title>
+        <meta name="description" content={post.meta_description || post.summary} />
+        {post.meta_keywords && <meta name="keywords" content={post.meta_keywords} />}
+        {post.canonical_url && <link rel="canonical" href={post.canonical_url} />}
+
+        {/* Open Graph */}
+        <meta property="og:title" content={post.meta_title || post.title} />
+        <meta property="og:description" content={post.meta_description || post.summary} />
+        {post.image && <meta property="og:image" content={getImageUrl(post.image)} />}
+        <meta property="og:type" content="article" />
+      </Helmet>
+
       {/* Back Button */}
       <div className="bg-white border-b shadow-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 lg:px-8 py-4">
@@ -150,24 +168,26 @@ export function BlogDetailPage() {
 
             {/* Featured Image */}
             {post.image && (
-              <div className="mb-6 sm:mb-8 rounded-lg overflow-hidden shadow-md">
-                <ImageWithFallback
-                  src={getImageUrl(post.image)}
-                  alt={post.title}
-                  className="w-full h-auto object-cover"
-                />
+              <div className="mb-8 sm:mb-10 w-full">
+                <div className="rounded-xl overflow-hidden shadow-xl">
+                  <ImageWithFallback
+                    src={getImageUrl(post.image)}
+                    alt={post.title}
+                    className="w-full max-h-[600px] object-cover"
+                  />
+                </div>
               </div>
             )}
 
-            {/* Summary */}
-            <div className="bg-blue-50 border-l-4 border-blue-600 p-4 sm:p-5 mb-6 sm:mb-8 rounded-r-lg">
-              <p className="text-sm sm:text-base text-gray-800 leading-relaxed font-medium italic">
+            {/* Summary as Lead Text */}
+            <div className="mb-8 sm:mb-10">
+              <p className="text-xl sm:text-2xl text-gray-600 leading-relaxed font-medium border-l-4 border-blue-600 pl-6 italic">
                 {post.summary}
               </p>
             </div>
 
             {/* Content */}
-            <article 
+            <article
               className="blog-content prose prose-sm sm:prose-base !max-w-full mb-8 sm:mb-10 lg:mb-12
                          prose-headings:font-bold prose-headings:text-gray-900 prose-headings:tracking-tight
                          prose-h1:text-2xl prose-h1:sm:text-3xl prose-h1:mb-5 prose-h1:mt-6
@@ -195,7 +215,7 @@ export function BlogDetailPage() {
                          [&_figure]:my-6 [&_figcaption]:text-center [&_figcaption]:text-sm [&_figcaption]:text-gray-600 [&_figcaption]:mt-2
                          [&_br]:block [&_br]:my-0
                          break-words"
-              style={{ 
+              style={{
                 whiteSpace: 'pre-wrap',
                 wordBreak: 'break-word',
                 overflowWrap: 'break-word'
@@ -212,9 +232,9 @@ export function BlogDetailPage() {
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {post.tags.map((tag) => (
-                    <Badge 
-                      key={tag.id} 
-                      variant="outline" 
+                    <Badge
+                      key={tag.id}
+                      variant="outline"
                       className="text-xs sm:text-sm px-3 py-1.5 border-blue-200 text-blue-700 hover:bg-blue-50 hover:border-blue-300 transition-colors cursor-pointer"
                     >
                       #{tag.name}
@@ -236,7 +256,7 @@ export function BlogDetailPage() {
             backgroundSize: '40px 40px'
           }}></div>
         </div>
-        
+
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <div className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium mb-6">

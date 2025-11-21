@@ -1,5 +1,5 @@
 import { Button } from "./ui/button";
-import { Menu, X, User, LogOut } from "lucide-react";
+import { Menu, X, User, LogOut, LayoutDashboard } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
@@ -212,6 +212,15 @@ export function Header() {
                         <p className="text-xs text-gray-500 truncate">{user.email}</p>
                       </div>
                     </div>
+                    {user.role === 'admin' && (
+                      <a
+                        href="/admin"
+                        className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        <LayoutDashboard size={16} />
+                        Dashboard
+                      </a>
+                    )}
                     <Link
                       to="/profile"
                       className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -317,6 +326,14 @@ export function Header() {
                         <p className="text-xs text-gray-500 truncate">{user.email}</p>
                       </div>
                     </div>
+                    {user.role === 'admin' && (
+                      <a href="/admin" onClick={() => setMobileMenuOpen(false)}>
+                        <Button variant="ghost" className="w-full justify-start">
+                          <LayoutDashboard size={16} className="mr-2" />
+                          Dashboard
+                        </Button>
+                      </a>
+                    )}
                     <Link to="/profile" onClick={() => setMobileMenuOpen(false)}>
                       <Button variant="ghost" className="w-full justify-start">
                         <User size={16} className="mr-2" />
