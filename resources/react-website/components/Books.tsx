@@ -98,8 +98,8 @@ export function Books({ linkedMajor }: BooksProps) {
             <Button
               onClick={() => setSelectedAudience("nurse")}
               className={`px-8 py-3 rounded-lg transition-all ${selectedAudience === "nurse"
-                  ? "bg-blue-600 text-white shadow-lg"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                ? "bg-blue-600 text-white shadow-lg"
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
             >
               👨‍⚕️ Perawat
@@ -107,8 +107,8 @@ export function Books({ linkedMajor }: BooksProps) {
             <Button
               onClick={() => setSelectedAudience("midwife")}
               className={`px-8 py-3 rounded-lg transition-all ${selectedAudience === "midwife"
-                  ? "bg-blue-600 text-white shadow-lg"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                ? "bg-blue-600 text-white shadow-lg"
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
             >
               👩‍⚕️ Bidan
@@ -117,46 +117,48 @@ export function Books({ linkedMajor }: BooksProps) {
         </div>
 
         {/* Books Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="flex flex-wrap justify-center gap-6 mb-8">
           {books.map((book) => (
-            <Card key={book.id} className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-blue-200">
-              <CardHeader className="p-0">
-                <div className="relative overflow-hidden rounded-t-lg">
-                  <Badge className="absolute top-4 left-4 z-10 bg-green-600">
-                    {book.category}
-                  </Badge>
-                  <ImageWithFallback
-                    src={book.cover_image}
-                    alt={book.title}
-                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-              </CardHeader>
-              <CardContent className="p-6 space-y-4">
-                <div>
-                  <CardTitle className="mb-2 line-clamp-2">{book.title}</CardTitle>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                    <User size={14} />
-                    <span>{book.author}</span>
+            <div key={book.id} className="w-full md:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]">
+              <Card className="h-full group hover:shadow-xl transition-all duration-300 border-2 hover:border-blue-200 flex flex-col">
+                <CardHeader className="p-0">
+                  <div className="relative overflow-hidden rounded-t-lg">
+                    <Badge className="absolute top-4 left-4 z-10 bg-green-600">
+                      {book.category}
+                    </Badge>
+                    <ImageWithFallback
+                      src={book.cover_image}
+                      alt={book.title}
+                      className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
-                  <CardDescription className="line-clamp-2">{book.excerpt}</CardDescription>
-                </div>
-
-                <div className="flex items-center justify-between pt-2 border-t">
-                  <div className="flex items-center gap-2">
-                    <ShoppingCart size={16} className="text-blue-600" />
-                    <span className="text-blue-600 font-semibold">{book.price}</span>
+                </CardHeader>
+                <CardContent className="p-6 space-y-4 flex flex-col flex-grow">
+                  <div className="flex-grow">
+                    <CardTitle className="mb-2 line-clamp-2">{book.title}</CardTitle>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                      <User size={14} />
+                      <span>{book.author}</span>
+                    </div>
+                    <CardDescription className="line-clamp-2">{book.excerpt}</CardDescription>
                   </div>
-                </div>
 
-                <Link to={`/books/${book.id}`}>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                    <BookOpen size={16} className="mr-2" />
-                    Detail Buku
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+                  <div className="flex items-center justify-between pt-2 border-t mt-auto">
+                    <div className="flex items-center gap-2">
+                      <ShoppingCart size={16} className="text-blue-600" />
+                      <span className="text-blue-600 font-semibold">{book.price}</span>
+                    </div>
+                  </div>
+
+                  <Link to={`/books/${book.id}`} className="mt-auto">
+                    <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                      <BookOpen size={16} className="mr-2" />
+                      Detail Buku
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            </div>
           ))}
         </div>
 
