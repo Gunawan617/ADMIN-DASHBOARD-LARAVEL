@@ -110,7 +110,7 @@ export function Hero() {
               <Button
                 size="lg"
                 onClick={() => navigate(data.primary_button_link)}
-                className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-6 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all font-bold"
+                className="bg-gradient-to-r from-[#05e4f1] to-[#0618fe] hover:opacity-90 text-lg px-8 py-6 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all font-bold"
               >
                 {data.primary_button_text}
                 <ArrowRight className="ml-2" size={24} />

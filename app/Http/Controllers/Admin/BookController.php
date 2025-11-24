@@ -18,31 +18,31 @@ class BookController extends Controller
     {
         try {
             $query = Book::where('status', 'published');
-            
+
             // Filter by audience_type if provided
             if ($request->has('audience_type')) {
                 $query->where('audience_type', $request->audience_type);
             }
-            
+
             // Search by title or author
             if ($request->has('search')) {
                 $search = $request->search;
-                $query->where(function($q) use ($search) {
+                $query->where(function ($q) use ($search) {
                     $q->where('title', 'like', "%{$search}%")
-                      ->orWhere('author', 'like', "%{$search}%");
+                        ->orWhere('author', 'like', "%{$search}%");
                 });
             }
-            
+
             $books = $query->latest()->get();
-            
+
             // Convert cover_image path to full URL
-            $books = $books->map(function($book) {
+            $books = $books->map(function ($book) {
                 if (!empty($book->cover_image) && !filter_var($book->cover_image, FILTER_VALIDATE_URL)) {
                     $book->cover_image = asset('storage/' . $book->cover_image);
                 }
                 return $book;
             });
-            
+
             return response()->json([
                 'success' => true,
                 'data' => $books
@@ -65,11 +65,11 @@ class BookController extends Controller
         // Search functionality
         if ($request->has('search') && $request->search != '') {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%{$search}%")
-                  ->orWhere('author', 'like', "%{$search}%")
-                  ->orWhere('category', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%");
+                    ->orWhere('author', 'like', "%{$search}%")
+                    ->orWhere('category', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
             });
         }
 
@@ -90,7 +90,7 @@ class BookController extends Controller
 
         $books = $query->latest()->paginate(15)->withQueryString();
         $categories = Book::distinct()->pluck('category')->filter();
-        
+
         return view('admin.book.index', compact('books', 'categories'));
     }
 
@@ -121,12 +121,12 @@ class BookController extends Controller
     public function show(string $id)
     {
         $book = Book::where('status', 'published')->findOrFail($id);
-        
+
         // Convert cover_image path to full URL
         if (!empty($book->cover_image) && !filter_var($book->cover_image, FILTER_VALIDATE_URL)) {
             $book->cover_image = asset('storage/' . $book->cover_image);
         }
-        
+
         return response()->json([
             'success' => true,
             'data' => $book
@@ -215,7 +215,7 @@ class BookController extends Controller
         Book::create($validated);
 
         return redirect()->route('admin.books.index')
-                         ->with('success', 'Buku berhasil ditambahkan.');
+            ->with('success', 'Buku berhasil ditambahkan.');
     }
 
     /**
@@ -232,6 +232,9 @@ class BookController extends Controller
             'excerpt' => 'required|string',
             'description' => 'required|string',
             'price' => 'required|string',
+            'audience_type' => 'required|in:nurse,midwife',
+            'buy_link' => 'nullable|url',
+            'status' => 'required|in:draft,published',
             'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,bmp|max:51200',
         ], [
             'cover_image.image' => 'File harus berupa gambar.',
@@ -250,7 +253,7 @@ class BookController extends Controller
         $book->update($validated);
 
         return redirect()->route('admin.books.index')
-                         ->with('success', 'Buku berhasil diperbarui.');
+            ->with('success', 'Buku berhasil diperbarui.');
     }
 
     /**
@@ -267,6 +270,6 @@ class BookController extends Controller
         $book->delete();
 
         return redirect()->route('admin.books.index')
-                         ->with('success', 'Buku berhasil dihapus.');
+            ->with('success', 'Buku berhasil dihapus.');
     }
 }
