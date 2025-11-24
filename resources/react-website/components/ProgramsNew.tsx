@@ -133,9 +133,11 @@ export function ProgramsNew({ onMajorChange }: ProgramsNewProps) {
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            <div className="flex flex-wrap justify-center gap-5">
               {programs.map((program) => (
-                <ProgramCard key={program.id} program={program} />
+                <div key={program.id} className="w-full sm:w-[calc(50%-10px)] lg:w-[calc(33.33%-14px)] xl:w-[calc(25%-15px)]">
+                  <ProgramCard program={program} />
+                </div>
               ))}
             </div>
 
@@ -311,13 +313,13 @@ function ProgramCard({ program }: { program: Program }) {
         <div className="relative bg-gradient-to-br from-[#2563eb] to-[#1e40af] px-5 pt-4 pb-10 overflow-hidden h-[110px]">
           {/* Badge */}
           {program.tag && (
-            <div className="absolute top-3 right-3 z-20 bg-gradient-to-br from-[#f59e0b] to-[#d97706] text-white px-3 py-1 rounded text-xs font-bold uppercase shadow-[0_2px_8px_rgba(245,158,11,0.3)]">
+            <div className="absolute top-[18px] -right-[35px] z-20 bg-gradient-to-r from-[#f59e0b] to-[#d97706] text-white w-[120px] text-center py-1 text-[10px] font-bold uppercase shadow-sm transform rotate-45 tracking-wider">
               {program.tag}
             </div>
           )}
 
           {/* Icon and Label */}
-          <div className="relative z-10 text-white text-base font-semibold flex items-center gap-2 mt-2">
+          <div className="relative z-10 text-white text-[20px] font-semibold flex items-center justify-center gap-2 mt-2">
             <span>{program.card_type}</span>
           </div>
 
@@ -327,12 +329,12 @@ function ProgramCard({ program }: { program: Program }) {
 
         {/* Content */}
         <div className="bg-white px-6 pt-5 pb-6 flex flex-col flex-1">
-          <h3 className="text-base font-bold text-[#1a202c] leading-[1.45] min-h-[68px] mb-4">
+          <h3 className="text-[20px] font-bold text-[#1a202c] leading-[1.45] min-h-[68px] mb-4 text-center">
             {program.title}
           </h3>
 
-          <div className="mb-5">
-            <span className="text-[#2563eb] text-sm font-bold">
+          <div className="mb-5 text-center">
+            <span className="inline-block bg-blue-50 text-[#2563eb] text-base font-bold px-4 py-1.5 rounded-full border border-blue-100">
               {program.sold_count}
             </span>
           </div>
@@ -365,7 +367,7 @@ function ProgramCard({ program }: { program: Program }) {
               </div>
             </div>
             <Link to="/daftar">
-              <button className="bg-[#2563eb] text-white border-none px-6 py-3 rounded-lg font-bold text-base cursor-pointer transition-all shadow-[0_2px_8px_rgba(37,99,235,0.25)] hover:bg-[#1e40af] hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(37,99,235,0.35)] active:translate-y-0">
+              <button className="bg-gradient-to-r from-[#05e4f1] to-[#0618fe] text-white border-none px-6 py-3 rounded-lg font-bold text-base cursor-pointer transition-all shadow-[0_2px_8px_rgba(37,99,235,0.25)] hover:shadow-[0_4px_12px_rgba(37,99,235,0.35)] hover:-translate-y-0.5 active:translate-y-0 animate-blink">
                 Beli
               </button>
             </Link>
