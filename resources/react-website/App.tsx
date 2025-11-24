@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
 import { StatsCards } from "./components/StatsCards";
@@ -31,12 +32,14 @@ import { FAQ } from "./components/FAQ";
 import { ProgramsTestPage } from "./pages/ProgramsTestPage";
 
 function HomePage() {
+  const [selectedMajor, setSelectedMajor] = useState<string | null>(null);
+
   return (
     <div className="relative">
       <Hero />
       <StatsCards />
-      <ProgramsNew />
-      <Books />
+      <ProgramsNew onMajorChange={setSelectedMajor} />
+      <Books linkedMajor={selectedMajor} />
       <VideoSection />
       <Features />
       <Testimonials />

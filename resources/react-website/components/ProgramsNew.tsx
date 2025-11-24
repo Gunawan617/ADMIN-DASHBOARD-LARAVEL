@@ -19,7 +19,11 @@ interface Program {
   updated_at?: string;
 }
 
-export function ProgramsNew() {
+interface ProgramsNewProps {
+  onMajorChange?: (major: string) => void;
+}
+
+export function ProgramsNew({ onMajorChange }: ProgramsNewProps) {
   const [programs, setPrograms] = useState<Program[]>([]);
   const [availableMajors, setAvailableMajors] = useState<string[]>(['Keperawatan', 'Kebidanan']);
   const [loading, setLoading] = useState(true);
@@ -82,6 +86,9 @@ export function ProgramsNew() {
   const handleApplyFilter = () => {
     if (tempMajor) {
       setSelectedMajor(tempMajor);
+      if (onMajorChange) {
+        onMajorChange(tempMajor);
+      }
       setShowFilterModal(false);
     }
   };

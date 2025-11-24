@@ -17,10 +17,25 @@ interface Book {
   audience_type: string;
 }
 
-export function Books() {
+interface BooksProps {
+  linkedMajor?: string | null;
+}
+
+export function Books({ linkedMajor }: BooksProps) {
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedAudience, setSelectedAudience] = useState<"nurse" | "midwife">("nurse");
+
+  useEffect(() => {
+    if (linkedMajor) {
+      const lowerMajor = linkedMajor.toLowerCase();
+      if (lowerMajor.includes('keperawatan')) {
+        setSelectedAudience('nurse');
+      } else if (lowerMajor.includes('kebidanan')) {
+        setSelectedAudience('midwife');
+      }
+    }
+  }, [linkedMajor]);
 
   useEffect(() => {
     fetchBooks();
@@ -31,10 +46,10 @@ export function Books() {
       setLoading(true);
       const response = await fetch(`/api/public/books?audience_type=${selectedAudience}`);
       if (!response.ok) throw new Error('Failed to fetch books');
-      
+
       const result = await response.json();
       const data = result.data || result;
-      
+
       // Limit to 4 books for homepage
       setBooks(data.slice(0, 4));
     } catch (error) {
@@ -77,26 +92,24 @@ export function Books() {
           <p className="text-lg text-muted-foreground mb-6">
             Koleksi buku terbaik untuk persiapan UKOM Anda
           </p>
-          
+
           {/* Audience Filter - Independent from Programs */}
           <div className="flex gap-3 justify-center mb-6">
             <Button
               onClick={() => setSelectedAudience("nurse")}
-              className={`px-8 py-3 rounded-lg transition-all ${
-                selectedAudience === "nurse"
+              className={`px-8 py-3 rounded-lg transition-all ${selectedAudience === "nurse"
                   ? "bg-blue-600 text-white shadow-lg"
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
+                }`}
             >
               👨‍⚕️ Perawat
             </Button>
             <Button
               onClick={() => setSelectedAudience("midwife")}
-              className={`px-8 py-3 rounded-lg transition-all ${
-                selectedAudience === "midwife"
+              className={`px-8 py-3 rounded-lg transition-all ${selectedAudience === "midwife"
                   ? "bg-blue-600 text-white shadow-lg"
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
+                }`}
             >
               👩‍⚕️ Bidan
             </Button>
