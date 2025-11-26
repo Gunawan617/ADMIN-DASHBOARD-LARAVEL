@@ -57,12 +57,18 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'string', 'min:8'],
+            'batch' => ['nullable', 'string', 'max:50'],
+            'major' => ['nullable', 'string', 'max:100'],
+            'phone' => ['nullable', 'string', 'max:20'],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'batch' => $request->batch,
+            'major' => $request->major,
+            'phone' => $request->phone,
         ]);
 
         event(new Registered($user));
@@ -74,7 +80,14 @@ class RegisteredUserController extends Controller
             'message' => 'User registered successfully',
             'access_token' => $token,
             'token_type' => 'Bearer',
-            'user' => $user
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'batch' => $user->batch,
+                'major' => $user->major,
+                'phone' => $user->phone,
+            ]
         ], 201);
     }
 }

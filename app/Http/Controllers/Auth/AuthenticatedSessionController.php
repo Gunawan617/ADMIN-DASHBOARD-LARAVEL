@@ -24,13 +24,22 @@ class AuthenticatedSessionController extends Controller
         ]);
 
         if (!Auth::attempt($request->only('email', 'password'))) {
-            return response()->json(['message' => 'Unauthorized'], 401);
+            return response()->json([
+                'success' => false,
+                'message' => 'Email atau password salah'
+            ], 401);
         }
 
         $user = Auth::user();
+        
+        // Revoke all previous tokens
+        $user->tokens()->delete();
+        
+        // Create new token
         $token = $user->createToken('api-token')->plainTextToken;
 
         return response()->json([
+            'success' => true,
             'access_token' => $token,
             'token_type' => 'Bearer',
             'user' => $user
@@ -42,9 +51,39 @@ class AuthenticatedSessionController extends Controller
      */
     public function profile(Request $request)
     {
+        return response()->json($request->user());
+    }
+
+    /**
+     * Update authenticated user profile.
+     */
+    public function updateProfile(Request $request)
+    {
+        $user = $request->user();
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'batch' => 'nullable|string|max:50',
+            'major' => 'nullable|string|max:100',
+            'phone' => 'nullable|string|max:20',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ]);
+
+        if ($request->hasFile('photo')) {
+            // Delete old photo if exists
+            if ($user->photo) {
+                \Storage::disk('public')->delete($user->photo);
+            }
+            $validated['photo'] = $request->file('photo')->store('profiles', 'public');
+        }
+
+        $user->update($validated);
+
+        // Update localStorage user data
         return response()->json([
             'success' => true,
-            'data' => $request->user()
+            'message' => 'Profile updated successfully',
+            'user' => $user
         ]);
     }
 

@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class TeamMember extends Model
 {
-     protected $fillable = ['name', 'src'];
+     protected $fillable = ['name', 'role', 'src', 'whatsapp'];
 }

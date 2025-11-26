@@ -222,10 +222,36 @@ class PostController extends Controller
         ]);
     }
     // List semua post
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::latest()->paginate(10);
-        return view('admin.posts.index', compact('posts'));
+        $query = Post::query();
+
+        // Search functionality
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('summary', 'like', "%{$search}%")
+                    ->orWhere('author', 'like', "%{$search}%")
+                    ->orWhere('category', 'like', "%{$search}%")
+                    ->orWhere('content', 'like', "%{$search}%");
+            });
+        }
+
+        // Filter by status
+        if ($request->has('status') && $request->status != '') {
+            $query->where('status', $request->status);
+        }
+
+        // Filter by category
+        if ($request->has('category') && $request->category != '') {
+            $query->where('category', $request->category);
+        }
+
+        $posts = $query->latest()->paginate(15)->withQueryString();
+        $categories = Post::distinct()->pluck('category')->filter();
+
+        return view('admin.posts.index', compact('posts', 'categories'));
     }
 
     // Tampilkan form create
@@ -275,7 +301,7 @@ class PostController extends Controller
             'category' => $request->category,
         ]);
 
-            return redirect()->route('admin.posts.index')->with('success', 'Post created successfully.');
+        return redirect()->route('admin.posts.index')->with('success', 'Post created successfully.');
     }
 
     // Tampilkan form edit
@@ -328,7 +354,7 @@ class PostController extends Controller
             'category' => $request->category,
         ]);
 
-            return redirect()->route('admin.posts.index')->with('success', 'Post updated successfully.');
+        return redirect()->route('admin.posts.index')->with('success', 'Post updated successfully.');
     }
 
     // Hapus post
@@ -343,11 +369,11 @@ class PostController extends Controller
     }
 
     public function showBySlug($slug)
-{
-    $post = Post::where('slug', $slug)->first();
-    if (!$post) {
-        return response()->json(['success' => false, 'message' => 'Post not found.'], 404);
+    {
+        $post = Post::with(['tags'])->where('slug', $slug)->first();
+        if (!$post) {
+            return response()->json(['success' => false, 'message' => 'Post not found.'], 404);
+        }
+        return response()->json(['success' => true, 'data' => $post]);
     }
-    return response()->json(['success' => true, 'data' => $post]);
-}
 }

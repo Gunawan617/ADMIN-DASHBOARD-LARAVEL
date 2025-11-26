@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Portal Jurnal Kesehatan Terbuka</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 2em;
+      background: #f8f9fa;
+    }
+    h1 {
+      color: #00796b;
+    }
+    #searchBox {
+      padding: 0.5em;
+      font-size: 1em;
+      width: 300px;
+    }
+    #searchBtn {
+      padding: 0.5em 1em;
+      font-size: 1em;
+      background: #00796b;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #results {
+      margin-top: 2em;
+    }
+    .article {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 1em;
+      margin-bottom: 1em;
+    }
+    .article h3 {
+      margin: 0 0 0.5em;
+    }
+    .article small {
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>Portal Jurnal Kesehatan Terbuka</h1>
+  <p>Cari jurnal atau topik (contoh: <em>bidan</em>, <em>perawat</em>, <em>farmasi</em>, <em>public health</em>):</p>
+  
+  <input id="searchBox" type="text" placeholder="Masukkan kata kunci...">
+  <button id="searchBtn">Cari</button>
+  
+  <div id="results"></div>
+
+  <script>
+    async function cariJurnal(kataKunci) {
+      const hasilDiv = document.getElementById('results');
+      hasilDiv.innerHTML = `<p>Mencari jurnal open-access tentang "<b>${kataKunci}</b>"...</p>`;
+      
+      const searchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=${encodeURIComponent(kataKunci)}+open+access[filter]&retmax=10&retmode=json`;
+      const res = await fetch(searchUrl);
+      const data = await res.json();
+      const ids = data.esearchresult?.idlist || [];
+      
+      if (!ids.length) {
+        hasilDiv.innerHTML = `<p>Tidak ditemukan hasil untuk "<b>${kataKunci}</b>".</p>`;
+        return;
+      }
+
+      const summaryUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pmc&id=${ids.join(',')}&retmode=json`;
+      const res2 = await fetch(summaryUrl);
+      const data2 = await res2.json();
+
+      hasilDiv.innerHTML = "";
+      Object.values(data2.result)
+        .filter(r => r.uid)
+        .forEach(p => {
+          const title = p.title || "Tanpa Judul";
+          const authors = (p.authors || []).map(a => a.name).join(', ');
+          const journal = p.fulljournalname || "Jurnal tidak diketahui";
+          const year = p.pubdate || "";
+          const link = `https://www.ncbi.nlm.nih.gov/pmc/articles/PMC${p.uid}/`;
+          
+          const div = document.createElement('div');
+          div.className = 'article';
+          div.innerHTML = `
+            <h3>${title}</h3>
+            <small><b>${journal}</b> (${year})</small><br>
+            <small>${authors}</small><br>
+            <a href="${link}" target="_blank">🔗 Lihat / Download PDF</a>
+          `;
+          hasilDiv.appendChild(div);
+        });
+    }
+
+    // Event listener
+    document.getElementById('searchBtn').addEventListener('click', () => {
+      const q = document.getElementById('searchBox').value.trim();
+      if (q) cariJurnal(q);
+    });
+
+    // Load awal: tampilkan topik umum
+    cariJurnal("health OR nursing OR midwifery OR medicine OR public health OR nutrition");
+  </script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+@extends('admin.layouts.app')
+
+@section('content')
+<!-- Alpine.js CDN for animation -->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+<div class="container mx-auto max-w-4xl">
+
+    <!-- Notifikasi sukses jika redirect dengan session 'success' -->
+    @if(session('success'))
+    <div x-data="{ show: true }" x-show="show" x-transition.duration.500ms class="mb-8 flex items-center justify-between bg-green-100 border border-green-400 text-green-700 px-6 py-4 rounded-lg shadow-lg">
+        <div class="flex items-center">
+            <svg class="w-6 h-6 mr-2 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span class="font-semibold">{{ session('success') }}</span>
+        </div>
+        <button @click="show = false" class="ml-4 text-green-700 hover:text-green-900">&times;</button>
+    </div>
+    @endif
+
+    <!-- Notifikasi error jika validasi gagal -->
+    @if ($errors->any())
+    <div x-data="{ show: true }" x-show="show" x-transition.duration.500ms class="mb-8 flex items-center justify-between bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-lg shadow-lg">
+        <div class="flex items-center">
+            <svg class="w-6 h-6 mr-2 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            <span class="font-semibold">Gagal menambah alumni:</span>
+            <ul class="ml-4 list-disc text-sm">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        <button @click="show = false" class="ml-4 text-red-700 hover:text-red-900">&times;</button>
+    </div>
+    @endif
+
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Tambah Alumni Baru</h1>
+        <p class="text-gray-600">Isi form di bawah untuk menambahkan alumni baru ke sistem</p>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-lg p-8">
+        <form action="{{ route('admin.alumni.store') }}" method="POST" enctype="multipart/form-data" x-data="{ loading: false }" @submit="loading = true">
+            @csrf
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Nama Alumni -->
+                <div class="md:col-span-2">
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+                        Nama Alumni <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 @error('name') border-red-500 @enderror"
+                        id="name"
+                        name="name"
+                        value="{{ old('name') }}"
+                        placeholder="Masukkan nama lengkap alumni"
+                        required
+                    >
+                    @error('name')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Angkatan -->
+                <div>
+                    <label for="batch" class="block text-sm font-medium text-gray-700 mb-2">
+                        Angkatan <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 @error('batch') border-red-500 @enderror"
+                        id="batch"
+                        name="batch"
+                        value="{{ old('batch') }}"
+                        placeholder="Contoh: 2020"
+                        required
+                    >
+                    @error('batch')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Jurusan -->
+                <div>
+                    <label for="major" class="block text-sm font-medium text-gray-700 mb-2">
+                        Jurusan <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 @error('major') border-red-500 @enderror"
+                        id="major"
+                        name="major"
+                        value="{{ old('major') }}"
+                        placeholder="Contoh: Teknik Informatika"
+                        required
+                    >
+                    @error('major')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- WhatsApp -->
+                <div class="md:col-span-2">
+                    <label for="whatsapp" class="block text-sm font-medium text-gray-700 mb-2">
+                        Nomor WhatsApp
+                    </label>
+                    <input
+                        type="text"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 @error('whatsapp') border-red-500 @enderror"
+                        id="whatsapp"
+                        name="whatsapp"
+                        value="{{ old('whatsapp') }}"
+                        placeholder="Contoh: 628123456789 (gunakan format 62)"
+                    >
+                    <p class="mt-1 text-xs text-gray-500">Format: 62 diikuti nomor tanpa 0 di awal (contoh: 628123456789)</p>
+                    @error('whatsapp')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Caption -->
+                <div class="md:col-span-2">
+                    <label for="caption" class="block text-sm font-medium text-gray-700 mb-2">
+                        Caption/Keterangan
+                    </label>
+                    <textarea
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 @error('caption') border-red-500 @enderror"
+                        id="caption"
+                        name="caption"
+                        rows="3"
+                        placeholder="Masukkan caption atau keterangan tambahan (opsional)"
+                    >{{ old('caption') }}</textarea>
+                    @error('caption')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Foto Alumni -->
+                <div class="md:col-span-2">
+                    <label for="photo" class="block text-sm font-medium text-gray-700 mb-2">
+                        Foto Alumni
+                    </label>
+                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-gray-400 transition-colors duration-200">
+                        <div class="space-y-1 text-center">
+                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <div class="flex text-sm text-gray-600">
+                                <label for="photo" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
+                                    <span>Upload file</span>
+                                    <input id="photo" name="photo" type="file" class="sr-only" accept="image/*">
+                                </label>
+                                <p class="pl-1">atau drag and drop</p>
+                            </div>
+                            <p class="text-xs text-gray-500">PNG, JPG, GIF, WebP, BMP hingga 5MB</p>
+                        </div>
+                    </div>
+                    @error('photo')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center justify-end space-x-4 mt-8 pt-6 border-t border-gray-200">
+                <a href="{{ route('admin.alumni.index') }}" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-200">
+                    Batal
+                </a>
+                <button type="submit" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center relative" :disabled="loading">
+                    <template x-if="loading">
+                        <svg class="w-5 h-5 mr-2 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                        </svg>
+                    </template>
+                    <template x-if="!loading">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </template>
+                    <span x-text="loading ? 'Menyimpan...' : 'Simpan Alumni'"></span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection

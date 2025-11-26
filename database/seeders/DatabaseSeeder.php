@@ -56,5 +56,8 @@ class DatabaseSeeder extends Seeder
 
         // Seed books
         \App\Models\Book::factory(10)->create();
+
+        // Seed alumni
+        $this->call(AlumniSeeder::class);
     }
 }

@@ -23,6 +23,8 @@ class TeamMemberController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
+            'role' => 'nullable|string|max:100',
+            'whatsapp' => 'nullable|string|max:20',
             'src' => 'nullable|image|max:2048'
         ]);
 
@@ -33,6 +35,8 @@ class TeamMemberController extends Controller
 
         TeamMember::create([
             'name' => $request->name,
+            'role' => $request->role,
+            'whatsapp' => $request->whatsapp,
             'src'  => $path
         ]);
 
@@ -48,6 +52,8 @@ class TeamMemberController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
+            'role' => 'nullable|string|max:100',
+            'whatsapp' => 'nullable|string|max:20',
             'src' => 'nullable|image|max:2048'
         ]);
 
@@ -58,6 +64,8 @@ class TeamMemberController extends Controller
 
         $teamMember->update([
             'name' => $request->name,
+            'role' => $request->role,
+            'whatsapp' => $request->whatsapp,
             'src'  => $path
         ]);
 
